@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "FUN_00401150",
+    "entry": "0x401150",
+    "end": "0x40117a"
+  },
+  "instructions": [
+    {
+      "address": "0x401150",
+      "mnemonic": "MOV",
+      "operands": "RAX,0x4141414141414141"
+    },
+    {
+      "address": "0x40115a",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x18"
+    },
+    {
+      "address": "0x40115e",
+      "mnemonic": "LEA",
+      "operands": "RDI,[RSP + 0x6]"
+    },
+    {
+      "address": "0x401163",
+      "mnemonic": "MOV",
+      "operands": "qword ptr [RSP + 0x6],RAX"
+    },
+    {
+      "address": "0x401168",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RSP + 0xd],0x414141"
+    },
+    {
+      "address": "0x401170",
+      "mnemonic": "CALL",
+      "operands": "0x00401140"
+    },
+    {
+      "address": "0x401175",
+      "mnemonic": "ADD",
+      "operands": "RSP,0x18"
+    },
+    {
+      "address": "0x401179",
+      "mnemonic": "RET",
+      "operands": ""
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x401170",
+      "target": "puts"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\nvoid FUN_00401150(char *param_1)\n\n{\n  puts(param_1);\n  return;\n}\n\n"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "FUN_00401141",
+    "entry": "0x401141",
+    "end": "0x401170"
+  },
+  "instructions": [
+    {
+      "address": "0x401141",
+      "mnemonic": "PUSH",
+      "operands": "RBP"
+    },
+    {
+      "address": "0x401142",
+      "mnemonic": "MOV",
+      "operands": "RBP,RSP"
+    },
+    {
+      "address": "0x401145",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x10"
+    },
+    {
+      "address": "0x401149",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0xa]"
+    },
+    {
+      "address": "0x40114d",
+      "mnemonic": "MOV",
+      "operands": "RDX,0x4141414141414141"
+    },
+    {
+      "address": "0x401157",
+      "mnemonic": "MOV",
+      "operands": "qword ptr [RAX],RDX"
+    },
+    {
+      "address": "0x40115a",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RAX + 0x7],0x414141"
+    },
+    {
+      "address": "0x401161",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0xa]"
+    },
+    {
+      "address": "0x401165",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x401168",
+      "mnemonic": "CALL",
+      "operands": "0x00401126"
+    },
+    {
+      "address": "0x40116d",
+      "mnemonic": "NOP",
+      "operands": ""
+    },
+    {
+      "address": "0x40116e",
+      "mnemonic": "LEAVE",
+      "operands": ""
+    },
+    {
+      "address": "0x40116f",
+      "mnemonic": "RET",
+      "operands": ""
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x401168",
+      "target": "FUN_00401126"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\nvoid FUN_00401141(void)\n\n{\n  FUN_00401126();\n  return;\n}\n\n"
+  }
+}

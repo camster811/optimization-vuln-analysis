@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "FUN_00401180",
+    "entry": "0x401180",
+    "end": "0x4011dc"
+  },
+  "instructions": [
+    {
+      "address": "0x401180",
+      "mnemonic": "PUSH",
+      "operands": "RBX"
+    },
+    {
+      "address": "0x401181",
+      "mnemonic": "MOV",
+      "operands": "EDI,0xa"
+    },
+    {
+      "address": "0x401186",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x10"
+    },
+    {
+      "address": "0x40118a",
+      "mnemonic": "CALL",
+      "operands": "0x00401050"
+    },
+    {
+      "address": "0x40118f",
+      "mnemonic": "TEST",
+      "operands": "RAX,RAX"
+    },
+    {
+      "address": "0x401192",
+      "mnemonic": "JZ",
+      "operands": "0x004011d2"
+    },
+    {
+      "address": "0x401194",
+      "mnemonic": "MOV",
+      "operands": "RBX,RAX"
+    },
+    {
+      "address": "0x401197",
+      "mnemonic": "MOV",
+      "operands": "RAX,0x4141414141414141"
+    },
+    {
+      "address": "0x4011a1",
+      "mnemonic": "MOV",
+      "operands": "qword ptr [RSP + 0x5],RAX"
+    },
+    {
+      "address": "0x4011a6",
+      "mnemonic": "MOV",
+      "operands": "RDI,RBX"
+    },
+    {
+      "address": "0x4011a9",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RSP + 0xc],0x414141"
+    },
+    {
+      "address": "0x4011b1",
+      "mnemonic": "MOV",
+      "operands": "RAX,qword ptr [RSP + 0x5]"
+    },
+    {
+      "address": "0x4011b6",
+      "mnemonic": "MOV",
+      "operands": "qword ptr [RBX],RAX"
+    },
+    {
+      "address": "0x4011b9",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RBX + 0x7],0x414141"
+    },
+    {
+      "address": "0x4011c0",
+      "mnemonic": "CALL",
+      "operands": "0x00401170"
+    },
+    {
+      "address": "0x4011c5",
+      "mnemonic": "ADD",
+      "operands": "RSP,0x10"
+    },
+    {
+      "address": "0x4011c9",
+      "mnemonic": "MOV",
+      "operands": "RDI,RBX"
+    },
+    {
+      "address": "0x4011cc",
+      "mnemonic": "POP",
+      "operands": "RBX"
+    },
+    {
+      "address": "0x4011cd",
+      "mnemonic": "JMP",
+      "operands": "0x00401030"
+    },
+    {
+      "address": "0x4011d2",
+      "mnemonic": "MOV",
+      "operands": "EDI,0xffffffff"
+    },
+    {
+      "address": "0x4011d7",
+      "mnemonic": "CALL",
+      "operands": "0x00401060"
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x40118a",
+      "target": "malloc"
+    },
+    {
+      "address": "0x401192",
+      "target": "LAB_004011d2"
+    },
+    {
+      "address": "0x4011c0",
+      "target": "puts"
+    },
+    {
+      "address": "0x4011cd",
+      "target": "free"
+    },
+    {
+      "address": "0x4011d7",
+      "target": "exit"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\nvoid FUN_00401180(undefined8 param_1)\n\n{\n  undefined8 *puVar1;\n  size_t __size;\n  undefined4 uVar2;\n  \n  uVar2 = (undefined4)((ulonglong)param_1 >> 0x20);\n  __size = (size_t)param_1;\n  puVar1 = malloc(__size);\n  if (puVar1 != (undefined8 *)0x0) {\n    *puVar1 = 0x4141414141414141;\n    *(undefined4 *)((longlong)puVar1 + 7) = 0x414141;\n    puts((char *)CONCAT44(uVar2,__size));\n    free((void *)CONCAT44(uVar2,__size));\n    return;\n  }\n                    /* WARNING: Subroutine does not return */\n  exit(__size);\n}\n\n"
+  }
+}

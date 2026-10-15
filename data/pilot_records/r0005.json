@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "copy_message",
+    "entry": "0x401141",
+    "end": "0x40116d"
+  },
+  "instructions": [
+    {
+      "address": "0x401141",
+      "mnemonic": "PUSH",
+      "operands": "RBP"
+    },
+    {
+      "address": "0x401142",
+      "mnemonic": "MOV",
+      "operands": "RBP,RSP"
+    },
+    {
+      "address": "0x401145",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x10"
+    },
+    {
+      "address": "0x401149",
+      "mnemonic": "MOV",
+      "operands": "RAX,0x4141414141414141"
+    },
+    {
+      "address": "0x401153",
+      "mnemonic": "MOV",
+      "operands": "qword ptr [RBP + -0xb],RAX"
+    },
+    {
+      "address": "0x401157",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RBP + -0x4],0x414141"
+    },
+    {
+      "address": "0x40115e",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0xb]"
+    },
+    {
+      "address": "0x401162",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x401165",
+      "mnemonic": "CALL",
+      "operands": "0x00401126"
+    },
+    {
+      "address": "0x40116a",
+      "mnemonic": "NOP",
+      "operands": ""
+    },
+    {
+      "address": "0x40116b",
+      "mnemonic": "LEAVE",
+      "operands": ""
+    },
+    {
+      "address": "0x40116c",
+      "mnemonic": "RET",
+      "operands": ""
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x401165",
+      "target": "consume_text"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\nvoid copy_message(void)\n\n{\n  consume_text();\n  return;\n}\n\n"
+  }
+}

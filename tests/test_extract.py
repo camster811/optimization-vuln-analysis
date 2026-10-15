@@ -2,6 +2,7 @@
 
 import copy
 import csv
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -151,7 +152,8 @@ class ExtractionPipelineTests(unittest.TestCase):
                             source_path=f"corpus/pairs/{pair}.c", oracle_binary=f"build/oracle/{stem}",
                             analysis_binary=f"build/{symbols}/{stem}",
                             record_path=f"data/pilot_records/{identifier}.json", target_function="target",
-                            target_start="0x401000", target_end="0x401010", text_sha256="a" * 64))
+                            target_start="0x401000", target_end="0x401010", text_sha256="a" * 64,
+                            analysis_sha256=hashlib.sha256(b"fixture").hexdigest()))
                         binary = self.root / self.rows[-1]["analysis_binary"]
                         binary.parent.mkdir(parents=True, exist_ok=True)
                         binary.write_bytes(b"fixture")
@@ -226,7 +228,9 @@ class ExtractionPipelineTests(unittest.TestCase):
             self.assertTrue(kwargs["check"])
             return subprocess.CompletedProcess(command, 0)
 
-        with patch.object(extract.subprocess, "run", side_effect=fake_run):
+        hashes = {field: self.rows[0][field] for field in ("analysis_sha256", "text_sha256")}
+        with patch.object(extract.subprocess, "run", side_effect=fake_run), \
+             patch.object(extract, "binary_hashes", return_value=hashes):
             for _ in range(2):
                 self.assertEqual(extract.run_headless(self.rows[0], self.config, Path("launcher")), sample_record())
         self.assertNotEqual(projects[0], projects[1])
@@ -234,14 +238,16 @@ class ExtractionPipelineTests(unittest.TestCase):
         self.assertTrue((self.root / "build/logs/ghidra/r0001.log").is_file())
 
     def test_successful_process_without_export_fails(self):
-        with patch.object(extract.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)):
+        hashes = {field: self.rows[0][field] for field in ("analysis_sha256", "text_sha256")}
+        with patch.object(extract.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)), \
+             patch.object(extract, "binary_hashes", return_value=hashes):
             with self.assertRaisesRegex(ValueError, "produced no record"):
                 extract.run_headless(self.rows[0], self.config, Path("launcher"))
 
     def test_no_records_are_published_when_any_export_fails(self):
         error = sample_record()
         error["decompilation"] = {"status": "error", "text": ""}
-        error["error"] = {"code": "decompilation_failed", "message": "Decompiler failed."}
+        error["error"] = {"code": "extraction_failed", "message": "Function extraction failed."}
         with patch.object(extract, "load_observations", return_value=self.rows[:2]), \
              patch.object(extract, "check_ghidra_version", return_value=Path("launcher")), \
              patch.object(extract, "run_headless", side_effect=[sample_record(), error]):

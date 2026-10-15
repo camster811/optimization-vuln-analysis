@@ -71,9 +71,9 @@ class PilotBuildTests(unittest.TestCase):
         cls.table_bytes = cls.table.read_bytes()
         with cls.table.open(newline="") as stream:
             cls.rows = list(csv.DictReader(stream))
-        cls.master = cls.root / "build/oracle/p01_v0_O0"
-        cls.retained = cls.root / "build/retained/p01_v0_O0"
-        cls.stripped = cls.root / "build/stripped/p01_v0_O0"
+        cls.master = cls.root / cls.rows[0]["oracle_binary"]
+        cls.retained = cls.root / cls.rows[0]["analysis_binary"]
+        cls.stripped = cls.root / cls.rows[1]["analysis_binary"]
 
     def test_complete_pilot_table_and_logs(self):
         self.assertEqual(len(self.rows), 16)
@@ -85,14 +85,14 @@ class PilotBuildTests(unittest.TestCase):
             self.assertTrue(row["record_path"].startswith("data/pilot_records/r"))
             self.assertTrue((self.root / row["analysis_binary"]).is_file())
             self.assertGreater(int(row["target_end"], 16), int(row["target_start"], 16))
-        logs = sorted((self.root / "build/logs").glob("*.log"))
+        logs = sorted((self.root / "build/logs").rglob("*.log"))
         self.assertEqual(len(logs), 8)
         for log in logs:
             text = log.read_text()
             self.assertEqual(text.count("--master"), 1)
             self.assertIn("--strip-debug", text)
             self.assertIn("--strip-all", text)
-            self.assertIn("PASS: all artifact invariants verified", text)
+            self.assertIn("PASS: structural artifact checks and memory-write rejection gate", text)
         self.assertFalse((self.root / "data/private/observations.csv").exists())
 
     def test_table_is_deterministic_and_incomplete_write_preserves_it(self):
@@ -103,11 +103,11 @@ class PilotBuildTests(unittest.TestCase):
             build.write_observations(self.rows[:-1], pairs, "pilot")
         self.assertEqual(self.table.read_bytes(), self.table_bytes)
 
-    def test_missing_target_and_indirect_consumer_are_rejected(self):
+    def test_missing_target_and_non_called_function_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "exactly one"):
             build.read_function_bounds(self.master, "absent_target")
         with self.assertRaisesRegex(ValueError, "does not directly call"):
-            build.check_direct_call(self.master, "consume_text")
+            build.check_direct_call(self.master, "_start")
 
     def test_text_corruption_is_rejected(self):
         section = build.read_sections(self.stripped)[".text"]

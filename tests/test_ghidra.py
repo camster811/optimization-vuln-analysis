@@ -52,6 +52,7 @@ int main(void) { target(); return 0; }
         assert match, symbols
         cls.entry = int(match[1], 16)
         cls.end = cls.entry + int(match[2], 16)
+        cls.tail_entry = int(re.search(r"^(\w+) \w+ T report$", symbols, re.MULTILINE)[1], 16)
         retained = cls.work / "retained"
         stripped = cls.work / "stripped"
         subprocess.run(["objcopy", "--strip-debug", str(oracle), str(retained)], check=True)
@@ -80,6 +81,7 @@ int main(void) { target(); return 0; }
                 (hex(cls.entry), "one", "60"), (hex(cls.entry), "two", "60"),
                 (hex(cls.entry + 1), "inside", "60"), ("0x1", "missing", "60"),
                 (hex(cls.entry), "invalid_timeout", "0"), ("invalid", "invalid_address", "60"),
+                (hex(cls.tail_entry), "tail", "60"),
             ):
                 command += ["-postScript", "ExtractFunction.java", address,
                             str(directory / f"{filename}.json"), timeout]
@@ -126,7 +128,7 @@ int main(void) { target(); return 0; }
             self.assertNotIn("CWE121", (directory / "one.json").read_text())
             self.assertNotIn(str(self.work), (directory / "one.json").read_text())
 
-    def test_calls_include_imports_and_local_jumps_in_address_order(self):
+    def test_calls_include_imports_and_tail_jumps_but_exclude_local_branches(self):
         for condition in self.outputs:
             record = self.record(condition)
             calls = record["calls"]
@@ -135,7 +137,11 @@ int main(void) { target(); return 0; }
             self.assertEqual(call_addresses, sorted(call_addresses))
             mnemonics = {item["address"]: item["mnemonic"].lower()
                          for item in record["instructions"]}
-            self.assertTrue(any(mnemonics[call["address"]].startswith("j") for call in calls))
+            self.assertTrue(any(mnemonic.startswith("j") for mnemonic in mnemonics.values()))
+            self.assertTrue(all(mnemonics[call["address"]] == "call" for call in calls))
+            tail = self.record(condition, "tail")
+            jump = next(item for item in tail["instructions"] if item["mnemonic"].lower() == "jmp")
+            self.assertEqual(tail["calls"], [{"address": jump["address"], "target": "puts"}])
 
     def test_missing_function_and_invalid_arguments_are_structured_errors(self):
         for condition in self.outputs:

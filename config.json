@@ -1,0 +1,50 @@
+{
+  "project_version": 1,
+  "platform": "x86-64-linux-gnu",
+  "compiler": {
+    "name": "gcc-15",
+    "expected_version": "15.2.0",
+    "expected_binutils_version": "2.46",
+    "optimizations": ["O0", "O2"],
+    "common_flags": [
+      "-std=c11",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-gdwarf-5",
+      "-fno-stack-protector",
+      "-U_FORTIFY_SOURCE",
+      "-D_FORTIFY_SOURCE=0",
+      "-fcf-protection=none",
+      "-fno-pie",
+      "-fdebug-prefix-map={project_root}=/experiment",
+      "-ffile-prefix-map={project_root}=/experiment"
+    ],
+    "link_flags": [
+      "-no-pie",
+      "-Wl,-z,noexecstack"
+    ]
+  },
+  "ghidra": {
+    "expected_version": "12.1.4",
+    "language": "x86:LE:64:default",
+    "analysis_timeout_seconds": 300,
+    "decompiler_timeout_seconds": 60
+  },
+  "llm": {
+    "model_id": "deepseek-r1-distill-qwen-14b-q5_k_m",
+    "base_url": "http://127.0.0.1:8080",
+    "temperature": 0.2,
+    "top_p": 0.95,
+    "max_tokens": 2048,
+    "context_limit": 32768,
+    "repetitions": 3,
+    "seeds": [4101, 4102, 4103],
+    "schedule_seed": 20261014
+  },
+  "evaluation": {
+    "bootstrap_repetitions": 10000,
+    "bootstrap_seed": 20261014,
+    "confidence_threshold": 0.8
+  }
+}

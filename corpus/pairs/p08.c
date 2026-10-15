@@ -7,11 +7,6 @@
 #endif
 
 __attribute__((noinline, noclone, used))
-static void consume_text(const char *text) {
-    puts(text);
-}
-
-__attribute__((noinline, noclone, used))
 void target(void) {
 #if VARIANT_FIXED
     char *destination = malloc(11 * sizeof(char));
@@ -26,7 +21,7 @@ void target(void) {
     char source[11] = "AAAAAAAAAA";
 
     memcpy(destination, source, (strlen(source) + 1) * sizeof(char));
-    consume_text(destination);
+    puts(destination);
     free(destination);
 }
 

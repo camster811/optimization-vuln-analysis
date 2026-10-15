@@ -6,11 +6,6 @@
 #endif
 
 __attribute__((noinline, noclone, used))
-static void consume_text(const char *text) {
-    puts(text);
-}
-
-__attribute__((noinline, noclone, used))
 void copy_message(void) {
 #if VARIANT_FIXED
     char destination[11];
@@ -19,7 +14,7 @@ void copy_message(void) {
 #endif
 
     strcpy(destination, "AAAAAAAAAA");
-    consume_text(destination);
+    puts(destination);
 }
 
 int main(void) {

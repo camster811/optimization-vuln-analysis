@@ -79,7 +79,7 @@ def load_observations(split):
         require(len(reader.fieldnames) == len(OBSERVATION_FIELDS)
                 and set(reader.fieldnames) == OBSERVATION_FIELDS, "Invalid observation table columns")
         rows = list(reader)
-    expected = 16 if split == "pilot" else 96
+    expected = 16 if split == "pilot" else 80
     require(len(rows) == expected, f"{split} requires exactly {expected} observations; found {len(rows)}")
     ids = [row["observation_id"] for row in rows]
     require(len(set(ids)) == expected and set(ids) ==

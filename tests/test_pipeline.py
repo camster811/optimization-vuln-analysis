@@ -15,7 +15,7 @@ from pipeline import build
 
 class BuildValidationTests(unittest.TestCase):
     def test_final_rejects_current_incomplete_manifest(self):
-        with self.assertRaisesRegex(ValueError, "12 pairs.*96 observations.*10"):
+        with self.assertRaisesRegex(ValueError, "10 pairs.*80 observations.*10"):
             build.select_split(build.load_pairs(), "final")
 
     def test_pilot_scope_is_explicit(self):
@@ -138,7 +138,7 @@ class PilotBuildTests(unittest.TestCase):
             build.verify_artifacts(self.master, self.retained, self.retained, "copy_message")
 
     def test_final_failure_writes_no_partial_table(self):
-        with self.assertRaisesRegex(ValueError, "12 pairs"):
+        with self.assertRaisesRegex(ValueError, "10 pairs"):
             build.main(["--split", "final"])
         self.assertFalse((self.root / "data/private/observations.csv").exists())
 

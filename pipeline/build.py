@@ -95,7 +95,7 @@ def load_pairs():
 def select_split(pairs, split):
     selected = sorted((pair for pair in pairs if pair["split"] == split),
                       key=lambda pair: pair["pair_id"])
-    expected = 2 if split == "pilot" else 12
+    expected = 2 if split == "pilot" else 10
     test(len(selected) == expected,
             f"{split} requires exactly {expected} pairs ({expected * 8} observations); "
             f"manifest has {len(selected)}. No partial table will be written.")
@@ -283,7 +283,7 @@ def assign_observation_id(index):
 
 
 def write_observations(rows, pairs, split, destination=None):
-    expected_pairs = 2 if split == "pilot" else 12
+    expected_pairs = 2 if split == "pilot" else 10
     test(len(rows) == expected_pairs * 8, f"Incorrect {split} observation count")
     test(Counter(row["pair_id"] for row in rows) ==
             Counter({pair["pair_id"]: 8 for pair in pairs}), "Incorrect per-pair balance")

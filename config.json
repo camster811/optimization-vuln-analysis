@@ -38,6 +38,8 @@
     "top_p": 0.95,
     "max_tokens": 2048,
     "context_limit": 32768,
+    "request_timeout_seconds": 600,
+    "reasoning_format": "deepseek",
     "repetitions": 3,
     "seeds": [4101, 4102, 4103],
     "schedule_seed": 20261014

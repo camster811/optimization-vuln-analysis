@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["vulnerable_CWE-121", "vulnerable_CWE-122", "not_vulnerable", "uncertain"]
+    },
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "evidence": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 5,
+      "items": {"type": "string", "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$"}
+    },
+    "summary": {"type": "string", "minLength": 1}
+  },
+  "required": ["decision", "confidence", "evidence", "summary"],
+  "additionalProperties": false
+}

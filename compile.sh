@@ -1,12 +1,41 @@
 #!/bin/bash
-set -e
+set -euo pipefail
+
+# Single-master mode is used by pipeline/build.py
+compile_master() {
+    local source="$1" variant="$2" opt="$3" oracle="$4" compiler="$5"
+    shift 5
+    local common_flags=()
+    case "$source" in
+        corpus/pairs/p01.c|corpus/pairs/p08.c) ;;
+        *) echo "Compilation is currently limited to p01.c and p08.c" >&2; return 1 ;;
+    esac
+    [[ "$variant" == 0 || "$variant" == 1 ]] || return 1
+    [[ "$opt" == O0 || "$opt" == O2 ]] || return 1
+    while [[ $# -gt 0 && "$1" != -- ]]; do
+        common_flags+=("$1")
+        shift
+    done
+    [[ $# -gt 0 ]] || return 1
+    shift
+    "$compiler" "${common_flags[@]}" "-DVARIANT_FIXED=$variant" "-$opt" \
+        "$source" "$@" -o "$oracle"
+}
+
+if [[ "${1:-}" == --master ]]; then
+    shift
+    [[ $# -ge 6 ]] || { echo "Missing --master arguments" >&2; exit 1; }
+    compile_master "$@"
+    exit
+fi
+[[ $# == 0 ]] || { echo "Unknown build arguments" >&2; exit 1; }
 
 PROJECT_ROOT="$(pwd)"
 
-# Loop through 12 pair files
+# Pilot sources only for now.
 CODE_DIR="corpus/pairs"
 SOURCES=()
-for pair in {01..12}; do
+for pair in {01,08}; do
     SOURCES+=("$CODE_DIR/p$pair.c")
 done
 
@@ -21,8 +50,8 @@ done
 
 for source in "${SOURCES[@]}"; do
     if [ ! -f "$source" ]; then
-        echo "Warning: Source file '$source' not found, skipping."
-        continue
+        echo "Source file '$source' not found" >&2
+        exit 1
     fi
 
     basename_src=$(basename "$source" .c)
@@ -38,7 +67,7 @@ for source in "${SOURCES[@]}"; do
             echo "Building Oracle: $filename (VARIANT_FIXED=$variant, -$opt)"
 
             # 1. Compile Oracle with exact validated flags
-            gcc-15 \
+            compile_master "$source" "$variant" "$opt" "$oracle_path" gcc-15 \
               -std=c11 \
               -Wall \
               -Wextra \
@@ -51,23 +80,20 @@ for source in "${SOURCES[@]}"; do
               -fno-pie \
               "-fdebug-prefix-map=$PROJECT_ROOT=/experiment" \
               "-ffile-prefix-map=$PROJECT_ROOT=/experiment" \
-              "-DVARIANT_FIXED=$variant" \
-              "-$opt" \
-              "$source" \
+              -- \
               -no-pie \
-              -Wl,-z,noexecstack \
-              -o "$oracle_path"
+              -Wl,-z,noexecstack
 
             # 2. Derive Retained artifact from Oracle
             cp -- "$oracle_path" "$retained_path"
             objcopy --strip-debug "$retained_path"
 
             # 3. Derive Stripped artifact from Oracle
-            cp -- "$oracle_path" "$stripped_path"
+            cp -- "$retained_path" "$stripped_path"
             strip --strip-all "$stripped_path"
 
         done
     done
 done
 
-echo "Done! All artifacts successfully generated and verified."
+echo "Done! Artifacts generated. Use pipeline/build.py to verify invariants."

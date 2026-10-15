@@ -2,100 +2,135 @@
   "schema_version": 1,
   "architecture": "x86-64",
   "function": {
-    "name": "FUN_00401191",
-    "entry": "0x401191",
-    "end": "0x40120b"
+    "name": "FUN_00401176",
+    "entry": "0x401176",
+    "end": "0x4011f0"
   },
   "instructions": [
     {
-      "address": "0x401191",
+      "address": "0x401176",
       "mnemonic": "PUSH",
       "operands": "RBP"
     },
     {
-      "address": "0x401192",
+      "address": "0x401177",
       "mnemonic": "MOV",
       "operands": "RBP,RSP"
     },
     {
-      "address": "0x401195",
+      "address": "0x40117a",
       "mnemonic": "SUB",
       "operands": "RSP,0x20"
     },
     {
-      "address": "0x401199",
+      "address": "0x40117e",
       "mnemonic": "MOV",
       "operands": "EDI,0xb"
     },
     {
-      "address": "0x40119e",
+      "address": "0x401183",
       "mnemonic": "CALL",
       "operands": "0x00401070"
     },
     {
-      "address": "0x4011a3",
+      "address": "0x401188",
       "mnemonic": "MOV",
       "operands": "qword ptr [RBP + -0x8],RAX"
     },
     {
-      "address": "0x4011a7",
+      "address": "0x40118c",
       "mnemonic": "CMP",
       "operands": "qword ptr [RBP + -0x8],0x0"
     },
     {
-      "address": "0x4011ac",
+      "address": "0x401191",
       "mnemonic": "JNZ",
-      "operands": "0x004011b8"
+      "operands": "0x0040119d"
     },
     {
-      "address": "0x4011ae",
+      "address": "0x401193",
       "mnemonic": "MOV",
       "operands": "EDI,0xffffffff"
     },
     {
-      "address": "0x4011b3",
+      "address": "0x401198",
       "mnemonic": "CALL",
       "operands": "0x00401080"
     },
     {
-      "address": "0x4011b8",
+      "address": "0x40119d",
       "mnemonic": "MOV",
       "operands": "RAX,0x4141414141414141"
     },
     {
-      "address": "0x4011c2",
+      "address": "0x4011a7",
       "mnemonic": "MOV",
       "operands": "qword ptr [RBP + -0x13],RAX"
     },
     {
-      "address": "0x4011c6",
+      "address": "0x4011ab",
       "mnemonic": "MOV",
       "operands": "dword ptr [RBP + -0xc],0x414141"
     },
     {
-      "address": "0x4011cd",
+      "address": "0x4011b2",
       "mnemonic": "LEA",
       "operands": "RAX,[RBP + -0x13]"
     },
     {
-      "address": "0x4011d1",
+      "address": "0x4011b6",
       "mnemonic": "MOV",
       "operands": "RDI,RAX"
     },
     {
-      "address": "0x4011d4",
+      "address": "0x4011b9",
       "mnemonic": "CALL",
       "operands": "0x00401050"
     },
     {
-      "address": "0x4011d9",
+      "address": "0x4011be",
       "mnemonic": "LEA",
       "operands": "RDX,[RAX + 0x1]"
     },
     {
-      "address": "0x4011dd",
+      "address": "0x4011c2",
       "mnemonic": "LEA",
       "operands": "RCX,[RBP + -0x13]"
+    },
+    {
+      "address": "0x4011c6",
+      "mnemonic": "MOV",
+      "operands": "RAX,qword ptr [RBP + -0x8]"
+    },
+    {
+      "address": "0x4011ca",
+      "mnemonic": "MOV",
+      "operands": "RSI,RCX"
+    },
+    {
+      "address": "0x4011cd",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x4011d0",
+      "mnemonic": "CALL",
+      "operands": "0x00401060"
+    },
+    {
+      "address": "0x4011d5",
+      "mnemonic": "MOV",
+      "operands": "RAX,qword ptr [RBP + -0x8]"
+    },
+    {
+      "address": "0x4011d9",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x4011dc",
+      "mnemonic": "CALL",
+      "operands": "0x00401040"
     },
     {
       "address": "0x4011e1",
@@ -105,96 +140,57 @@
     {
       "address": "0x4011e5",
       "mnemonic": "MOV",
-      "operands": "RSI,RCX"
+      "operands": "RDI,RAX"
     },
     {
       "address": "0x4011e8",
-      "mnemonic": "MOV",
-      "operands": "RDI,RAX"
-    },
-    {
-      "address": "0x4011eb",
-      "mnemonic": "CALL",
-      "operands": "0x00401060"
-    },
-    {
-      "address": "0x4011f0",
-      "mnemonic": "MOV",
-      "operands": "RAX,qword ptr [RBP + -0x8]"
-    },
-    {
-      "address": "0x4011f4",
-      "mnemonic": "MOV",
-      "operands": "RDI,RAX"
-    },
-    {
-      "address": "0x4011f7",
-      "mnemonic": "CALL",
-      "operands": "0x00401176"
-    },
-    {
-      "address": "0x4011fc",
-      "mnemonic": "MOV",
-      "operands": "RAX,qword ptr [RBP + -0x8]"
-    },
-    {
-      "address": "0x401200",
-      "mnemonic": "MOV",
-      "operands": "RDI,RAX"
-    },
-    {
-      "address": "0x401203",
       "mnemonic": "CALL",
       "operands": "0x00401030"
     },
     {
-      "address": "0x401208",
+      "address": "0x4011ed",
       "mnemonic": "NOP",
       "operands": ""
     },
     {
-      "address": "0x401209",
+      "address": "0x4011ee",
       "mnemonic": "LEAVE",
       "operands": ""
     },
     {
-      "address": "0x40120a",
+      "address": "0x4011ef",
       "mnemonic": "RET",
       "operands": ""
     }
   ],
   "calls": [
     {
-      "address": "0x40119e",
+      "address": "0x401183",
       "target": "malloc"
     },
     {
-      "address": "0x4011ac",
-      "target": "LAB_004011b8"
-    },
-    {
-      "address": "0x4011b3",
+      "address": "0x401198",
       "target": "exit"
     },
     {
-      "address": "0x4011d4",
+      "address": "0x4011b9",
       "target": "strlen"
     },
     {
-      "address": "0x4011eb",
+      "address": "0x4011d0",
       "target": "memcpy"
     },
     {
-      "address": "0x4011f7",
-      "target": "FUN_00401176"
+      "address": "0x4011dc",
+      "target": "puts"
     },
     {
-      "address": "0x401203",
+      "address": "0x4011e8",
       "target": "free"
     }
   ],
   "decompilation": {
     "status": "ok",
-    "text": "\nvoid FUN_00401191(char *param_1,undefined8 param_2,size_t param_3)\n\n{\n  size_t sVar1;\n  undefined4 extraout_var;\n  undefined7 *__dest;\n  undefined7 local_1b;\n  undefined4 uStack_14;\n  void *local_10;\n  \n  local_10 = malloc((size_t)param_1);\n  if (local_10 == (void *)0x0) {\n                    /* WARNING: Subroutine does not return */\n    exit((int)param_1);\n  }\n  local_1b = 0x41414141414141;\n  uStack_14 = 0x414141;\n  sVar1 = strlen(param_1);\n  __dest = &local_1b;\n  memcpy(__dest,(void *)(CONCAT44(extraout_var,sVar1) + 1),param_3);\n  FUN_00401176();\n  free(__dest);\n  return;\n}\n\n"
+    "text": "\nvoid FUN_00401176(char *param_1,undefined8 param_2,size_t param_3)\n\n{\n  size_t sVar1;\n  undefined4 extraout_var;\n  char *__s;\n  char local_1b [11];\n  void *local_10;\n  \n  local_10 = malloc((size_t)param_1);\n  if (local_10 == (void *)0x0) {\n                    /* WARNING: Subroutine does not return */\n    exit((int)param_1);\n  }\n  builtin_strncpy(local_1b,\"AAAAAAAAAA\",0xb);\n  sVar1 = strlen(param_1);\n  __s = local_1b;\n  memcpy(__s,(void *)(CONCAT44(extraout_var,sVar1) + 1),param_3);\n  puts(__s);\n  free(__s);\n  return;\n}\n\n"
   }
 }

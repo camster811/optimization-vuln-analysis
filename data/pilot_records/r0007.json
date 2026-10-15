@@ -3,59 +3,59 @@
   "architecture": "x86-64",
   "function": {
     "name": "copy_message",
-    "entry": "0x401150",
-    "end": "0x40117a"
+    "entry": "0x401140",
+    "end": "0x40116a"
   },
   "instructions": [
     {
-      "address": "0x401150",
+      "address": "0x401140",
       "mnemonic": "MOV",
       "operands": "RAX,0x4141414141414141"
     },
     {
-      "address": "0x40115a",
+      "address": "0x40114a",
       "mnemonic": "SUB",
       "operands": "RSP,0x18"
     },
     {
-      "address": "0x40115e",
+      "address": "0x40114e",
       "mnemonic": "LEA",
       "operands": "RDI,[RSP + 0x5]"
     },
     {
-      "address": "0x401163",
+      "address": "0x401153",
       "mnemonic": "MOV",
       "operands": "qword ptr [RSP + 0x5],RAX"
     },
     {
-      "address": "0x401168",
+      "address": "0x401158",
       "mnemonic": "MOV",
       "operands": "dword ptr [RSP + 0xc],0x414141"
     },
     {
-      "address": "0x401170",
+      "address": "0x401160",
       "mnemonic": "CALL",
-      "operands": "0x00401140"
+      "operands": "0x00401030"
     },
     {
-      "address": "0x401175",
+      "address": "0x401165",
       "mnemonic": "ADD",
       "operands": "RSP,0x18"
     },
     {
-      "address": "0x401179",
+      "address": "0x401169",
       "mnemonic": "RET",
       "operands": ""
     }
   ],
   "calls": [
     {
-      "address": "0x401170",
+      "address": "0x401160",
       "target": "puts"
     }
   ],
   "decompilation": {
     "status": "ok",
-    "text": "\nvoid copy_message(char *param_1)\n\n{\n  consume_text(param_1);\n  return;\n}\n\n"
+    "text": "\nvoid copy_message(char *param_1)\n\n{\n  puts(param_1);\n  return;\n}\n\n"
   }
 }

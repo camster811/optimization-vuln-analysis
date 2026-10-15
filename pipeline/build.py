@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import re
 import shlex
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -17,7 +18,7 @@ ENABLED_SOURCES = {"corpus/pairs/p01.c", "corpus/pairs/p08.c"}
 FIELDS = (
     "observation_id", "pair_id", "variant", "truth", "cwe", "optimization",
     "symbols", "source_path", "oracle_binary", "analysis_binary", "record_path",
-    "target_function", "target_start", "target_end", "text_sha256",
+    "target_function", "target_start", "target_end", "text_sha256", "analysis_sha256",
 )
 REQUIRED_FLAGS = [
     "-std=c11", "-Wall", "-Wextra", "-g", "-gdwarf-5",
@@ -124,12 +125,13 @@ def check_tool_versions(config):
     return versions
 
 
-def compile_master(pair, variant, optimization, config):
+def compile_master(pair, variant, optimization, config, artifact_root=None):
     test(variant in (0, 1) and optimization in ("O0", "O2"), "Invalid build treatment")
     test(pair["source_path"] in ENABLED_SOURCES, "Source is outside the pilot build scope")
     name = f"{pair['pair_id']}_v{variant}_{optimization}"
-    master = PROJECT_ROOT / "build/oracle" / name
-    log = PROJECT_ROOT / "build/logs" / f"{name}.log"
+    artifact_root = artifact_root or PROJECT_ROOT / "build"
+    master = artifact_root / "oracle" / name
+    log = artifact_root / "logs" / f"{name}.log"
     log.write_text("", encoding="utf-8")
     compiler = config["compiler"]
     flags = [flag.format(project_root=PROJECT_ROOT) for flag in compiler["common_flags"]]
@@ -139,17 +141,19 @@ def compile_master(pair, variant, optimization, config):
     return master
 
 
-def derive_retained(master):
-    retained = PROJECT_ROOT / "build/retained" / master.name
-    log = PROJECT_ROOT / "build/logs" / f"{master.name}.log"
+def derive_retained(master, artifact_root=None):
+    artifact_root = artifact_root or PROJECT_ROOT / "build"
+    retained = artifact_root / "retained" / master.name
+    log = artifact_root / "logs" / f"{master.name}.log"
     run(["cp", "--", str(master), str(retained)], log)
     run(["objcopy", "--strip-debug", str(retained)], log)
     return retained
 
 
-def derive_stripped(retained):
-    stripped = PROJECT_ROOT / "build/stripped" / retained.name
-    log = PROJECT_ROOT / "build/logs" / f"{retained.name}.log"
+def derive_stripped(retained, artifact_root=None):
+    artifact_root = artifact_root or PROJECT_ROOT / "build"
+    stripped = artifact_root / "stripped" / retained.name
+    log = artifact_root / "logs" / f"{retained.name}.log"
     run(["cp", "--", str(retained), str(stripped)], log)
     run(["strip", "--strip-all", str(stripped)], log)
     return stripped
@@ -209,7 +213,11 @@ def check_direct_call(binary, target_name):
 
 
 def check_memory_write(assembly):
-    """Conservative x86 Intel-syntax check; fail for manual review if uncertain."""
+    """Early rejection gate only: a spill can pass; this does not prove copy survival.
+
+    Intended-operation survival requires the separate private manual oracle
+    worksheet, bound to the exact oracle binary's full-file hash.
+    """
     for line in assembly.splitlines():
         match = re.match(r"\s*[0-9a-f]+:\s+([a-z0-9]+)\s*(.*)", line)
         if not match:
@@ -233,7 +241,7 @@ def scan_for_leaks(binary):
         test(match is None, f"Prohibited benchmark label in {binary}: {string!r}")
 
 
-def verify_artifacts(master, retained, stripped, target_name):
+def verify_artifacts(master, retained, stripped, target_name, log_directory=None):
     bounds = read_function_bounds(master, target_name)
     test(read_function_bounds(retained, target_name) == bounds,
             f"Target bounds changed in {retained}")
@@ -260,12 +268,13 @@ def verify_artifacts(master, retained, stripped, target_name):
     check_direct_call(master, target_name)
     check_direct_call(retained, target_name)
     assembly = disassemble(master, *bounds)
-    log = PROJECT_ROOT / "build/logs" / f"{master.name}.log"
+    log = (log_directory or PROJECT_ROOT / "build/logs") / f"{master.name}.log"
     with log.open("a", encoding="utf-8") as stream:
         stream.write("\nTarget disassembly (oracle):\n" + assembly)
     check_memory_write(assembly)
     with log.open("a", encoding="utf-8") as stream:
-        stream.write("\nPASS: all artifact invariants verified\n")
+        stream.write("\nPASS: structural artifact checks and memory-write rejection gate\n"
+                     "Intended-operation survival requires private manual oracle review.\n")
     return bounds, hashes[0]
 
 
@@ -273,7 +282,7 @@ def assign_observation_id(index):
     return f"r{index:04d}"
 
 
-def write_observations(rows, pairs, split):
+def write_observations(rows, pairs, split, destination=None):
     expected_pairs = 2 if split == "pilot" else 12
     test(len(rows) == expected_pairs * 8, f"Incorrect {split} observation count")
     test(Counter(row["pair_id"] for row in rows) ==
@@ -286,7 +295,7 @@ def write_observations(rows, pairs, split):
                  for row in rows if row["pair_id"] == pair["pair_id"]} == expected_cells,
                 f"Unbalanced treatments for {pair['pair_id']}")
     filename = "pilot_observations.csv" if split == "pilot" else "observations.csv"
-    destination = PROJECT_ROOT / "data/private" / filename
+    destination = destination or PROJECT_ROOT / "data/private" / filename
     # Only replace the table after every compilation and check has succeeded.
     temporary = None
     try:
@@ -303,6 +312,38 @@ def write_observations(rows, pairs, split):
     return destination
 
 
+def file_sha256(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def generation_id(stage, split):
+    inventory = [(f"{kind}/{path.name}", file_sha256(path))
+                 for kind in ("oracle", "retained", "stripped")
+                 for path in sorted((stage / kind).iterdir())]
+    digest = hashlib.sha256(json.dumps(inventory, separators=(",", ":")).encode()).hexdigest()
+    return f"{split}-{digest}"
+
+
+def publish_artifacts(stage, generation):
+    """Publish immutable directories; an interrupted publish cannot alter old inputs."""
+    for kind in ("oracle", "retained", "stripped"):
+        source = stage / kind
+        destination = PROJECT_ROOT / "build" / kind / generation
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        if not destination.exists():
+            try:
+                source.rename(destination)
+                continue
+            except FileExistsError:
+                pass  # Another identical build may have published this generation.
+        test(destination.is_dir() and not destination.is_symlink(), "Invalid existing generation directory")
+        expected = {path.name: file_sha256(path) for path in source.iterdir()}
+        existing = {path.name: file_sha256(path) for path in destination.iterdir()
+                    if path.is_file() and not path.is_symlink()}
+        test(existing == expected and len(list(destination.iterdir())) == len(expected),
+             f"Published generation changed: {destination}")
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--split", choices=("pilot", "final"), required=True)
@@ -310,36 +351,53 @@ def main(argv=None):
     config = load_config()
     pairs = select_split(load_pairs(), args.split)
     versions = check_tool_versions(config)
-    for directory in ("build/oracle", "build/retained", "build/stripped", "build/logs", "data/private"):
+    for directory in ("build/.staging", "build/logs", "data/private"):
         (PROJECT_ROOT / directory).mkdir(parents=True, exist_ok=True)
-    (PROJECT_ROOT / "build/logs/tool_versions.json").write_text(
-        json.dumps(versions, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    rows = []
-    for pair in pairs:
-        for variant in (0, 1):
-            for optimization in sorted(config["compiler"]["optimizations"]):
-                print(f"Building {pair['pair_id']} VARIANT_FIXED={variant} -{optimization}", flush=True)
-                master = compile_master(pair, variant, optimization, config)
-                retained = derive_retained(master)
-                stripped = derive_stripped(retained)
-                (start, end), text_hash = verify_artifacts(
-                    master, retained, stripped, pair["target_function"])
-                for symbols, binary in (("retained", retained), ("stripped", stripped)):
-                    observation_id = assign_observation_id(len(rows) + 1)
-                    records = "data/pilot_records" if args.split == "pilot" else "data/records"
-                    rows.append(dict(  # noqa: C408
-                        observation_id=observation_id, pair_id=pair["pair_id"],
-                        variant="fixed" if variant else "vulnerable",
-                        truth="not_vulnerable" if variant else f"vulnerable_{pair['cwe']}",
-                        cwe=pair["cwe"], optimization=optimization, symbols=symbols,
-                        source_path=pair["source_path"],
-                        oracle_binary=master.relative_to(PROJECT_ROOT).as_posix(),
-                        analysis_binary=binary.relative_to(PROJECT_ROOT).as_posix(),
-                        record_path=f"{records}/{observation_id}.json",
-                        target_function=pair["target_function"], target_start=hex(start),
-                        target_end=hex(end), text_sha256=text_hash,
-                    ))
-    destination = write_observations(rows, pairs, args.split)
+    with tempfile.TemporaryDirectory(prefix=f"{args.split}-", dir=PROJECT_ROOT / "build/.staging") as directory:
+        stage = Path(directory)
+        for kind in ("oracle", "retained", "stripped", "logs"):
+            (stage / kind).mkdir()
+        try:
+            (stage / "logs/tool_versions.json").write_text(
+                json.dumps(versions, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            rows = []
+            for pair in pairs:
+                for variant in (0, 1):
+                    for optimization in sorted(config["compiler"]["optimizations"]):
+                        print(f"Building {pair['pair_id']} VARIANT_FIXED={variant} -{optimization}", flush=True)
+                        master = compile_master(pair, variant, optimization, config, stage)
+                        retained = derive_retained(master, stage)
+                        stripped = derive_stripped(retained, stage)
+                        (start, end), text_hash = verify_artifacts(
+                            master, retained, stripped, pair["target_function"], stage / "logs")
+                        for symbols, binary in (("retained", retained), ("stripped", stripped)):
+                            observation_id = assign_observation_id(len(rows) + 1)
+                            records = "data/pilot_records" if args.split == "pilot" else "data/records"
+                            rows.append(dict(  # noqa: C408
+                                observation_id=observation_id, pair_id=pair["pair_id"],
+                                variant="fixed" if variant else "vulnerable",
+                                truth="not_vulnerable" if variant else f"vulnerable_{pair['cwe']}",
+                                cwe=pair["cwe"], optimization=optimization, symbols=symbols,
+                                source_path=pair["source_path"], oracle_binary=f"build/oracle/{master.name}",
+                                analysis_binary=f"build/{symbols}/{binary.name}",
+                                record_path=f"{records}/{observation_id}.json", target_function=pair["target_function"],
+                                target_start=hex(start), target_end=hex(end), text_sha256=text_hash,
+                                analysis_sha256=file_sha256(binary),
+                            ))
+            generation = generation_id(stage, args.split)
+            for row in rows:
+                for column in ("oracle_binary", "analysis_binary"):
+                    path = Path(row[column])
+                    row[column] = (path.parent / generation / path.name).as_posix()
+            # Validate the complete table before publishing any new directories.
+            write_observations(rows, pairs, args.split, stage / "observations.csv")
+            publish_artifacts(stage, generation)
+            # This atomic replacement is the commit point. Old tables continue
+            # to refer to untouched generations even if publication fails above.
+            destination = write_observations(rows, pairs, args.split)
+        finally:
+            logs = PROJECT_ROOT / "build/logs" / f"build-{stage.name}"
+            (stage / "logs").rename(logs)
     print(f"Verified {len(rows)} observations; wrote {destination.relative_to(PROJECT_ROOT)}")
 
 

@@ -36,10 +36,11 @@ import ghidra.util.exception.CancelledException;
 /**
  * Arguments: hexadecimal target address, output JSON path, positive timeout seconds.
  *
- * The function end is exclusive: one byte beyond the highest body address. For
- * a function with disjoint body ranges, instructions include only those ranges.
- * Calls includes direct calls and jumps, including branches within the body;
- * indirect transfers are omitted. Thunks are resolved to their existing names.
+ * The function end is exclusive: one byte beyond the highest body address.
+ * Disjoint function bodies are rejected: the flat instruction schema has no
+ * range boundaries. Calls includes direct calls and direct tail
+ * jumps outside the function body. Local branches and indirect transfers are
+ * omitted. Thunks are resolved to their existing names.
  *
  * Success has exactly the documented record fields. Errors additionally have
  * error.code and error.message. An unresolved function is null; decompilation
@@ -122,6 +123,11 @@ public class ExtractFunction extends GhidraScript {
                 "not_run");
             return;
         }
+        if (function.getBody().getNumAddressRanges() != 1) {
+            fail(record, "discontiguous_function_body",
+                "Function body must contain exactly one address range.", "not_run");
+            return;
+        }
 
         Address end = function.getBody().getMaxAddress().next();
         if (end == null) {
@@ -157,7 +163,7 @@ public class ExtractFunction extends GhidraScript {
                 }
                 item.addProperty("operands", String.join(",", operands));
                 instructions.add(item);
-                collectDirectFlows(instruction, flows);
+                collectDirectFlows(function, instruction, flows);
             }
         }
         flows.sort(Comparator.comparing(DirectFlow::address).thenComparing(DirectFlow::destination));
@@ -171,7 +177,7 @@ public class ExtractFunction extends GhidraScript {
         decompile(function, timeout, record);
     }
 
-    private void collectDirectFlows(Instruction instruction, List<DirectFlow> flows) {
+    private void collectDirectFlows(Function function, Instruction instruction, List<DirectFlow> flows) {
         FlowType type = instruction.getFlowType();
         if (type.isComputed() || !(type.isCall() || type.isJump())) {
             return;
@@ -187,6 +193,10 @@ public class ExtractFunction extends GhidraScript {
             }
         }
         for (Address destination : sorted) {
+            // Jumps within this body remain instructions, not invocations.
+            if (type.isJump() && function.getBody().contains(destination)) {
+                continue;
+            }
             flows.add(new DirectFlow(instruction.getAddress(), destination, targetName(destination)));
         }
     }

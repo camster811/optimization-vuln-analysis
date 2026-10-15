@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
+"""Export validated instructions even when the separate decompilation stage fails."""
 import argparse
 from collections import defaultdict
 import csv
+import hashlib
 import json
 import os
 from pathlib import Path
 import re
 import shlex
 import shutil
+import struct
 import subprocess
 import sys
 import tempfile
@@ -17,7 +20,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OBSERVATION_FIELDS = {
     "observation_id", "pair_id", "variant", "truth", "cwe", "optimization", "symbols",
     "source_path", "oracle_binary", "analysis_binary", "record_path", "target_function",
-    "target_start", "target_end", "text_sha256",
+    "target_start", "target_end", "text_sha256", "analysis_sha256",
 }
 RECORD_KEYS = {"schema_version", "architecture", "function", "instructions", "calls", "decompilation"}
 HEX_ADDRESS = re.compile(r"0x(?:0|[1-9a-f][0-9a-f]{0,15})\Z")
@@ -97,6 +100,7 @@ def load_observations(split):
                 and not FORBIDDEN.search(row["target_function"]), "Target name must be neutral")
         require(address(row["target_start"]) < address(row["target_end"]), "Invalid expected bounds")
         require(re.fullmatch(r"[0-9a-f]{64}", row["text_sha256"]), "Invalid .text SHA-256")
+        require(re.fullmatch(r"[0-9a-f]{64}", row["analysis_sha256"]), "Invalid analysis SHA-256")
         binary = project_path(row["analysis_binary"], f"build/{row['symbols']}")
         require(binary.is_file(), f"Analysis binary not found: {binary}")
         require(row["record_path"] == f"{records}/{row['observation_id']}.json",
@@ -156,6 +160,48 @@ def load_record(path):
         return json.load(stream, object_pairs_hook=unique_object, parse_constant=invalid_constant)
 
 
+def binary_hashes(data):
+    """Hash an ELF64-LE snapshot, including its .text bytes, without reopening it."""
+    require(len(data) >= 64 and data[:6] == b"\x7fELF\x02\x01", "Expected an ELF64 little-endian binary")
+    require(struct.unpack_from("<H", data, 18)[0] == 62, "Expected an x86-64 ELF")
+    offset = struct.unpack_from("<Q", data, 40)[0]
+    entry_size, count, strings_index = struct.unpack_from("<HHH", data, 58)
+    require(entry_size >= 64 and 0 < count and strings_index < count
+            and offset + entry_size * count <= len(data), "Invalid ELF section table")
+
+    def section(index):
+        return struct.unpack_from("<IIQQQQIIQQ", data, offset + index * entry_size)
+
+    strings = section(strings_index)
+    require(strings[1] == 3 and strings[4] + strings[5] <= len(data), "Invalid ELF section names")
+    names = data[strings[4]:strings[4] + strings[5]]
+    matches = []
+    for index in range(count):
+        header = section(index)
+        require(header[0] < len(names), "Invalid ELF section name offset")
+        end = names.find(b"\0", header[0])
+        require(end >= 0, "Unterminated ELF section name")
+        if names[header[0]:end] == b".text":
+            matches.append(header)
+    require(len(matches) == 1, "Expected exactly one .text section")
+    text = matches[0]
+    require(text[1] == 1 and text[5] > 0 and text[4] + text[5] <= len(data), "Invalid ELF .text section")
+    return {"analysis_sha256": hashlib.sha256(data).hexdigest(),
+            "text_sha256": hashlib.sha256(data[text[4]:text[4] + text[5]]).hexdigest()}
+
+
+def copy_verified_binary(observation, destination):
+    source = project_path(observation["analysis_binary"], f"build/{observation['symbols']}")
+    # Pin one snapshot: changes to the source pathname after this read cannot
+    # substitute different bytes between hash validation and workspace import.
+    data = source.read_bytes()
+    for field, actual in binary_hashes(data).items():
+        require(actual == observation[field], f"{field} mismatch for {source}; rebuild the observation table")
+    destination.write_bytes(data)
+    require(hashlib.sha256(destination.read_bytes()).hexdigest() == observation["analysis_sha256"],
+            "Workspace binary differs from the verified snapshot")
+
+
 def run_headless(observation, config, launcher, script_source=None):
     """Return a raw record; no private table fields are appended to it."""
     log_directory = PROJECT_ROOT / "build/logs/ghidra"
@@ -168,7 +214,11 @@ def run_headless(observation, config, launcher, script_source=None):
     with tempfile.TemporaryDirectory(prefix="export-", dir=projects) as directory:
         work = Path(directory)
         binary = work / "program"
-        shutil.copyfile(project_path(observation["analysis_binary"], f"build/{observation['symbols']}"), binary)
+        try:
+            copy_verified_binary(observation, binary)
+        except (ValueError, OSError) as error:
+            log.write_text(f"Binary verification failed: {error}\n", encoding="utf-8")
+            raise
         scripts = work / "scripts"
         scripts.mkdir()
         if script_source is None:
@@ -193,6 +243,8 @@ def run_headless(observation, config, launcher, script_source=None):
                    "-scriptlog", str(log_directory / f"{identifier}.script.log")]
         try:
             with log.open("w", encoding="utf-8") as stream:
+                stream.write(f"Verified analysis_sha256={observation['analysis_sha256']} "
+                             f"text_sha256={observation['text_sha256']}\n")
                 stream.write("$ " + shlex.join(command) + "\n")
                 stream.flush()
                 subprocess.run(command, cwd=PROJECT_ROOT, env=environment, check=True,
@@ -224,12 +276,19 @@ def validate_record(record):
         error = record.get("error", {})
         exact_keys(error, {"code", "message"}, "structured error")
         require(all(isinstance(value, str) for value in error.values()), "Invalid error value types")
-        raise ValueError(f"Export failed ({decompilation['status']}): {error['code']}: {error['message']}")
-    exact_keys(record, RECORD_KEYS, "top-level record")
+        # These errors occur after the Java script completes its instruction
+        # and call walk. Cancellation/lookup/extraction failures may be partial.
+        usable = (decompilation["status"], error["code"]) in {
+            ("error", "decompilation_failed"), ("timeout", "decompilation_timeout"),
+        }
+        require(usable and isinstance(record["function"], dict),
+                f"Export failed ({decompilation['status']}): {error['code']}: {error['message']}")
+    else:
+        exact_keys(record, RECORD_KEYS, "top-level record")
+        require(decompilation["text"].strip(), "Successful decompilation has no text")
     require(type(record["schema_version"]) is int and record["schema_version"] == 1,
             "Unsupported schema version")
     require(record["architecture"] == "x86-64", "Unexpected architecture")
-    require(decompilation["text"].strip(), "Successful decompilation has no text")
     exact_keys(record["function"], {"name", "entry", "end"}, "function")
     function = record["function"]
     require(isinstance(function["name"], str) and function["name"].strip(), "Missing function name")

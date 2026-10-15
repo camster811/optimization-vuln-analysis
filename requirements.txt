@@ -1,0 +1,4 @@
+jsonschema==4.25.1
+matplotlib==3.10.7
+numpy==2.3.5
+requests==2.32.5

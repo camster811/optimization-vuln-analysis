@@ -14,9 +14,10 @@ from pipeline import build
 
 
 class BuildValidationTests(unittest.TestCase):
-    def test_final_rejects_current_incomplete_manifest(self):
-        with self.assertRaisesRegex(ValueError, "10 pairs.*80 observations.*10"):
-            build.select_split(build.load_pairs(), "final")
+    def test_final_rejects_incomplete_manifest(self):
+        pairs = [pair for pair in build.load_pairs() if pair["pair_id"] != "p12"]
+        with self.assertRaisesRegex(ValueError, "10 pairs.*80 observations.*9"):
+            build.select_split(pairs, "final")
 
     def test_pilot_scope_is_explicit(self):
         pairs = [dict(pair) for pair in build.select_split(build.load_pairs(), "pilot")]
@@ -138,7 +139,7 @@ class PilotBuildTests(unittest.TestCase):
             build.verify_artifacts(self.master, self.retained, self.retained, "copy_message")
 
     def test_final_failure_writes_no_partial_table(self):
-        with self.assertRaisesRegex(ValueError, "10 pairs"):
+        with self.assertRaisesRegex(ValueError, "limited to p01.c and p08.c"):
             build.main(["--split", "final"])
         self.assertFalse((self.root / "data/private/observations.csv").exists())
 

@@ -1,13 +1,13 @@
 pair_id,split,cwe,source_path,target_function,mechanism
 p01,pilot,CWE-121,corpus/pairs/p01.c,copy_message,strcpy constant into stack array
 p02,final,CWE-121,corpus/pairs/p02.c,target,constant-size `memcpy` into stack allocation
-p03,final,CWE-121,corpus/pairs/p03.c,copy_message,loop copying one byte beyond stack capacity
-p04,final,CWE-121,corpus/pairs/p04.c,copy_message,`strncpy` including terminator
-p05,final,CWE-121,corpus/pairs/p05.c,copy_message,`strcat` into stack array
-p06,final,CWE-121,corpus/pairs/p06.c,copy_message,`strncat` into stack array
-p07,final,CWE-122,corpus/pairs/p07.c,copy_message,heap allocation versus `strcpy` extent
-p08,pilot,CWE-122,corpus/pairs/p08.c,copy_message,heap allocation versus `memcpy` length
-p09,final,CWE-122,corpus/pairs/p09.c,copy_message,loop copying one byte beyond heap capacity
-p10,final,CWE-122,corpus/pairs/p10.c,copy_message,heap `strncpy` including terminator
-p11,final,CWE-122,corpus/pairs/p11.c,copy_message,`strcat` into heap allocation
-p12,final,CWE-122,corpus/pairs/p12.c,copy_message,`strncat` into heap allocation
+p03,final,CWE-121,corpus/pairs/p03.c,target,loop copying one byte beyond stack capacity
+p04,final,CWE-121,corpus/pairs/p04.c,target,`strncpy` including terminator
+p05,final,CWE-121,corpus/pairs/p05.c,target,`strcat` into stack array
+p06,final,CWE-121,corpus/pairs/p06.c,target,`strncat` into stack array
+p07,final,CWE-122,corpus/pairs/p07.c,target,heap allocation versus `strcpy` extent
+p08,pilot,CWE-122,corpus/pairs/p08.c,target,heap allocation versus `memcpy` length
+p09,final,CWE-122,corpus/pairs/p09.c,target,loop copying one byte beyond heap capacity
+p10,final,CWE-122,corpus/pairs/p10.c,target,heap `strncpy` including terminator
+p11,final,CWE-122,corpus/pairs/p11.c,target,`strcat` into heap allocation
+p12,final,CWE-122,corpus/pairs/p12.c,target,`strncat` into heap allocation

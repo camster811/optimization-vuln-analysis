@@ -1,0 +1,7 @@
+{
+  "campaign": "windows-abi-v1",
+  "status": "defective historical predecessor: Windows compiler specification for GCC/Linux binaries",
+  "archive_sha256": "4e09694617f1979eb83799f02898908a161971ed13cc4c012ff8a0783689873a",
+  "original_freeze_sha256": "b83c60ac29d0b57ae3736a72f897e46e6a1fad8baaecdffc5f481ab36872730a",
+  "note": "Archive preserves the reviewed working tree including its original freeze and results. Archive creation time does not establish the original freeze date."
+}

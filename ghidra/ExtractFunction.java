@@ -114,6 +114,11 @@ public class ExtractFunction extends GhidraScript {
             return;
         }
         record.addProperty("architecture", "x86-64");
+        if (!currentProgram.getCompilerSpec().getCompilerSpecID().toString().equals("gcc")) {
+            fail(record, "unsupported_compiler_spec", "Expected the GCC/System V compiler specification.",
+                "not_run");
+            return;
+        }
         String hex = arguments[0].replaceFirst("(?i)^0x", "");
         Address address = currentProgram.getAddressFactory().getDefaultAddressSpace()
             .getAddress(Long.parseUnsignedLong(hex, 16));

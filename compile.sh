@@ -7,8 +7,8 @@ compile_master() {
     shift 5
     local common_flags=()
     case "$source" in
-        corpus/pairs/p01.c|corpus/pairs/p08.c) ;;
-        *) echo "Compilation is currently limited to p01.c and p08.c" >&2; return 1 ;;
+        corpus/pairs/p0[1-9].c|corpus/pairs/p1[0-2].c) ;;
+        *) echo "Compilation requires a corpus source p01.c through p12.c" >&2; return 1 ;;
     esac
     [[ "$variant" == 0 || "$variant" == 1 ]] || return 1
     [[ "$opt" == O0 || "$opt" == O2 ]] || return 1
@@ -32,7 +32,7 @@ fi
 
 PROJECT_ROOT="$(pwd)"
 
-# Pilot sources only for now.
+# The standalone default builds the pilot; pipeline/build.py selects either split.
 CODE_DIR="corpus/pairs"
 SOURCES=()
 for pair in {01,08}; do

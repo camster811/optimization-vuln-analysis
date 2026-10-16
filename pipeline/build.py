@@ -14,7 +14,8 @@ import tempfile
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-ENABLED_SOURCES = {"corpus/pairs/p01.c", "corpus/pairs/p08.c"}
+PILOT_SOURCES = {"corpus/pairs/p01.c", "corpus/pairs/p08.c"}
+ENABLED_SOURCES = {f"corpus/pairs/p{index:02d}.c" for index in range(1, 13)}
 FIELDS = (
     "observation_id", "pair_id", "variant", "truth", "cwe", "optimization",
     "symbols", "source_path", "oracle_binary", "analysis_binary", "record_path",
@@ -99,9 +100,11 @@ def select_split(pairs, split):
     test(len(selected) == expected,
             f"{split} requires exactly {expected} pairs ({expected * 8} observations); "
             f"manifest has {len(selected)}. No partial table will be written.")
+    allowed = PILOT_SOURCES if split == "pilot" else ENABLED_SOURCES - PILOT_SOURCES
     disabled = sorted(pair["source_path"] for pair in selected
-                      if pair["source_path"] not in ENABLED_SOURCES)
-    test(not disabled, "Compilation is currently limited to p01.c and p08.c; "
+                      if pair["source_path"] not in allowed)
+    scope = "Pilot compilation is limited to p01.c and p08.c" if split == "pilot" else "Final compilation excludes pilot sources"
+    test(not disabled, scope + "; "
             f"requested unsupported sources: {', '.join(disabled)}")
     return selected
 
@@ -127,7 +130,7 @@ def check_tool_versions(config):
 
 def compile_master(pair, variant, optimization, config, artifact_root=None):
     test(variant in (0, 1) and optimization in ("O0", "O2"), "Invalid build treatment")
-    test(pair["source_path"] in ENABLED_SOURCES, "Source is outside the pilot build scope")
+    test(pair["source_path"] in ENABLED_SOURCES, "Source is outside the corpus build scope")
     name = f"{pair['pair_id']}_v{variant}_{optimization}"
     artifact_root = artifact_root or PROJECT_ROOT / "build"
     master = artifact_root / "oracle" / name

@@ -139,8 +139,9 @@ class PilotBuildTests(unittest.TestCase):
             build.verify_artifacts(self.master, self.retained, self.retained, "copy_message")
 
     def test_final_failure_writes_no_partial_table(self):
-        with self.assertRaisesRegex(ValueError, "limited to p01.c and p08.c"):
-            build.main(["--split", "final"])
+        with patch.object(build, "compile_master", side_effect=subprocess.CalledProcessError(1, ["gcc-15"])):
+            with self.assertRaises(subprocess.CalledProcessError):
+                build.main(["--split", "final"])
         self.assertFalse((self.root / "data/private/observations.csv").exists())
 
     def test_forbidden_compiler_flags_are_rejected(self):

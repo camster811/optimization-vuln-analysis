@@ -20,10 +20,12 @@ import numpy as np
 
 if __package__:
     from . import extract, run_llm, static_baseline
+    from . import freeze as input_freeze
 else:
     import extract
     import run_llm
     import static_baseline
+    import freeze as input_freeze
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -139,21 +141,9 @@ def load_truth():
 
 def verify_input_freeze(truth):
     # Validate the existing freeze; never create one after seeing predictions.
-    freeze = read_json(PROJECT_ROOT / "data/input_freeze.json")
-    require(isinstance(freeze, dict) and set(freeze) == {"freeze_version", "files"}
-            and type(freeze["freeze_version"]) is int and freeze["freeze_version"] == 1
-            and isinstance(freeze["files"], dict), "Invalid input freeze format")
-    required = {"config.json", "analysis_plan.md", "requirements.txt", "corpus/manifest.csv",
-                "ghidra/ExtractFunction.java", "pipeline/static_baseline.py", "pipeline/run_llm.py",
-                "llm/prompt.md", "llm/response.schema.json"}
-    required.update(path.relative_to(PROJECT_ROOT).as_posix() for path in (PROJECT_ROOT / "corpus/pairs").glob("*.c"))
-    required.update(row["record_path"] for row in truth)
-    require(required <= set(freeze["files"]), "Input freeze omits required method, source, plan, or record files: "
-            + ", ".join(sorted(required - set(freeze["files"]))))
-    for name, expected in sorted(freeze["files"].items()):
-        require(name != "data/input_freeze.json" and not name.startswith(("results/", "build/")),
-                f"Invalid input-freeze scope: {name}")
-        require(isinstance(expected, str) and expected == digest(project_file(name)), f"Frozen input changed: {name}")
+    freeze = input_freeze.check_freeze(PROJECT_ROOT)
+    require({row["record_path"] for row in truth} == input_freeze.FINAL_RECORDS,
+            "Truth does not select exactly the frozen final records")
     return freeze
 
 

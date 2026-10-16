@@ -89,6 +89,11 @@ def load_config():
         require(type(value) in (int, float) and math.isfinite(value) and low <= value <= high,
                 f"Invalid llm.{key}")
     require(config["reasoning_format"] == "deepseek", "Use deepseek to preserve reasoning separately from JSON content")
+    require(isinstance(config.get("sampling"), dict) and {"top_k", "min_p", "samplers"} <= set(config["sampling"]),
+            "Explicit sampler settings are required")
+    require(not (set(config["sampling"]) & {"model", "messages", "temperature", "top_p", "seed", "max_tokens",
+                                            "response_format", "stream", "cache_prompt", "n", "reasoning_format"}),
+            "Sampler settings cannot override request fields")
     return config
 
 
@@ -132,6 +137,7 @@ def render_request(record, prompt):
 
 def make_payload(record, prompt, schema, config, repetition):
     return {
+        **config["sampling"],
         "model": config["model_id"],
         "messages": [{"role": "user", "content": render_request(record, prompt)}],
         "temperature": config["temperature"], "top_p": config["top_p"],
@@ -299,16 +305,26 @@ def write_run_atomically(path, run):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--inputs", type=Path, default=PROJECT_ROOT / "data/records")
+    parser.add_argument("--inputs", type=Path, default=PROJECT_ROOT / "data/records",
+                        help="Must resolve to this campaign's frozen data/records directory")
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "results/llm_runs")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--force", action="store_true", help="Explicitly replace all scheduled run files")
     args = parser.parse_args(argv)
     require(not (args.resume and args.force), "Choose either --resume or --force")
     inputs, output = args.inputs.resolve(), args.output.resolve()
+    require(inputs == (PROJECT_ROOT / "data/records").resolve(),
+            "--inputs must be this campaign's frozen data/records directory; use a new campaign for other inputs")
     require(not output.is_relative_to(inputs) and not inputs.is_relative_to(output),
             "Input and output directories must be separate")
     config, prompt, schema = load_config(), load_prompt(), load_schema()
+    if __package__:
+        from . import freeze, runtime
+    else:
+        import freeze
+        import runtime
+    freeze.check_analyzer_inputs(PROJECT_ROOT)
+    runtime.verify_live(PROJECT_ROOT)
     records = dict(list_records(inputs))
     schedule = make_schedule(list(records.items()), config["repetitions"], config["schedule_seed"])
     payloads = {(identifier, repetition): make_payload(records[identifier], prompt, schema, config, repetition)
@@ -360,11 +376,14 @@ def main(argv=None):
         for identifier, repetition in schedule:
             if (identifier, repetition) in skip:
                 continue
+            freeze.check_analyzer_inputs(PROJECT_ROOT)
+            runtime.verify_live(PROJECT_ROOT)
             run = run_attempt(identifier, repetition, records[identifier], payloads[identifier, repetition], config, schema)
             validate_saved_run(run, identifier, repetition, records[identifier], schema)
             write_run_atomically(output / identifier / f"rep{repetition}.json", run)
             counts[run["status"]] += 1
             print(f"{identifier}/rep{repetition}: {run['status']}", flush=True)
+        freeze.check_analyzer_inputs(PROJECT_ROOT)
         print(f"Saved {sum(counts.values())} new runs: {dict(sorted(counts.items()))}")
 
 

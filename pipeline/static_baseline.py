@@ -8,6 +8,10 @@ control flow. It never uses decompiled array sizes, function names as truth,
 neighboring records, or private experiment inputs.
 
 Evidence lists contain key evidence locations, not complete provenance traces.
+Method revision 3 retains the live-frame and branch checks from revision 2.
+Write-time feasibility preserves earlier proven writes when later branches are
+unknown, while speculative writes cannot prove overflow. This is a restricted
+heuristic interpreter, not a generally sound proof system.
 Some instructions establishing addresses, allocation arguments, and copy
 lengths are omitted. Decompiler status and text do not determine eligibility
 or influence classification when a valid instruction export is present.
@@ -71,6 +75,8 @@ class State:
     memory: dict = field(default_factory=dict)
     allocations: dict = field(default_factory=dict)
     stack_writes: list = field(default_factory=list)
+    stack_overlaps: list = field(default_factory=list)
+    validated_stack_overlaps: list = field(default_factory=list)
     saved_frame_slots: list = field(default_factory=lambda: [(0, 8, "return-address slot")])
     frame_evidence: set = field(default_factory=set)
     unresolved: set = field(default_factory=set)
@@ -78,6 +84,10 @@ class State:
     incomplete: bool = False
     zero: object = None
     comparison: object = None
+    path_validated: bool = True
+    condition_key: object = None
+    branch_facts: dict = field(default_factory=dict)
+    register_versions: dict = field(default_factory=dict)
 
 
 def require(condition, message):
@@ -113,6 +123,7 @@ def register_value(state, name):
 
 def set_register(state, name, value):
     base, bits, shift = REGISTERS[name]
+    state.register_versions[base] = state.register_versions.get(base, 0) + 1
     if isinstance(value, Pointer) and bits != 64:
         value = None
     if isinstance(value, int):
@@ -229,8 +240,18 @@ def write_memory(state, pointer, width, value, location, record=True):
                 state.incomplete = True
             else:
                 allocation["writes"].append((start, end, location))
+                if state.path_validated:
+                    allocation["validated_writes"].append((start, end, location))
         else:
             state.stack_writes.append((start, end, location))
+            # Capture live protection at write time: later pops must neither
+            # invent collisions with retired slots nor erase real overwrites.
+            overlaps = [
+                (start, end, location, low, high, slot)
+                for low, high, slot in state.saved_frame_slots if start < high and low < end]
+            state.stack_overlaps.extend(overlaps)
+            if state.path_validated:
+                state.validated_stack_overlaps.extend(overlaps)
     for key in list(state.slots):
         if key[:2] == (pointer.kind, pointer.base) and key[2] < end and start < key[2] + key[3]:
             del state.slots[key]
@@ -281,7 +302,7 @@ def handle_call(state, target, location):
         if not isinstance(size, int) or not 0 <= size < 1 << 64:
             size = None
         state.allocations[location] = {
-            "size": size, "writes": [], "complete": True, "freed": False,
+            "size": size, "writes": [], "validated_writes": [], "complete": True, "freed": False,
             "zeroed": name == "calloc",
         }
         result = Pointer("heap", location)
@@ -334,15 +355,16 @@ def handle_call(state, target, location):
             allocation["zeroed"] = False
         for key, value in list(state.registers.items()):
             if isinstance(value, Pointer) and value.kind == "heap":
-                state.registers[key] = None
+                set_register(state, key, None)
         if any(copy_name in name for copy_name in COPY_CALLS):
             state.unresolved.add(location)
     for register in CALLER_SAVED:
-        state.registers[register] = None
+        set_register(state, register, None)
     for index in range(32):
         state.registers[f"v{index}"] = None
-    state.registers["rax"] = result
+    set_register(state, "rax", result)
     state.comparison, state.zero = None, None
+    state.condition_key = None
     return name in NO_RETURN_CALLS
 
 
@@ -375,6 +397,10 @@ def step_instruction(state, instruction):
         pointer = register_value(state, "rsp")
         value = None if not isinstance(pointer, Pointer) else state.slots.get(
             (pointer.kind, pointer.base, pointer.offset, 8))
+        if isinstance(pointer, Pointer) and pointer.kind == "stack":
+            state.saved_frame_slots = [slot for slot in state.saved_frame_slots
+                                       if not (slot[0] == pointer.offset and slot[1] == pointer.offset + 8
+                                               and slot[2] == "saved frame-pointer slot")]
         set_register(state, operands[0], value)
         set_register(state, "rsp", add_value(pointer, 8))
         return True
@@ -385,6 +411,12 @@ def step_instruction(state, instruction):
     if mnemonic in ("cmp", "test"):
         left, right = read_operand(state, destination, width), read_operand(state, source, width)
         state.comparison, state.zero = None, None
+        # Only register/immediate predicates are reusable; memory may change.
+        state.condition_key = None
+        if all(operand in REGISTERS or parse_integer(operand) is not None for operand in operands):
+            versions = tuple((REGISTERS[operand][0], state.register_versions.get(REGISTERS[operand][0], 0))
+                             for operand in operands if operand in REGISTERS)
+            state.condition_key = (mnemonic, tuple(operands), versions)
         if mnemonic == "test" and destination == source and isinstance(left, Pointer):
             state.zero = False  # Successful allocation or frame address.
         elif mnemonic == "test" and (left == 0 or right == 0):
@@ -397,6 +429,8 @@ def step_instruction(state, instruction):
             state.zero = (left == right) if mnemonic == "cmp" else (left & right) == 0
             if mnemonic == "cmp":
                 state.comparison = (left, right, bits)
+        if state.zero is None and state.condition_key in state.branch_facts:
+            state.zero = state.branch_facts[state.condition_key]
         return True
     if mnemonic == "lea" and destination in REGISTERS:
         set_register(state, destination, memory_address(state, source))
@@ -423,8 +457,9 @@ def step_instruction(state, instruction):
     if destination not in REGISTERS:
         return False
     left, right = register_value(state, destination), read_operand(state, source, width)
-    previous_flags = state.zero, state.comparison
+    previous_flags = state.zero, state.comparison, state.condition_key
     state.zero, state.comparison = None, None
+    state.condition_key = None
     if mnemonic in ("xor", "sub") and destination == source:
         value = 0
     elif mnemonic in ("add", "sub"):
@@ -447,7 +482,7 @@ def step_instruction(state, instruction):
         state.zero = None  # IMUL leaves ZF undefined.
     if mnemonic in ("shl", "sal", "shr", "sar") and isinstance(right, int) \
             and (right & (63 if REGISTERS[destination][1] == 64 else 31)) == 0:
-        state.zero, state.comparison = previous_flags
+        state.zero, state.comparison, state.condition_key = previous_flags
     return True
 
 
@@ -503,8 +538,16 @@ def follow_paths(record):
                     index = target
                     continue
                 decision = branch_decision(state, mnemonic)
+                if decision is None:
+                    # Forking is exploration, not a feasibility proof. Facts
+                    # prune repeated contradictory tests; more complex branch
+                    # relations remain unvalidated and cannot prove a finding.
+                    state.path_validated = False
                 if decision is not False:
                     branch = copy.deepcopy(state)
+                    if decision is None and state.condition_key is not None and mnemonic in ("je", "jz", "jne", "jnz"):
+                        branch.branch_facts[state.condition_key] = mnemonic in ("je", "jz")
+                        state.branch_facts[state.condition_key] = mnemonic in ("jne", "jnz")
                     if target is None:
                         branch.incomplete = True
                         finished.append(branch)
@@ -544,8 +587,7 @@ def finding(rule, evidence, summary):
 
 
 def stack_overlap(state):
-    return [(start, end, location, low, high, slot) for start, end, location in state.stack_writes
-            for low, high, slot in state.saved_frame_slots if start < high and low < end]
+    return state.stack_overlaps
 
 
 def classify_heap(states):
@@ -553,16 +595,20 @@ def classify_heap(states):
     for state in states:
         for site, allocation in sorted(state.allocations.items()):
             intervals = merge_intervals([(start, end) for start, end, _ in allocation["writes"]])
+            # A later unknown branch cannot invalidate writes already reached
+            # along a validated prefix. Speculative writes never prove overflow.
+            validated = allocation["validated_writes"]
+            validated_intervals = merge_intervals([(start, end) for start, end, _ in validated])
             size = allocation["size"]
-            if size is not None and any(start < 0 or end > size for start, end in intervals):
-                description = ", ".join(f"[{start}, {end})" for start, end in intervals)
+            if size is not None and any(start < 0 or end > size for start, end in validated_intervals):
+                description = ", ".join(f"[{start}, {end})" for start, end in validated_intervals)
                 return finding("heap_write_exceeds_allocation", [site] +
-                               [location for _, _, location in allocation["writes"]],
+                               [location for _, _, location in validated],
                                f"Heap write intervals {description} exceed the {size}-byte allocation.")
             if intervals:
                 saw_write = True
                 evidence += [site] + [location for _, _, location in allocation["writes"]]
-    if saw_write and all(not state.incomplete and not state.unresolved and not stack_overlap(state)
+    if saw_write and all(state.path_validated and not state.incomplete and not state.unresolved and not stack_overlap(state)
                         and all(allocation["size"] is not None and allocation["complete"]
                                 for allocation in state.allocations.values()) for state in states):
         return finding("heap_write_within_allocation", evidence,
@@ -572,7 +618,7 @@ def classify_heap(states):
 
 def classify_stack(states):
     for state in states:
-        overlaps = stack_overlap(state)
+        overlaps = state.validated_stack_overlaps
         if overlaps:
             start, end, location, low, high, slot = overlaps[0]
             count = min(end, high) - max(start, low)
@@ -599,7 +645,7 @@ def analyze_record(record):
     evidence.update(site for state in states for site in state.allocations)
     evidence.update(location for state in states for allocation in state.allocations.values()
                     for _, _, location in allocation["writes"])
-    if any(state.incomplete for state in states):
+    if any(state.incomplete or not state.path_validated for state in states):
         summary = "Unknown call effects, unsupported instructions, or incomplete control flow prevent a complete bounds proof."
     elif any(state.allocations for state in states):
         summary = "The write extent is visible, but a constant allocation size was not recovered."

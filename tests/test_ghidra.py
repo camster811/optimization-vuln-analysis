@@ -73,6 +73,7 @@ int main(void) { target(); return 0; }
             directory = cls.work / f"{binary.name}-output"
             directory.mkdir()
             command = [str(HEADLESS), str(cls.work), f"project_{binary.name}",
+                       "-processor", "x86:LE:64:default", "-cspec", "gcc",
                        "-import", str(binary), "-scriptPath", str(PROJECT_ROOT / "ghidra"),
                        "-max-cpu", "2", "-analysisTimeoutPerFile", "60", "-deleteProject",
                        "-log", str(directory / "headless.log"),
@@ -154,6 +155,52 @@ int main(void) { target(); return 0; }
                 self.assertEqual(record["instructions"], [])
                 self.assertEqual(record["calls"], [])
                 self.assertEqual(record["decompilation"], {"status": "not_run", "text": ""})
+
+@unittest.skipUnless(HEADLESS and HEADLESS.is_file() and TOOLS_AVAILABLE,
+                     'Set GHIDRA_HOME; requires Ghidra, GCC 15, and binutils')
+class ProductionABIExtractionTests(unittest.TestCase):
+    def test_known_allocation_and_copy_arguments_through_production(self):
+        from unittest.mock import patch
+        from pipeline import extract
+        with tempfile.TemporaryDirectory(prefix='production-abi-') as directory:
+            root = Path(directory)
+            source = root / 'fixture.c'
+            source.write_text('''#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+__attribute__((noinline,used)) void target(char *src) {
+    char *p = malloc(10);
+    strncpy(p, src, 11);
+    puts(p);
+    free(p);
+}
+int main(int argc, char **argv) { target(argv[argc-1]); }
+''')
+            binary = root / 'build/retained/fixture'
+            binary.parent.mkdir(parents=True)
+            subprocess.run(['gcc-15', '-O2', '-fno-builtin', '-U_FORTIFY_SOURCE', '-D_FORTIFY_SOURCE=0', '-fno-pie', '-no-pie',
+                            str(source), '-o', str(binary)], check=True, capture_output=True)
+            symbols = subprocess.check_output(['nm', '-S', '--defined-only', str(binary)], text=True)
+            match = re.search(r'^(\w+) (\w+) T target$', symbols, re.MULTILINE)
+            entry, size = int(match[1], 16), int(match[2], 16)
+            row = dict(observation_id='r0001', analysis_binary='build/retained/fixture', symbols='retained',
+                       target_start=hex(entry), target_end=hex(entry+size), target_function='target',
+                       **extract.binary_hashes(binary.read_bytes()))
+            (root / 'ghidra').mkdir()
+            shutil.copy2(PROJECT_ROOT / 'ghidra/ExtractFunction.java', root / 'ghidra/ExtractFunction.java')
+            config = extract.load_config()
+            with patch.object(extract, 'PROJECT_ROOT', root):
+                record = extract.run_headless(row, config, HEADLESS)
+                extract.validate_record(record)
+                extract.check_expected_bounds(record, row)
+                text = record['decompilation']['text']
+                self.assertRegex(text, r'malloc\((?:10|0xa)\)')
+                self.assertRegex(text, r'strncpy\([^;]+,(?:0xb|11)\)')
+                config['ghidra']['compiler_spec'] = 'windows'
+                wrong = extract.run_headless(row, config, HEADLESS)
+                self.assertEqual(wrong['error']['code'], 'unsupported_compiler_spec')
+                with self.assertRaises(ValueError):
+                    extract.validate_record(wrong)
 
 
 if __name__ == "__main__":

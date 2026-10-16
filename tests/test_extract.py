@@ -214,6 +214,7 @@ class ExtractionPipelineTests(unittest.TestCase):
         projects = []
 
         def fake_run(command, **kwargs):
+            self.assertEqual(command[command.index("-cspec") + 1], "gcc")
             script = command.index("ExtractFunction.java")
             arguments = command[script + 1:command.index("-deleteProject")]
             self.assertEqual(len(arguments), 3)

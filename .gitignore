@@ -225,3 +225,6 @@ paper/*.bbl
 paper/*.blg
 paper/*.log
 paper/*.out
+
+# Materialized campaign; the complete versioned archive is retained.
+/campaigns/gcc-abi-v2/

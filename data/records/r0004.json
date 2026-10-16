@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "FUN_00401140",
+    "entry": "0x401140",
+    "end": "0x4011a2"
+  },
+  "instructions": [
+    {
+      "address": "0x401140",
+      "mnemonic": "PUSH",
+      "operands": "RBP"
+    },
+    {
+      "address": "0x401141",
+      "mnemonic": "MOV",
+      "operands": "RBP,RSP"
+    },
+    {
+      "address": "0x401144",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x10"
+    },
+    {
+      "address": "0x401148",
+      "mnemonic": "MOV",
+      "operands": "RAX,RSP"
+    },
+    {
+      "address": "0x40114b",
+      "mnemonic": "CMP",
+      "operands": "RSP,RAX"
+    },
+    {
+      "address": "0x40114e",
+      "mnemonic": "JZ",
+      "operands": "0x00401165"
+    },
+    {
+      "address": "0x401150",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x1000"
+    },
+    {
+      "address": "0x401157",
+      "mnemonic": "OR",
+      "operands": "qword ptr [RSP + 0xff8],0x0"
+    },
+    {
+      "address": "0x401160",
+      "mnemonic": "CMP",
+      "operands": "RSP,RAX"
+    },
+    {
+      "address": "0x401163",
+      "mnemonic": "JNZ",
+      "operands": "0x00401150"
+    },
+    {
+      "address": "0x401165",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x20"
+    },
+    {
+      "address": "0x401169",
+      "mnemonic": "OR",
+      "operands": "qword ptr [RSP + 0x18],0x0"
+    },
+    {
+      "address": "0x40116f",
+      "mnemonic": "MOV",
+      "operands": "RAX,0x4141414141414141"
+    },
+    {
+      "address": "0x401179",
+      "mnemonic": "MOV",
+      "operands": "qword ptr [RBP + -0xb],RAX"
+    },
+    {
+      "address": "0x40117d",
+      "mnemonic": "LEA",
+      "operands": "RDI,[RSP + 0xf]"
+    },
+    {
+      "address": "0x401182",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RBP + -0x4],0x414141"
+    },
+    {
+      "address": "0x401189",
+      "mnemonic": "MOV",
+      "operands": "RAX,qword ptr [RBP + -0xb]"
+    },
+    {
+      "address": "0x40118d",
+      "mnemonic": "AND",
+      "operands": "RDI,-0x10"
+    },
+    {
+      "address": "0x401191",
+      "mnemonic": "MOV",
+      "operands": "qword ptr [RDI],RAX"
+    },
+    {
+      "address": "0x401194",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RDI + 0x7],0x414141"
+    },
+    {
+      "address": "0x40119b",
+      "mnemonic": "CALL",
+      "operands": "0x00401030"
+    },
+    {
+      "address": "0x4011a0",
+      "mnemonic": "LEAVE",
+      "operands": ""
+    },
+    {
+      "address": "0x4011a1",
+      "mnemonic": "RET",
+      "operands": ""
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x40119b",
+      "target": "puts"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\n/* WARNING: Removing unreachable block (ram,0x00401150) */\n\nvoid FUN_00401140(char *param_1)\n\n{\n  puts(param_1);\n  return;\n}\n\n"
+  }
+}

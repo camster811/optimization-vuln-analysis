@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "FUN_00401150",
+    "entry": "0x401150",
+    "end": "0x40118e"
+  },
+  "instructions": [
+    {
+      "address": "0x401150",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x28"
+    },
+    {
+      "address": "0x401154",
+      "mnemonic": "MOV",
+      "operands": "EDX,0xb"
+    },
+    {
+      "address": "0x401159",
+      "mnemonic": "MOV",
+      "operands": "RAX,0x4141414141414141"
+    },
+    {
+      "address": "0x401163",
+      "mnemonic": "LEA",
+      "operands": "RSI,[RSP + 0x15]"
+    },
+    {
+      "address": "0x401168",
+      "mnemonic": "LEA",
+      "operands": "RDI,[RSP + 0xa]"
+    },
+    {
+      "address": "0x40116d",
+      "mnemonic": "MOV",
+      "operands": "qword ptr [RSP + 0x15],RAX"
+    },
+    {
+      "address": "0x401172",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RSP + 0x1c],0x414141"
+    },
+    {
+      "address": "0x40117a",
+      "mnemonic": "CALL",
+      "operands": "0x00401030"
+    },
+    {
+      "address": "0x40117f",
+      "mnemonic": "LEA",
+      "operands": "RDI,[RSP + 0xa]"
+    },
+    {
+      "address": "0x401184",
+      "mnemonic": "CALL",
+      "operands": "0x00401040"
+    },
+    {
+      "address": "0x401189",
+      "mnemonic": "ADD",
+      "operands": "RSP,0x28"
+    },
+    {
+      "address": "0x40118d",
+      "mnemonic": "RET",
+      "operands": ""
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x40117a",
+      "target": "strncpy"
+    },
+    {
+      "address": "0x401184",
+      "target": "puts"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\nvoid FUN_00401150(char *param_1,undefined8 param_2,size_t param_3)\n\n{\n  strncpy(param_1,(char *)0xb,param_3);\n  puts(param_1);\n  return;\n}\n\n"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "target",
+    "entry": "0x401146",
+    "end": "0x401197"
+  },
+  "instructions": [
+    {
+      "address": "0x401146",
+      "mnemonic": "PUSH",
+      "operands": "RBP"
+    },
+    {
+      "address": "0x401147",
+      "mnemonic": "MOV",
+      "operands": "RBP,RSP"
+    },
+    {
+      "address": "0x40114a",
+      "mnemonic": "SUB",
+      "operands": "RSP,0xb0"
+    },
+    {
+      "address": "0x401151",
+      "mnemonic": "MOV",
+      "operands": "byte ptr [RBP + -0x40],0x0"
+    },
+    {
+      "address": "0x401155",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0xb0]"
+    },
+    {
+      "address": "0x40115c",
+      "mnemonic": "MOV",
+      "operands": "EDX,0x63"
+    },
+    {
+      "address": "0x401161",
+      "mnemonic": "MOV",
+      "operands": "ESI,0x43"
+    },
+    {
+      "address": "0x401166",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x401169",
+      "mnemonic": "CALL",
+      "operands": "0x00401040"
+    },
+    {
+      "address": "0x40116e",
+      "mnemonic": "MOV",
+      "operands": "byte ptr [RBP + -0x4d],0x0"
+    },
+    {
+      "address": "0x401172",
+      "mnemonic": "LEA",
+      "operands": "RDX,[RBP + -0xb0]"
+    },
+    {
+      "address": "0x401179",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0x40]"
+    },
+    {
+      "address": "0x40117d",
+      "mnemonic": "MOV",
+      "operands": "RSI,RDX"
+    },
+    {
+      "address": "0x401180",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x401183",
+      "mnemonic": "CALL",
+      "operands": "0x00401050"
+    },
+    {
+      "address": "0x401188",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0x40]"
+    },
+    {
+      "address": "0x40118c",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x40118f",
+      "mnemonic": "CALL",
+      "operands": "0x00401030"
+    },
+    {
+      "address": "0x401194",
+      "mnemonic": "NOP",
+      "operands": ""
+    },
+    {
+      "address": "0x401195",
+      "mnemonic": "LEAVE",
+      "operands": ""
+    },
+    {
+      "address": "0x401196",
+      "mnemonic": "RET",
+      "operands": ""
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x401169",
+      "target": "memset"
+    },
+    {
+      "address": "0x401183",
+      "target": "strcat"
+    },
+    {
+      "address": "0x40118f",
+      "target": "puts"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\nvoid target(char *param_1,undefined8 param_2,size_t param_3)\n\n{\n  char local_b8 [99];\n  undefined1 local_55;\n  undefined1 local_48;\n  \n  local_48 = 0;\n  memset(param_1,99,param_3);\n  local_55 = 0;\n  strcat(param_1,local_b8);\n  puts(param_1);\n  return;\n}\n\n"
+  }
+}

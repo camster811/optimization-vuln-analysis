@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "target",
+    "entry": "0x401146",
+    "end": "0x40119c"
+  },
+  "instructions": [
+    {
+      "address": "0x401146",
+      "mnemonic": "PUSH",
+      "operands": "RBP"
+    },
+    {
+      "address": "0x401147",
+      "mnemonic": "MOV",
+      "operands": "RBP,RSP"
+    },
+    {
+      "address": "0x40114a",
+      "mnemonic": "SUB",
+      "operands": "RSP,0xe0"
+    },
+    {
+      "address": "0x401151",
+      "mnemonic": "MOV",
+      "operands": "byte ptr [RBP + -0x70],0x0"
+    },
+    {
+      "address": "0x401155",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0xe0]"
+    },
+    {
+      "address": "0x40115c",
+      "mnemonic": "MOV",
+      "operands": "EDX,0x63"
+    },
+    {
+      "address": "0x401161",
+      "mnemonic": "MOV",
+      "operands": "ESI,0x43"
+    },
+    {
+      "address": "0x401166",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x401169",
+      "mnemonic": "CALL",
+      "operands": "0x00401040"
+    },
+    {
+      "address": "0x40116e",
+      "mnemonic": "MOV",
+      "operands": "byte ptr [RBP + -0x7d],0x0"
+    },
+    {
+      "address": "0x401172",
+      "mnemonic": "LEA",
+      "operands": "RCX,[RBP + -0xe0]"
+    },
+    {
+      "address": "0x401179",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0x70]"
+    },
+    {
+      "address": "0x40117d",
+      "mnemonic": "MOV",
+      "operands": "EDX,0x64"
+    },
+    {
+      "address": "0x401182",
+      "mnemonic": "MOV",
+      "operands": "RSI,RCX"
+    },
+    {
+      "address": "0x401185",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x401188",
+      "mnemonic": "CALL",
+      "operands": "0x00401050"
+    },
+    {
+      "address": "0x40118d",
+      "mnemonic": "LEA",
+      "operands": "RAX,[RBP + -0x70]"
+    },
+    {
+      "address": "0x401191",
+      "mnemonic": "MOV",
+      "operands": "RDI,RAX"
+    },
+    {
+      "address": "0x401194",
+      "mnemonic": "CALL",
+      "operands": "0x00401030"
+    },
+    {
+      "address": "0x401199",
+      "mnemonic": "NOP",
+      "operands": ""
+    },
+    {
+      "address": "0x40119a",
+      "mnemonic": "LEAVE",
+      "operands": ""
+    },
+    {
+      "address": "0x40119b",
+      "mnemonic": "RET",
+      "operands": ""
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x401169",
+      "target": "memset"
+    },
+    {
+      "address": "0x401188",
+      "target": "strncat"
+    },
+    {
+      "address": "0x401194",
+      "target": "puts"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\nvoid target(void *param_1,undefined8 param_2,size_t param_3)\n\n{\n  char *__dest;\n  char local_e8 [99];\n  undefined1 local_85;\n  undefined1 local_78;\n  \n  local_78 = 0;\n  memset(param_1,99,param_3);\n  local_85 = 0;\n  __dest = local_e8;\n  strncat(__dest,(char *)0x64,param_3);\n  puts(__dest);\n  return;\n}\n\n"
+  }
+}

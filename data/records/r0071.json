@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "architecture": "x86-64",
+  "function": {
+    "name": "target",
+    "entry": "0x401180",
+    "end": "0x4011fd"
+  },
+  "instructions": [
+    {
+      "address": "0x401180",
+      "mnemonic": "PUSH",
+      "operands": "RBX"
+    },
+    {
+      "address": "0x401181",
+      "mnemonic": "MOV",
+      "operands": "EDI,0x64"
+    },
+    {
+      "address": "0x401186",
+      "mnemonic": "SUB",
+      "operands": "RSP,0x70"
+    },
+    {
+      "address": "0x40118a",
+      "mnemonic": "CALL",
+      "operands": "0x00401050"
+    },
+    {
+      "address": "0x40118f",
+      "mnemonic": "TEST",
+      "operands": "RAX,RAX"
+    },
+    {
+      "address": "0x401192",
+      "mnemonic": "JZ",
+      "operands": "0x004011f3"
+    },
+    {
+      "address": "0x401194",
+      "mnemonic": "MOV",
+      "operands": "byte ptr [RAX],0x0"
+    },
+    {
+      "address": "0x401197",
+      "mnemonic": "MOV",
+      "operands": "RBX,RAX"
+    },
+    {
+      "address": "0x40119a",
+      "mnemonic": "MOV",
+      "operands": "EAX,0x43434343"
+    },
+    {
+      "address": "0x40119f",
+      "mnemonic": "MOV",
+      "operands": "RSI,RSP"
+    },
+    {
+      "address": "0x4011a2",
+      "mnemonic": "MOV",
+      "operands": "RDI,RBX"
+    },
+    {
+      "address": "0x4011a5",
+      "mnemonic": "MOVD",
+      "operands": "XMM0,EAX"
+    },
+    {
+      "address": "0x4011a9",
+      "mnemonic": "MOV",
+      "operands": "byte ptr [RSP + 0x63],0x0"
+    },
+    {
+      "address": "0x4011ae",
+      "mnemonic": "PSHUFD",
+      "operands": "XMM0,XMM0,0x0"
+    },
+    {
+      "address": "0x4011b3",
+      "mnemonic": "MOVAPS",
+      "operands": "xmmword ptr [RSP + 0x50],XMM0"
+    },
+    {
+      "address": "0x4011b8",
+      "mnemonic": "MOVAPS",
+      "operands": "xmmword ptr [RSP],XMM0"
+    },
+    {
+      "address": "0x4011bc",
+      "mnemonic": "MOVAPS",
+      "operands": "xmmword ptr [RSP + 0x10],XMM0"
+    },
+    {
+      "address": "0x4011c1",
+      "mnemonic": "MOVAPS",
+      "operands": "xmmword ptr [RSP + 0x20],XMM0"
+    },
+    {
+      "address": "0x4011c6",
+      "mnemonic": "MOVAPS",
+      "operands": "xmmword ptr [RSP + 0x30],XMM0"
+    },
+    {
+      "address": "0x4011cb",
+      "mnemonic": "MOVAPS",
+      "operands": "xmmword ptr [RSP + 0x40],XMM0"
+    },
+    {
+      "address": "0x4011d0",
+      "mnemonic": "MOV",
+      "operands": "dword ptr [RSP + 0x5f],0x43434343"
+    },
+    {
+      "address": "0x4011d8",
+      "mnemonic": "CALL",
+      "operands": "0x00401060"
+    },
+    {
+      "address": "0x4011dd",
+      "mnemonic": "MOV",
+      "operands": "RDI,RBX"
+    },
+    {
+      "address": "0x4011e0",
+      "mnemonic": "CALL",
+      "operands": "0x00401040"
+    },
+    {
+      "address": "0x4011e5",
+      "mnemonic": "MOV",
+      "operands": "RDI,RBX"
+    },
+    {
+      "address": "0x4011e8",
+      "mnemonic": "CALL",
+      "operands": "0x00401030"
+    },
+    {
+      "address": "0x4011ed",
+      "mnemonic": "ADD",
+      "operands": "RSP,0x70"
+    },
+    {
+      "address": "0x4011f1",
+      "mnemonic": "POP",
+      "operands": "RBX"
+    },
+    {
+      "address": "0x4011f2",
+      "mnemonic": "RET",
+      "operands": ""
+    },
+    {
+      "address": "0x4011f3",
+      "mnemonic": "MOV",
+      "operands": "EDI,0xffffffff"
+    },
+    {
+      "address": "0x4011f8",
+      "mnemonic": "CALL",
+      "operands": "0x00401070"
+    }
+  ],
+  "calls": [
+    {
+      "address": "0x40118a",
+      "target": "malloc"
+    },
+    {
+      "address": "0x4011d8",
+      "target": "strcat"
+    },
+    {
+      "address": "0x4011e0",
+      "target": "puts"
+    },
+    {
+      "address": "0x4011e8",
+      "target": "free"
+    },
+    {
+      "address": "0x4011f8",
+      "target": "exit"
+    }
+  ],
+  "decompilation": {
+    "status": "ok",
+    "text": "\nvoid target(undefined8 param_1,char *param_2)\n\n{\n  undefined1 *puVar1;\n  size_t __size;\n  undefined4 uVar2;\n  \n  uVar2 = (undefined4)((ulonglong)param_1 >> 0x20);\n  __size = (size_t)param_1;\n  puVar1 = malloc(__size);\n  if (puVar1 != (undefined1 *)0x0) {\n    *puVar1 = 0;\n    strcat((char *)CONCAT44(uVar2,__size),param_2);\n    puts((char *)CONCAT44(uVar2,__size));\n    free((void *)CONCAT44(uVar2,__size));\n    return;\n  }\n                    /* WARNING: Subroutine does not return */\n  exit(__size);\n}\n\n"
+  }
+}

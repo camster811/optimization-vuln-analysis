@@ -1,0 +1,35 @@
+{
+  "r0003": {
+    "pair": "p02",
+    "variant": "vulnerable",
+    "optimization": "O2",
+    "loader": [
+      "INFO  Using Language/Compiler: x86:LE:64:default:gcc (ProgramLoader)  "
+    ],
+    "original": "\n/* WARNING: Removing unreachable block (ram,0x00401150) */\n\nvoid target(char *param_1)\n\n{\n  puts(param_1);\n  return;\n}\n\n",
+    "gcc": "\n/* WARNING: Removing unreachable block (ram,0x00401150) */\n\nvoid target(void)\n\n{\n  char local_30 [29];\n  undefined7 local_13;\n  undefined4 uStack_c;\n  \n  local_13 = 0x41414141414141;\n  uStack_c = 0x414141;\n  builtin_strncpy(local_30,\"AAAAAAAAAA\",0xb);\n  puts(local_30);\n  return;\n}\n\n",
+    "instructions_and_calls_unchanged": true
+  },
+  "r0059": {
+    "pair": "p10",
+    "variant": "vulnerable",
+    "optimization": "O2",
+    "loader": [
+      "INFO  Using Language/Compiler: x86:LE:64:default:gcc (ProgramLoader)  "
+    ],
+    "original": "\nvoid target(undefined8 param_1,undefined8 param_2,size_t param_3)\n\n{\n  void *pvVar1;\n  size_t __size;\n  undefined4 uVar2;\n  \n  uVar2 = (undefined4)((ulonglong)param_1 >> 0x20);\n  __size = (size_t)param_1;\n  pvVar1 = malloc(__size);\n  if (pvVar1 != (void *)0x0) {\n    strncpy((char *)CONCAT44(uVar2,__size),(char *)0xb,param_3);\n    puts((char *)CONCAT44(uVar2,__size));\n    free((void *)CONCAT44(uVar2,__size));\n    return;\n  }\n                    /* WARNING: Subroutine does not return */\n  exit(__size);\n}\n\n",
+    "gcc": "\nvoid target(void)\n\n{\n  char *__dest;\n  char local_13 [11];\n  \n  __dest = malloc(10);\n  if (__dest != (char *)0x0) {\n    builtin_strncpy(local_13,\"AAAAAAAAAA\",0xb);\n    strncpy(__dest,local_13,0xb);\n    puts(__dest);\n    free(__dest);\n    return;\n  }\n                    /* WARNING: Subroutine does not return */\n  exit(-1);\n}\n\n",
+    "instructions_and_calls_unchanged": true
+  },
+  "r0063": {
+    "pair": "p10",
+    "variant": "fixed",
+    "optimization": "O2",
+    "loader": [
+      "INFO  Using Language/Compiler: x86:LE:64:default:gcc (ProgramLoader)  "
+    ],
+    "original": "\nvoid target(undefined8 param_1,undefined8 param_2,size_t param_3)\n\n{\n  void *pvVar1;\n  size_t __size;\n  undefined4 uVar2;\n  \n  uVar2 = (undefined4)((ulonglong)param_1 >> 0x20);\n  __size = (size_t)param_1;\n  pvVar1 = malloc(__size);\n  if (pvVar1 != (void *)0x0) {\n    strncpy((char *)CONCAT44(uVar2,__size),(char *)0xb,param_3);\n    puts((char *)CONCAT44(uVar2,__size));\n    free((void *)CONCAT44(uVar2,__size));\n    return;\n  }\n                    /* WARNING: Subroutine does not return */\n  exit(__size);\n}\n\n",
+    "gcc": "\nvoid target(void)\n\n{\n  char *__dest;\n  char local_13 [11];\n  \n  __dest = malloc(0xb);\n  if (__dest != (char *)0x0) {\n    builtin_strncpy(local_13,\"AAAAAAAAAA\",0xb);\n    strncpy(__dest,local_13,0xb);\n    puts(__dest);\n    free(__dest);\n    return;\n  }\n                    /* WARNING: Subroutine does not return */\n  exit(-1);\n}\n\n",
+    "instructions_and_calls_unchanged": true
+  }
+}

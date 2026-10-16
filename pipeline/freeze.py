@@ -27,12 +27,17 @@ METHOD_FILES = {
     "pipeline/run_llm.py", "pipeline/evaluate.py", "pipeline/freeze.py",
     "llm/prompt.md", "llm/response.schema.json", "pipeline/build.py", "compile.sh",
     "pipeline/serve_llm.py",
+    "pipeline/runtime.py", "pipeline/diagnostics.py", "pipeline/campaign.py",
 }
+PRIVATE_FILES = {"data/private/observations.csv", "data/private/manual_oracle.csv"}
+RUNTIME_FILES = {"runtime/server.json", "runtime/preflight.json", "runtime/startup.txt",
+                 "runtime/extraction_comparison.json", "campaign.json"}
 FINAL_RECORDS = {f"data/records/r{i:04d}.json" for i in range(1, 81)}
 FINAL_OUTPUTS = {
     "static_predictions.jsonl", "summary.csv", "subgroups.csv", "stability.csv",
     "report.md", "release_manifest.json", "qualitative.md",
     "figures/coverage_accuracy.png", "figures/recall_fpr.png", "figures/treatment_accuracy.png",
+    "diagnostics.json", "exploratory.md",
 }
 
 
@@ -98,7 +103,13 @@ def expected_files(root):
     require(records == FINAL_RECORDS,
             f"Final freeze requires exactly 80 records r0001-r0080: "
             f"missing={len(FINAL_RECORDS - records)}, extra={sorted(records - FINAL_RECORDS)}")
-    files = METHOD_FILES | sources | FINAL_RECORDS
+    validate_oracle(root)
+    if __package__:
+        from . import runtime
+    else:
+        import runtime
+    runtime.validate_evidence(root)
+    files = METHOD_FILES | sources | FINAL_RECORDS | PRIVATE_FILES | RUNTIME_FILES
     for name in sorted(files):
         project_file(root, name)
     require((root / "analysis_plan.md").read_text(encoding="utf-8").strip(), "Analysis plan is empty")
@@ -107,6 +118,53 @@ def expected_files(root):
         extract.validate_record(record)
         extract.scan_record_for_leaks(record)
     return files
+
+
+def validate_oracle(root):
+    """Bind the worksheet to final truth, source bytes, and binary bytes."""
+    with project_file(root, "data/private/observations.csv").open(newline="") as stream:
+        observations = list(csv.DictReader(stream))
+    with project_file(root, "data/private/manual_oracle.csv").open(newline="") as stream:
+        worksheet = list(csv.DictReader(stream))
+    key = lambda row: tuple(row[field] for field in ("pair_id", "variant", "optimization"))
+    require(len({key(row) for row in worksheet}) == len(worksheet), "Duplicate oracle worksheet entry")
+    oracle = {key(row): row for row in worksheet}
+    require(len(observations) == 80 and len({row['observation_id'] for row in observations}) == 80,
+            "Expected 80 truth rows")
+    require(len({key(row) for row in observations}) == 40, "Expected 40 oracle builds")
+    for row in observations:
+        require(key(row) in oracle, "Missing oracle worksheet entry")
+        review = oracle[key(row)]
+        require(review['oracle_binary'] == row['oracle_binary'] and review['source_path'] == row['source_path']
+                and review['conclusion'] == row['truth'] and review['review_status'] == 'reviewed'
+                and review['intended_operation_survived'] == 'yes', "Oracle worksheet disagrees with truth")
+        for path, sha in ((review['source_path'], review['source_sha256']),
+                          (review['oracle_binary'], review['oracle_sha256'])):
+            require(hashlib.sha256(project_file(root, path).read_bytes()).hexdigest() == sha,
+                    f"Oracle evidence hash mismatch: {path}")
+        actual = extract.binary_hashes(project_file(root, row['analysis_binary']).read_bytes())
+        require(all(actual[field] == row[field] for field in actual), "Analysis binary hash mismatch")
+
+
+def check_analyzer_inputs(root):
+    """Verify only analyzer-visible inputs; never open truth, sources, or oracle files.
+
+    The campaign supervisor performs the complete private freeze check before
+    launching this process. The runner checks its public subset again here.
+    """
+    root = Path(root).resolve()
+    snapshot = read_json(project_file(root, FREEZE_PATH))
+    require(snapshot.get('freeze_version') == 2, "Expected a corrected version 2 freeze")
+    records = {path.relative_to(root).as_posix()
+               for path in (root / "data/records").rglob("*.json")}
+    require(records == FINAL_RECORDS, "Frozen record inventory changed: expected exactly 80 final records")
+    names = FINAL_RECORDS | RUNTIME_FILES | {
+        "config.json", "llm/prompt.md", "llm/response.schema.json", "pipeline/run_llm.py",
+        "pipeline/extract.py", "pipeline/runtime.py", "pipeline/serve_llm.py", "pipeline/freeze.py",
+    }
+    require(names | PRIVATE_FILES <= set(snapshot['files']), "Incomplete frozen analyzer scope")
+    require(hash_files(root, names) == {name: snapshot['files'][name] for name in names},
+            "Frozen analyzer inputs changed")
 
 
 def hash_files(root, names):
@@ -127,7 +185,7 @@ def check_freeze(root=PROJECT_ROOT):
     root = Path(root).resolve()
     value = read_json(project_file(root, FREEZE_PATH))
     require(isinstance(value, dict) and set(value) == {"freeze_version", "files"}
-            and type(value['freeze_version']) is int and value['freeze_version'] == 1
+            and type(value['freeze_version']) is int and value['freeze_version'] == 2
             and isinstance(value['files'], dict), "Invalid input freeze format")
     names = expected_files(root)
     actual = set(value['files'])
@@ -157,7 +215,7 @@ def create_freeze(root=PROJECT_ROOT):
                 "Input freeze already exists; use check. Existing freezes are never overwritten")
         ensure_campaign_not_started(root)
         names = expected_files(root)
-        snapshot = {"freeze_version": 1, "files": hash_files(root, names)}
+        snapshot = {"freeze_version": 2, "files": hash_files(root, names)}
         with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=data,
                                          prefix=".input-freeze-", suffix=".tmp", delete=False) as stream:
             temporary = Path(stream.name)

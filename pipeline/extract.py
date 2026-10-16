@@ -46,6 +46,7 @@ def load_config():
         config = json.load(stream)
     ghidra = config["ghidra"]
     require(ghidra["language"] == "x86:LE:64:default", "Expected the x86-64 Ghidra language")
+    require(ghidra.get("compiler_spec") == "gcc", "Expected the GCC/System V compiler specification")
     require(isinstance(ghidra["expected_version"], str) and ghidra["expected_version"],
             "Missing expected Ghidra version")
     for field in ("analysis_timeout_seconds", "decompiler_timeout_seconds"):
@@ -235,7 +236,7 @@ def run_headless(observation, config, launcher, script_source=None):
         options = " ".join(f'-D{key}="{value}"' for key, value in properties.items())
         environment["JAVA_TOOL_OPTIONS"] = (environment.get("JAVA_TOOL_OPTIONS", "") + " " + options).strip()
         command = [str(launcher), str(work), "export", "-import", str(binary),
-                   "-processor", ghidra["language"], "-max-cpu", "2",
+                   "-processor", ghidra["language"], "-cspec", ghidra["compiler_spec"], "-max-cpu", "2",
                    "-analysisTimeoutPerFile", str(ghidra["analysis_timeout_seconds"]),
                    "-scriptPath", str(scripts), "-postScript", "ExtractFunction.java",
                    observation["target_start"], str(raw), str(ghidra["decompiler_timeout_seconds"]),

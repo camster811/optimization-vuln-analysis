@@ -45,6 +45,7 @@ TABLE_FIELDS = ("kind", "method", "group", "level", "left", "right", "metric", "
                 "ci_low", "ci_high", "bootstrap_defined", "bootstrap_total", "n", "n_pairs",
                 "correct", "incorrect", "abstain", "unavailable", "coverage", "selective_accuracy")
 ARTIFACTS = {"summary.csv", "subgroups.csv", "stability.csv", "report.md", "release_manifest.json",
+             "diagnostics.json", "exploratory.md",
              "figures/coverage_accuracy.png", "figures/recall_fpr.png", "figures/treatment_accuracy.png"}
 
 
@@ -174,6 +175,9 @@ def load_static_predictions(records):
                 f"Static evidence outside record: {identifier}")
         predictions[identifier] = prediction
     require(set(predictions) == set(records), "Missing static predictions")
+    regenerated = {identifier: {"observation_id": identifier, **static_baseline.analyze_record(record)}
+                   for identifier, record in records.items()}
+    require(predictions == regenerated, "Static predictions differ from the frozen implementation")
     return predictions
 
 
@@ -600,7 +604,7 @@ def write_report(destination, truth, overall, groups, summary, subgroups, stabil
               f"Model-produced uncertain votes: {stability['model_uncertain_votes']}; majority-uncertain observations: "
               f"{stability['model_uncertain_aggregates']}; insufficient-agreement observations: "
               f"{stability['insufficient_agreement_aggregates']}; all-unavailable observations: {stability['unavailable_aggregates']}.", "",
-              f"Median observation confidence by three-way outcome: {medians}. Confidence for each observation is the median over all its valid runs.", "",
+              f"Median self-reported run confidence by three-way outcome: {medians}. Each observation pools all valid runs, including different voted labels; this is not a probability that its majority label is correct.", "",
               f"High-confidence three-way errors at confidence >= {stability['high_confidence_threshold']:g}: {stability['high_confidence_errors']}.", "",
               "## Interpretation and regeneration", "",
               "Undefined denominators are NA (blank CSV cells), never zero. Intervals use only jointly defined replicates; "
@@ -610,6 +614,9 @@ def write_report(destination, truth, overall, groups, summary, subgroups, stabil
               "All methods, subgroups, and matched contrasts share the same draws.", "",
               "Full counts, rates, and intervals are in summary.csv and subgroups.csv; per-observation votes, failures, and confidence are in stability.csv. "
               "These results concern selected target operations in this small corpus, compiler, extractor, and local model. They do not establish production-scanner performance.", "",
+              "This compares complete pipelines: the LLM receives decompilation plus assembly, while the restricted static interpreter consumes assembly/calls. Held out means excluded from pilot tuning. The final results were inspected before this post-review method revision.", "",
+              "Forced accuracy includes safe-program abstentions as true negatives; lead interpretation with correct/N and coverage. The ten source pairs are the sampling units; related templates and exact input collisions limit diversity. Bootstrap intervals reflect this small corpus; a degenerate zero-error interval does not establish population precision or interpreter soundness.", "",
+              "See [exploratory diagnostics](exploratory.md) for input collisions, distinguishable-input sensitivity, paired repair discrimination, stripping transitions, per-pair sensitivity, and compute accounting. Oracle reviews recorded as Codex do not constitute independent human adjudication. A hash inventory alone does not independently establish freeze chronology.", "",
               "![Coverage and selective accuracy](figures/coverage_accuracy.png)", "",
               "![Forced recall and false-positive rate](figures/recall_fpr.png)", "",
               "![Matched treatment accuracy](figures/treatment_accuracy.png)", ""]
@@ -688,6 +695,11 @@ def generate(destination, truth, static, llm, freeze, config, input_hashes=None)
     write_csv(destination / "stability.csv", stability_rows, stability_fields)
     environment = make_figures(destination, overall, group_contexts)
     write_report(destination, truth, overall, group_contexts, summary, subgroups, stability, summary + subgroups, config)
+    if __package__:
+        from . import diagnostics
+    else:
+        import diagnostics
+    diagnostics.write(destination, truth, load_records(truth), methods, llm)
     write_release_manifest(destination, truth, environment, config, input_hashes)
 
 
@@ -723,7 +735,7 @@ def main(argv=None):
         require(capture_inputs(freeze, truth) == input_hashes, "Evaluation inputs changed during regeneration; no outputs published")
         if args.check:
             check_regeneration(generated, published)
-            print("Verified all eight output artifacts byte for byte; no published outputs changed")
+            print(f"Verified all {len(ARTIFACTS)} output artifacts byte for byte; no published outputs changed")
         else:
             for name in sorted(ARTIFACTS - {"release_manifest.json"}) + ["release_manifest.json"]:
                 target = published / name

@@ -1,5 +1,5 @@
 {
-  "project_version": 1,
+  "project_version": 2,
   "platform": "x86-64-linux-gnu",
   "compiler": {
     "name": "gcc-15",
@@ -31,6 +31,7 @@
   "ghidra": {
     "expected_version": "12.1.4",
     "language": "x86:LE:64:default",
+    "compiler_spec": "gcc",
     "analysis_timeout_seconds": 300,
     "decompiler_timeout_seconds": 60
   },
@@ -49,7 +50,43 @@
       4102,
       4103
     ],
-    "schedule_seed": 20261014
+    "schedule_seed": 20261014,
+    "sampling": {
+      "top_k": 40,
+      "min_p": 0.05000000074505806,
+      "typical_p": 1.0,
+      "repeat_penalty": 1.0,
+      "repeat_last_n": 64,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": 64,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "mirostat": 0,
+      "mirostat_eta": 0.10000000149011612,
+      "mirostat_tau": 5.0,
+      "top_n_sigma": -1.0,
+      "adaptive_target": -1.0,
+      "adaptive_decay": 0.8999999761581421,
+      "min_keep": 0,
+      "samplers": [
+        "penalties",
+        "dry",
+        "top_n_sigma",
+        "top_k",
+        "typ_p",
+        "top_p",
+        "min_p",
+        "xtc",
+        "temperature"
+      ],
+      "ignore_eos": false
+    }
   },
   "evaluation": {
     "bootstrap_repetitions": 10000,

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create or verify the final 80-record input freeze; never freeze results."""
+"""Create or verify the final 160-record input freeze; never freeze results."""
 
 import argparse
 from collections import Counter
@@ -32,7 +32,7 @@ METHOD_FILES = {
 PRIVATE_FILES = {"data/private/observations.csv", "data/private/manual_oracle.csv"}
 RUNTIME_FILES = {"runtime/server.json", "runtime/preflight.json", "runtime/startup.txt",
                  "runtime/extraction_comparison.json", "campaign.json"}
-FINAL_RECORDS = {f"data/records/r{i:04d}.json" for i in range(1, 81)}
+FINAL_RECORDS = {f"data/records/r{i:04d}.json" for i in range(1, 161)}
 FINAL_OUTPUTS = {
     "static_predictions.jsonl", "summary.csv", "subgroups.csv", "stability.csv",
     "report.md", "release_manifest.json", "qualitative.md",
@@ -82,17 +82,17 @@ def expected_files(root):
         require(reader.fieldnames and len(reader.fieldnames) == len(set(reader.fieldnames))
                 and fields <= set(reader.fieldnames), "Invalid corpus manifest columns")
         pairs = list(reader)
-    require(len(pairs) == 12 and len({row['pair_id'] for row in pairs}) == 12,
-            "Expected 12 corpus pairs: two pilot and ten final")
+    require(len(pairs) == 22 and len({row['pair_id'] for row in pairs}) == 22,
+            "Expected 22 corpus pairs: two pilot and twenty final")
     require(all(all(isinstance(row.get(field), str) and row[field].strip() for field in fields)
                 and None not in row for row in pairs), "Incomplete corpus manifest row")
-    require(Counter(row['split'] for row in pairs) == {"pilot": 2, "final": 10},
-            "Expected two pilot and ten final pairs")
-    for split, count in (("pilot", 1), ("final", 5)):
+    require(Counter(row['split'] for row in pairs) == {"pilot": 2, "final": 20},
+            "Expected two pilot and twenty final pairs")
+    for split, count in (("pilot", 1), ("final", 10)):
         require(Counter(row['cwe'] for row in pairs if row['split'] == split)
                 == {"CWE-121": count, "CWE-122": count}, f"Invalid {split} CWE balance")
     sources = {row['source_path'] for row in pairs}
-    require(len(sources) == 12, "Duplicate corpus source paths")
+    require(len(sources) == 22, "Duplicate corpus source paths")
     for name in sources:
         source = project_file(root, name)
         require(source.suffix == ".c" and source.is_relative_to(root / "corpus/pairs"),
@@ -101,7 +101,7 @@ def expected_files(root):
     sources.update(path.relative_to(root).as_posix() for path in (root / "corpus/pairs").rglob("*.c"))
     records = {path.relative_to(root).as_posix() for path in (root / "data/records").rglob("*.json")}
     require(records == FINAL_RECORDS,
-            f"Final freeze requires exactly 80 records r0001-r0080: "
+            f"Final freeze requires exactly 160 records r0001-r0160: "
             f"missing={len(FINAL_RECORDS - records)}, extra={sorted(records - FINAL_RECORDS)}")
     validate_oracle(root)
     if __package__:
@@ -129,9 +129,9 @@ def validate_oracle(root):
     key = lambda row: tuple(row[field] for field in ("pair_id", "variant", "optimization"))
     require(len({key(row) for row in worksheet}) == len(worksheet), "Duplicate oracle worksheet entry")
     oracle = {key(row): row for row in worksheet}
-    require(len(observations) == 80 and len({row['observation_id'] for row in observations}) == 80,
-            "Expected 80 truth rows")
-    require(len({key(row) for row in observations}) == 40, "Expected 40 oracle builds")
+    require(len(observations) == 160 and len({row['observation_id'] for row in observations}) == 160,
+            "Expected 160 truth rows")
+    require(len({key(row) for row in observations}) == 80, "Expected 80 oracle builds")
     for row in observations:
         require(key(row) in oracle, "Missing oracle worksheet entry")
         review = oracle[key(row)]
@@ -157,7 +157,7 @@ def check_analyzer_inputs(root):
     require(snapshot.get('freeze_version') == 2, "Expected a corrected version 2 freeze")
     records = {path.relative_to(root).as_posix()
                for path in (root / "data/records").rglob("*.json")}
-    require(records == FINAL_RECORDS, "Frozen record inventory changed: expected exactly 80 final records")
+    require(records == FINAL_RECORDS, "Frozen record inventory changed: expected exactly 160 final records")
     names = FINAL_RECORDS | RUNTIME_FILES | {
         "config.json", "llm/prompt.md", "llm/response.schema.json", "pipeline/run_llm.py",
         "pipeline/extract.py", "pipeline/runtime.py", "pipeline/serve_llm.py", "pipeline/freeze.py",
@@ -241,7 +241,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     snapshot = create_freeze() if args.command == "create" else check_freeze()
     print(f"{'Created' if args.command == 'create' else 'Verified'} final input freeze: "
-          f"{len(snapshot['files'])} files, 80 final records, 12 corpus pairs")
+          f"{len(snapshot['files'])} files, 160 final records, 22 corpus pairs")
 
 
 if __name__ == "__main__":

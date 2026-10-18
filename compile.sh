@@ -7,8 +7,8 @@ compile_master() {
     shift 5
     local common_flags=()
     case "$source" in
-        corpus/pairs/p0[1-9].c|corpus/pairs/p1[0-2].c) ;;
-        *) echo "Compilation requires a corpus source p01.c through p12.c" >&2; return 1 ;;
+        corpus/pairs/p0[1-9].c|corpus/pairs/p1[0-9].c|corpus/pairs/p2[0-2].c) ;;
+        *) echo "Compilation requires a corpus source p01.c through p22.c" >&2; return 1 ;;
     esac
     [[ "$variant" == 0 || "$variant" == 1 ]] || return 1
     [[ "$opt" == O0 || "$opt" == O2 ]] || return 1

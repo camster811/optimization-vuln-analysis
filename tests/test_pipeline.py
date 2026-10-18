@@ -16,7 +16,7 @@ from pipeline import build
 class BuildValidationTests(unittest.TestCase):
     def test_final_rejects_incomplete_manifest(self):
         pairs = [pair for pair in build.load_pairs() if pair["pair_id"] != "p12"]
-        with self.assertRaisesRegex(ValueError, "10 pairs.*80 observations.*9"):
+        with self.assertRaisesRegex(ValueError, "20 pairs.*160 observations.*19"):
             build.select_split(pairs, "final")
 
     def test_pilot_scope_is_explicit(self):

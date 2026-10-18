@@ -32,6 +32,8 @@ def prepare(destination, root=ROOT):
 
 
 def compare_exports(destination, root=ROOT):
+    # Only the original 80 records have predecessor exports. The extension
+    # occupies r0081-r0160 and is validated by extraction's full inventory check.
     differences = []
     decompilation_changed = []
     for index in range(1, 81):
@@ -42,7 +44,8 @@ def compare_exports(destination, root=ROOT):
             differences.append(identifier)
         if before['decompilation'] != after['decompilation']:
             decompilation_changed.append(identifier)
-    result = {'observations': 80, 'instructions_or_calls_changed': differences,
+    result = {'observations': 160, 'predecessor_observations_compared': 80,
+              'instructions_or_calls_changed': differences,
               'decompilation_changed': decompilation_changed}
     (destination / 'runtime/extraction_comparison.json').write_text(json.dumps(result, indent=2) + '\n')
     if differences:

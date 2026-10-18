@@ -188,7 +188,7 @@ class ExtractionPipelineTests(unittest.TestCase):
 
     def test_final_count_and_stale_record_rejection(self):
         self.write_table(self.rows, "observations.csv")
-        with self.assertRaisesRegex(ValueError, "80 observations"):
+        with self.assertRaisesRegex(ValueError, "160 observations"):
             extract.load_observations("final")
         records = self.root / "data/pilot_records"
         records.mkdir()

@@ -151,7 +151,7 @@ class FreezeRegressionTests(unittest.TestCase):
             (root/freeze.FREEZE_PATH).write_text(json.dumps(dict(freeze_version=2, files=hashes)))
             # No private files exist: the analyzer must not open them.
             freeze.check_analyzer_inputs(root)
-            for name in ('r0081.json', 'nested/r0001.json'):
+            for name in ('r0161.json', 'nested/r0001.json'):
                 extra = root/'data/records'/name
                 extra.parent.mkdir(parents=True, exist_ok=True)
                 extra.write_text('{}\n')

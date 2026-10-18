@@ -15,7 +15,7 @@ import tempfile
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PILOT_SOURCES = {"corpus/pairs/p01.c", "corpus/pairs/p08.c"}
-ENABLED_SOURCES = {f"corpus/pairs/p{index:02d}.c" for index in range(1, 13)}
+ENABLED_SOURCES = {f"corpus/pairs/p{index:02d}.c" for index in range(1, 23)}
 FIELDS = (
     "observation_id", "pair_id", "variant", "truth", "cwe", "optimization",
     "symbols", "source_path", "oracle_binary", "analysis_binary", "record_path",
@@ -96,7 +96,7 @@ def load_pairs():
 def select_split(pairs, split):
     selected = sorted((pair for pair in pairs if pair["split"] == split),
                       key=lambda pair: pair["pair_id"])
-    expected = 2 if split == "pilot" else 10
+    expected = 2 if split == "pilot" else 20
     test(len(selected) == expected,
             f"{split} requires exactly {expected} pairs ({expected * 8} observations); "
             f"manifest has {len(selected)}. No partial table will be written.")
@@ -286,7 +286,7 @@ def assign_observation_id(index):
 
 
 def write_observations(rows, pairs, split, destination=None):
-    expected_pairs = 2 if split == "pilot" else 10
+    expected_pairs = 2 if split == "pilot" else 20
     test(len(rows) == expected_pairs * 8, f"Incorrect {split} observation count")
     test(Counter(row["pair_id"] for row in rows) ==
             Counter({pair["pair_id"]: 8 for pair in pairs}), "Incorrect per-pair balance")

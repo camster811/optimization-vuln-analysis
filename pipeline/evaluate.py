@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evaluate the frozen 80-observation final campaign, without running analyzers."""
+"""Evaluate the frozen 160-observation final campaign, without running analyzers."""
 
 import argparse
 from collections import Counter
@@ -102,21 +102,21 @@ def load_truth():
         require(reader.fieldnames and len(reader.fieldnames) == len(extract.OBSERVATION_FIELDS)
                 and set(reader.fieldnames) == extract.OBSERVATION_FIELDS, "Invalid truth table columns")
         rows = list(reader)
-    require(len(rows) == 80 and all(set(row) == extract.OBSERVATION_FIELDS and all(row.values()) for row in rows),
-            "Final truth requires exactly 80 complete observations")
-    require({row["observation_id"] for row in rows} == {f"r{i:04d}" for i in range(1, 81)},
-            "Final observation IDs must be unique r0001 through r0080")
+    require(len(rows) == 160 and all(set(row) == extract.OBSERVATION_FIELDS and all(row.values()) for row in rows),
+            "Final truth requires exactly 160 complete observations")
+    require({row["observation_id"] for row in rows} == {f"r{i:04d}" for i in range(1, 161)},
+            "Final observation IDs must be unique r0001 through r0160")
     with project_file("corpus/manifest.csv").open(newline="", encoding="utf-8") as stream:
         manifest = list(csv.DictReader(stream))
-    require(len(manifest) == 12 and len({row["pair_id"] for row in manifest}) == 12,
-            "Manifest requires 12 distinct pairs: two pilot and ten final")
-    require(len({row["source_path"] for row in manifest}) == 12, "Manifest contains duplicate source paths")
+    require(len(manifest) == 22 and len({row["pair_id"] for row in manifest}) == 22,
+            "Manifest requires 22 distinct pairs: two pilot and twenty final")
+    require(len({row["source_path"] for row in manifest}) == 22, "Manifest contains duplicate source paths")
     for source in manifest:
         project_file(source["source_path"])
-    require(Counter(row["split"] for row in manifest) == {"pilot": 2, "final": 10}, "Invalid manifest splits")
+    require(Counter(row["split"] for row in manifest) == {"pilot": 2, "final": 20}, "Invalid manifest splits")
     final = {row["pair_id"]: row for row in manifest if row["split"] == "final"}
-    require(Counter(row["cwe"] for row in final.values()) == {"CWE-121": 5, "CWE-122": 5},
-            "Final split requires five pairs per CWE")
+    require(Counter(row["cwe"] for row in final.values()) == {"CWE-121": 10, "CWE-122": 10},
+            "Final split requires ten pairs per CWE")
     require({row["pair_id"] for row in rows} == set(final), "Truth includes missing, extra, or pilot pairs")
     cells = set(product(("vulnerable", "fixed"), ("O0", "O2"), ("retained", "stripped")))
     for pair, source in sorted(final.items()):
@@ -215,9 +215,9 @@ def load_llm_runs(records, config):
 
 def validate_completeness(truth, static, llm):
     ids = {row["observation_id"] for row in truth}
-    require(len(truth) == 80 and len(ids) == 80 and set(static) == set(llm) == ids,
-            "Evaluation requires all 80 observations from both methods")
-    require(sum(len(runs) for runs in llm.values()) == 240
+    require(len(truth) == 160 and len(ids) == 160 and set(static) == set(llm) == ids,
+            "Evaluation requires all 160 observations from both methods")
+    require(sum(len(runs) for runs in llm.values()) == 480
             and all(len(runs) == 3 and {run["repetition"] for run in runs} == {1, 2, 3} for runs in llm.values()),
             "Each observation requires exactly three saved runs, including failures")
 
@@ -615,7 +615,7 @@ def write_report(destination, truth, overall, groups, summary, subgroups, stabil
               "Full counts, rates, and intervals are in summary.csv and subgroups.csv; per-observation votes, failures, and confidence are in stability.csv. "
               "These results concern selected target operations in this small corpus, compiler, extractor, and local model. They do not establish production-scanner performance.", "",
               "This compares complete pipelines: the LLM receives decompilation plus assembly, while the restricted static interpreter consumes assembly/calls. Held out means excluded from pilot tuning. The final results were inspected before this post-review method revision.", "",
-              "Forced accuracy includes safe-program abstentions as true negatives; lead interpretation with correct/N and coverage. The ten source pairs are the sampling units; related templates and exact input collisions limit diversity. Bootstrap intervals reflect this small corpus; a degenerate zero-error interval does not establish population precision or interpreter soundness.", "",
+              "Forced accuracy includes safe-program abstentions as true negatives; lead interpretation with correct/N and coverage. The twenty source pairs are the sampling units; related templates and exact input collisions limit diversity. Bootstrap intervals reflect this small corpus; a degenerate zero-error interval does not establish population precision or interpreter soundness.", "",
               "See [exploratory diagnostics](exploratory.md) for input collisions, distinguishable-input sensitivity, paired repair discrimination, stripping transitions, per-pair sensitivity, and compute accounting. Oracle reviews recorded as Codex do not constitute independent human adjudication. A hash inventory alone does not independently establish freeze chronology.", "",
               "![Coverage and selective accuracy](figures/coverage_accuracy.png)", "",
               "![Forced recall and false-positive rate](figures/recall_fpr.png)", "",
@@ -752,7 +752,7 @@ def main(argv=None):
                 finally:
                     if temporary is not None:
                         temporary.unlink(missing_ok=True)
-            print("Wrote final tables, report, three figures, and release manifest for 80 observations")
+            print("Wrote final tables, report, three figures, and release manifest for 160 observations")
 
 
 if __name__ == "__main__":

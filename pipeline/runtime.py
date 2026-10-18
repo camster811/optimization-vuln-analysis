@@ -106,7 +106,7 @@ def validate_evidence(root):
                     'Effective sampling differs from configuration')
     budgets = {row['observation_id']: row for row in preflight['records']}
     records = dict(run_llm.list_records(root / 'data/records'))
-    run_llm.require(len(budgets) == len(preflight['records']) == len(records) == 80 and set(budgets) == set(records),
+    run_llm.require(len(budgets) == len(preflight['records']) == len(records) == 160 and set(budgets) == set(records),
                     'Incomplete preflight record inventory')
     prompt = (root / 'llm/prompt.md').read_text()
     schema = run_llm.strict_json((root / 'llm/response.schema.json').read_text())

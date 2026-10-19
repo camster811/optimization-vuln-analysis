@@ -70,7 +70,7 @@ def load_pairs():
     with (PROJECT_ROOT / "corpus/manifest.csv").open(newline="", encoding="utf-8") as stream:
         reader = csv.DictReader(stream)
         test(set(("pair_id", "split", "cwe", "source_path", "target_function",  # noqa: C405
-                     "mechanism")) <= set(reader.fieldnames or []),
+                     "mechanism", "cohort", "volatile_destination")) <= set(reader.fieldnames or []),
                 "Manifest is missing required columns")
         pairs = list(reader)
     for field in ("pair_id", "source_path"):
@@ -78,11 +78,15 @@ def load_pairs():
                 f"Manifest contains duplicate {field} values")
     for pair in pairs:
         test(all(pair.get(field) for field in
-                    ("pair_id", "split", "cwe", "source_path", "target_function", "mechanism")),
+                    ("pair_id", "split", "cwe", "source_path", "target_function", "mechanism",
+                     "cohort", "volatile_destination")),
                 "Manifest contains an incomplete row")
         test(re.fullmatch(r"[A-Za-z0-9_]+", pair["pair_id"]), "Invalid pair ID")
         test(pair["split"] in ("pilot", "final"), "Invalid manifest split")
         test(pair["cwe"] in ("CWE-121", "CWE-122"), "Unsupported CWE")
+        test(pair["cohort"] == "pilot" if pair["split"] == "pilot"
+             else pair["cohort"] in ("original", "extension"), "Invalid corpus cohort")
+        test(pair["volatile_destination"] in ("yes", "no"), "Invalid volatile-destination flag")
         test(re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", pair["target_function"]),
                 "Invalid target function name")
         path = Path(pair["source_path"])
@@ -319,6 +323,47 @@ def file_sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def rebind_oracle(rows):
+    """Reuse semantic review only when source and reference bytes are identical."""
+    path = PROJECT_ROOT / "data/private/manual_oracle.csv"
+    if not path.exists():
+        return
+    with path.open(newline="", encoding="utf-8") as stream:
+        reader = csv.DictReader(stream)
+        fields, reviews = reader.fieldnames, list(reader)
+    key = lambda row: tuple(row[field] for field in ("pair_id", "variant", "optimization"))
+    test(len({key(row) for row in reviews}) == len(reviews), "Duplicate oracle worksheet entry")
+    by_key = {key(row): row for row in reviews}
+    for row in rows:
+        review = by_key.get(key(row))
+        if review is None:
+            continue  # Missing reviews remain a freeze error, never invented labels.
+        source_sha = file_sha256(PROJECT_ROOT / row["source_path"])
+        binary_sha = file_sha256(PROJECT_ROOT / row["oracle_binary"])
+        identical = (review["source_path"] == row["source_path"]
+                     and review["source_sha256"] == source_sha and review["oracle_sha256"] == binary_sha)
+        review.update(source_path=row["source_path"], source_sha256=source_sha,
+                      oracle_binary=row["oracle_binary"], oracle_sha256=binary_sha)
+        if not identical:
+            for field in ("source_capacity_bytes", "capacity_basis", "intended_write_interval",
+                          "observed_write_intervals", "evidence_addresses", "source_truth", "conclusion",
+                          "reviewer", "review_notes", "intended_operation_survived"):
+                review[field] = ""
+            review["review_status"] = "pending"
+    pending = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", newline="", dir=path.parent,
+                                         delete=False) as stream:
+            pending = Path(stream.name)
+            writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(reviews)
+        pending.replace(path)
+    finally:
+        if pending is not None:
+            pending.unlink(missing_ok=True)
+
+
 def generation_id(stage, split):
     inventory = [(f"{kind}/{path.name}", file_sha256(path))
                  for kind in ("oracle", "retained", "stripped")
@@ -398,6 +443,7 @@ def main(argv=None):
             # This atomic replacement is the commit point. Old tables continue
             # to refer to untouched generations even if publication fails above.
             destination = write_observations(rows, pairs, args.split)
+            rebind_oracle(rows)
         finally:
             logs = PROJECT_ROOT / "build/logs" / f"build-{stage.name}"
             (stage / "logs").rename(logs)

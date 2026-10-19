@@ -19,7 +19,8 @@ void target(void) {
 #endif
         destination[2 * i] = (unsigned char)(i + 1);
     }
-    printf("%u\n", (unsigned)destination[0]);
+    char output[2] = {(char)('0' + destination[0]), '\0'};
+    puts(output);
     free((void *)destination);
 }
 

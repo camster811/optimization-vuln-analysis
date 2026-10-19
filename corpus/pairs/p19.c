@@ -20,7 +20,8 @@ void target(void) {
 #else
     destination[8] = '\0';
 #endif
-    printf("%c\n", destination[0]);
+    char output[2] = {destination[0], '\0'};
+    puts(output);
     free((void *)destination);
 }
 

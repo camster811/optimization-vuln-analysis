@@ -19,7 +19,8 @@ void target(void) {
     for (size_t i = 0; i < 4; ++i) {
         destination[i] = (unsigned int)(i + 1);
     }
-    printf("%u\n", destination[0]);
+    char output[2] = {(char)('0' + destination[0]), '\0'};
+    puts(output);
     free((void *)destination);
 }
 

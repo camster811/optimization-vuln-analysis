@@ -10,7 +10,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from pipeline import build, evaluate, extract
+from pipeline import build, evaluate, extract, freeze
 
 
 @unittest.skipUnless(all(shutil.which(tool) for tool in
@@ -25,6 +25,9 @@ class ExtendedCorpusTests(unittest.TestCase):
         for name in ("config.json", "compile.sh"):
             shutil.copyfile(build.PROJECT_ROOT / name, cls.root / name)
         shutil.copytree(build.PROJECT_ROOT / "corpus", cls.root / "corpus")
+        (cls.root / 'data/private').mkdir(parents=True)
+        shutil.copyfile(build.PROJECT_ROOT / 'data/private/manual_oracle.csv',
+                        cls.root / 'data/private/manual_oracle.csv')
         with patch.object(build, "PROJECT_ROOT", cls.root), contextlib.redirect_stdout(io.StringIO()):
             build.main(["--split", "final"])
 
@@ -38,7 +41,15 @@ class ExtendedCorpusTests(unittest.TestCase):
         with patch.object(extract, "PROJECT_ROOT", self.root), \
              patch.object(evaluate, "PROJECT_ROOT", self.root):
             self.assertEqual(len(extract.load_observations("final")), 160)
-            self.assertEqual(len(evaluate.load_truth()), 160)
+            enriched = evaluate.load_truth()
+            self.assertEqual(len(enriched), 160)
+        self.assertEqual(sum(row['cohort'] == 'original' for row in enriched), 80)
+        self.assertEqual(sum(row['cohort'] == 'extension' for row in enriched), 80)
+        self.assertEqual(sum(row['volatile_destination'] == 'yes' for row in enriched), 48)
+        self.assertTrue(all('cohort' not in row and 'volatile_destination' not in row for row in rows))
+        # A complete rebuild in another checkout must retain reviews of exact
+        # bytes while updating their immutable generation paths.
+        freeze.validate_oracle(self.root)
         ids = {row["observation_id"] for row in rows}
         static = dict.fromkeys(ids)
         runs = {identifier: [{"repetition": n} for n in (1, 2, 3)] for identifier in ids}
@@ -76,6 +87,10 @@ class ExtendedCorpusTests(unittest.TestCase):
                         if variant:
                             self.assertEqual(result.returncode, 0, result.stderr)
                             self.assertNotIn("ERROR: AddressSanitizer", result.stderr)
+                            output = {14: '2\n', 15: '1\n', 17: '0\n',
+                                      18: '1\n', 19: 'A\n', 21: '1\n'}
+                            if index in output:
+                                self.assertEqual(result.stdout, output[index])
                         else:
                             self.assertNotEqual(result.returncode, 0)
                             self.assertIn("ERROR: AddressSanitizer", result.stderr)

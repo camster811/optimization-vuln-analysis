@@ -33,6 +33,7 @@ FORBIDDEN = re.compile(
 )
 PRIVATE_KEYS = OBSERVATION_FIELDS | {
     "source_label", "optimization_level", "symbol_condition", "split",
+    "cohort", "volatile_destination",
 }
 
 

@@ -35,7 +35,8 @@ UNAVAILABLE = "unavailable"
 ABSTENTIONS = {"uncertain", AGREEMENT_UNCERTAIN}
 VULNERABLE = {"vulnerable_CWE-121", "vulnerable_CWE-122"}
 DIMENSIONS = {"optimization": ("O0", "O2"), "symbols": ("retained", "stripped"),
-              "cwe": ("CWE-121", "CWE-122"), "variant": ("vulnerable", "fixed")}
+              "cwe": ("CWE-121", "CWE-122"), "variant": ("vulnerable", "fixed"),
+              "cohort": ("original", "extension"), "volatile_destination": ("no", "yes")}
 COUNTS = ("n", "correct", "incorrect", "abstain", "unavailable", "tp", "tn", "fp", "fn",
           "tn_from_abstain", "tn_from_unavailable", "fn_from_abstain", "fn_from_unavailable",
           "wrong_cwe_alerts")
@@ -117,6 +118,10 @@ def load_truth():
     final = {row["pair_id"]: row for row in manifest if row["split"] == "final"}
     require(Counter(row["cwe"] for row in final.values()) == {"CWE-121": 10, "CWE-122": 10},
             "Final split requires ten pairs per CWE")
+    require(Counter(row.get("cohort") for row in final.values()) == {"original": 10, "extension": 10},
+            "Final split requires original and extension cohorts")
+    require(all(row.get("volatile_destination") in ("yes", "no") for row in final.values()),
+            "Missing volatile-destination metadata")
     require({row["pair_id"] for row in rows} == set(final), "Truth includes missing, extra, or pilot pairs")
     cells = set(product(("vulnerable", "fixed"), ("O0", "O2"), ("retained", "stripped")))
     for pair, source in sorted(final.items()):
@@ -137,7 +142,10 @@ def load_truth():
             partners = [row for row in group if row["variant"] == variant and row["optimization"] == optimization]
             require(all(len({row[field] for row in partners}) == 1 for field in
                         ("target_start", "target_end", "text_sha256", "oracle_binary")), "Analysis partners disagree")
-    return sorted(rows, key=lambda row: row["observation_id"])
+    # Private analysis strata never enter exported records or model requests.
+    return sorted([{**row, **{field: final[row["pair_id"]][field]
+                              for field in ("cohort", "volatile_destination")}} for row in rows],
+                  key=lambda row: row["observation_id"])
 
 
 def verify_input_freeze(truth):
@@ -544,10 +552,14 @@ def formatted(result, metric, percentage=True):
     return f"{fmt(value)} [{fmt(low)}, {fmt(high)}]" if math.isfinite(low) else f"{fmt(value)} [NA]"
 
 
-def write_report(destination, truth, overall, groups, summary, subgroups, stability, all_rows, config):
+def write_report(destination, truth, overall, groups, summary, subgroups, stability, all_rows, config,
+                 diagnostics=None):
     names = {"static": "Static", "llm_majority": "LLM majority"}
     pair_count = len({row["pair_id"] for row in truth})
-    lines = ["# Final analysis", "", f"{len(truth)} observations from {pair_count} held-out pairs; pilot pairs are excluded.", "",
+    lines = ["# Final analysis", "", f"{len(truth)} observations from {pair_count} source pairs; pilot pairs are excluded.", "",
+             "This is a reviewed, exploratory convenience corpus, not an untouched held-out validation. "
+             "Function localization is supplied by the oracle. Function attributes and volatile destinations "
+             "constrain optimization; conclusions are conditional on these controlled fixtures.", "",
              "Intervals are exploratory 95% pair-cluster percentile intervals. With only "
              f"{pair_count} clusters they may be unstable; they are not confirmatory significance tests.", "",
              "## Three-way performance", "",
@@ -591,6 +603,33 @@ def write_report(destination, truth, overall, groups, summary, subgroups, stabil
             lines.append(f"| {names[method]} | {formatted(groups[method, dimension, low], 'accuracy')} | "
                          f"{formatted(groups[method, dimension, high], 'accuracy')} | "
                          f"{100*contrast['estimate']:.1f} [{100*contrast['ci_low']:.1f}, {100*contrast['ci_high']:.1f}] |")
+    lines += ["", "## Corpus strata", "",
+              "Cohort and volatile strata are descriptive comparisons, not randomized treatments or evidence of independent generalization.", "",
+              "| Stratum | Level | Method | N | Correct/N (95% interval) | Coverage (95% interval) |",
+              "|---|---|---|---:|---|---|"]
+    for dimension in ("cohort", "volatile_destination"):
+        for level in DIMENSIONS[dimension]:
+            for method in METHODS:
+                result = groups[method, dimension, level]
+                lines.append(f"| {dimension} | {level} | {names[method]} | {int(result['point']['n'])} | "
+                             f"{formatted(result, 'correct_rate')} | {formatted(result, 'coverage')} |")
+    if diagnostics is not None:
+        audit = diagnostics['collision_audit']['full_record']
+        matches = diagnostics['stripping_matches']
+        equal = sum(row['equal_after_name_normalization'] for row in matches)
+        lines += ["", "## Evidence observability", "",
+                  f"{len(audit['conflicting_ids'])} observations have conflicting source labels on identical inputs. "
+                  "These cases cannot be distinguished consistently from the supplied evidence; full scores are retained. "
+                  "The input-equality sensitivity excludes every member of each conflicting group, independent of predictions.", "",
+                  "| Method | Distinguishable correct/N | Coverage |", "|---|---:|---:|"]
+        for method, values in diagnostics['distinguishable_sensitivity']['methods'].items():
+            coverage = values['coverage']
+            lines.append(f"| {method} | {values['correct']}/{values['n']} | "
+                         + (f"{coverage:.1%}" if coverage is not None else "NA") + " |")
+        lines += ["", f"{equal}/{len(matches)} retained/stripped matches are identical after neutralizing function names."]
+        if matches and equal == len(matches):
+            lines += ["The symbol condition measures neutral-name sensitivity plus sampling variation. "
+                      "It does not test loss of meaningful developer symbols."]
     invalid = {key.removeprefix("invalid_runs_"): value for key, value in stability.items() if key.startswith("invalid_runs_")}
     medians = ", ".join(f"{outcome}={csv_value(stability[f'median_confidence_{outcome}']) or 'NA'}"
                         for outcome in ("correct", "incorrect", "abstain"))
@@ -614,7 +653,7 @@ def write_report(destination, truth, overall, groups, summary, subgroups, stabil
               "All methods, subgroups, and matched contrasts share the same draws.", "",
               "Full counts, rates, and intervals are in summary.csv and subgroups.csv; per-observation votes, failures, and confidence are in stability.csv. "
               "These results concern selected target operations in this small corpus, compiler, extractor, and local model. They do not establish production-scanner performance.", "",
-              "This compares complete pipelines: the LLM receives decompilation plus assembly, while the restricted static interpreter consumes assembly/calls. Held out means excluded from pilot tuning. The final results were inspected before this post-review method revision.", "",
+              "This compares complete pipelines: the LLM receives decompilation plus assembly, while the restricted static interpreter consumes assembly/calls. Differences cannot be attributed to LLM reasoning alone. The original and extension cohorts have been inspected during development; neither is an untouched test set. Source revisions and these additional analyses are exploratory.", "",
               "Forced accuracy includes safe-program abstentions as true negatives; lead interpretation with correct/N and coverage. The twenty source pairs are the sampling units; related templates and exact input collisions limit diversity. Bootstrap intervals reflect this small corpus; a degenerate zero-error interval does not establish population precision or interpreter soundness.", "",
               "See [exploratory diagnostics](exploratory.md) for input collisions, distinguishable-input sensitivity, paired repair discrimination, stripping transitions, per-pair sensitivity, and compute accounting. Oracle reviews recorded as Codex do not constitute independent human adjudication. A hash inventory alone does not independently establish freeze chronology.", "",
               "![Coverage and selective accuracy](figures/coverage_accuracy.png)", "",
@@ -694,12 +733,13 @@ def generate(destination, truth, static, llm, freeze, config, input_hashes=None)
                         "agreement_pairs", "valid_pairs", "high_confidence_error")
     write_csv(destination / "stability.csv", stability_rows, stability_fields)
     environment = make_figures(destination, overall, group_contexts)
-    write_report(destination, truth, overall, group_contexts, summary, subgroups, stability, summary + subgroups, config)
     if __package__:
         from . import diagnostics
     else:
         import diagnostics
-    diagnostics.write(destination, truth, load_records(truth), methods, llm)
+    audit = diagnostics.write(destination, truth, load_records(truth), methods, llm)
+    write_report(destination, truth, overall, group_contexts, summary, subgroups, stability,
+                 summary + subgroups, config, audit)
     write_release_manifest(destination, truth, environment, config, input_hashes)
 
 

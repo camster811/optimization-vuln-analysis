@@ -24,9 +24,12 @@ def prepare(destination, root=ROOT):
     (destination / 'results').mkdir()
     (destination / 'runtime').mkdir()
     metadata = {'campaign': destination.name, 'compiler_spec': 'gcc', 'baseline_revision': 3,
-                'predecessor': 'windows-abi-v1',
+                'corpus_revision': 2,
+                'bias_controls': ['standardized output sinks', 'cohort and volatile strata',
+                                  'bounds/write oracle evidence'],
+                'predecessor': 'gcc-abi-v2',
                 'status': 'prepared; extraction and new inference required',
-                'interpretation': 'Post-review corrected pipeline; original final outcomes were inspected.'}
+                'interpretation': 'Exploratory convenience corpus; original outcomes and extension static behavior were inspected during development. Neither cohort is an untouched test set.'}
     (destination / 'campaign.json').write_text(json.dumps(metadata, indent=2) + '\n')
     return destination
 

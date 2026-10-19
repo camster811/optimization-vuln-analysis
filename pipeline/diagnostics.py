@@ -119,11 +119,13 @@ def write(destination, truth, records, methods, runs):
         lines.append(f"| {method} | {values['both_exact_correct']}/{values['cells']} | {values['same_decision']}/{values['cells']} | {sensitivity['correct']}/{sensitivity['n']} |")
     matches = result['stripping_matches']
     lines += ['', f"Stripping: {sum(row['instructions_calls_equal'] for row in matches)}/{len(matches)} matches have identical instructions/calls; {sum(row['equal_after_name_normalization'] for row in matches)}/{len(matches)} are identical after neutralizing function names.", '',
-        'The static method consumes instructions/calls, so identical consumed inputs guarantee invariance as a negative control. With neutral retained names, the LLM treatment measures name sensitivity plus sampling variation. Extraction uses an oracle address: classification is conditional on successful target localization.', '',
+        'The static method consumes instructions/calls, so identical consumed inputs guarantee invariance as a negative control. Extraction uses an oracle address: classification is conditional on successful target localization.', '',
         '| Method | Changed decision | Retained outcome → stripped outcome | Count |', '|---|---:|---|---:|']
     for method, values in result['treatment_transitions'].items():
         for row in values['outcomes']:
             lines.append(f"| {method} | {values['decision_changes']}/{values['matches']} | {row['retained']} → {row['stripped']} | {row['count']} |")
+    if matches and all(row['equal_after_name_normalization'] for row in matches):
+        lines += ['', 'All matched records differ at most in neutral function names. This condition tests name sensitivity plus sampling variation, not loss of meaningful developer symbols.']
     differences = [row['llm_minus_static_correct_rate'] for row in result['leave_one_pair_out']]
     compute = result['compute']
     lines += ['', f"Leave-one-pair-out LLM minus static correct/N ranges from {100*min(differences):.1f} to {100*max(differences):.1f} percentage points.", '',

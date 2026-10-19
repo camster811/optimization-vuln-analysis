@@ -78,7 +78,8 @@ def expected_files(root):
     root = root.resolve()
     with project_file(root, "corpus/manifest.csv").open(newline="", encoding="utf-8") as stream:
         reader = csv.DictReader(stream)
-        fields = {"pair_id", "split", "cwe", "source_path", "target_function", "mechanism"}
+        fields = {"pair_id", "split", "cwe", "source_path", "target_function", "mechanism",
+                  "cohort", "volatile_destination"}
         require(reader.fieldnames and len(reader.fieldnames) == len(set(reader.fieldnames))
                 and fields <= set(reader.fieldnames), "Invalid corpus manifest columns")
         pairs = list(reader)
@@ -88,6 +89,10 @@ def expected_files(root):
                 and None not in row for row in pairs), "Incomplete corpus manifest row")
     require(Counter(row['split'] for row in pairs) == {"pilot": 2, "final": 20},
             "Expected two pilot and twenty final pairs")
+    require(Counter(row['cohort'] for row in pairs) == {"pilot": 2, "original": 10, "extension": 10},
+            "Expected pilot/original/extension corpus cohorts")
+    require(all(row['volatile_destination'] in ('yes', 'no') for row in pairs),
+            "Invalid volatile-destination flag")
     for split, count in (("pilot", 1), ("final", 10)):
         require(Counter(row['cwe'] for row in pairs if row['split'] == split)
                 == {"CWE-121": count, "CWE-122": count}, f"Invalid {split} CWE balance")
@@ -138,6 +143,16 @@ def validate_oracle(root):
         require(review['oracle_binary'] == row['oracle_binary'] and review['source_path'] == row['source_path']
                 and review['conclusion'] == row['truth'] and review['review_status'] == 'reviewed'
                 and review['intended_operation_survived'] == 'yes', "Oracle worksheet disagrees with truth")
+        require(review.get('source_capacity_bytes', '').isdigit()
+                and int(review['source_capacity_bytes']) > 0
+                and all(review.get(field, '').strip() for field in
+                        ('capacity_basis', 'intended_write_interval', 'observed_write_intervals',
+                         'evidence_addresses', 'reviewer'))
+                and review.get('source_truth') == row['truth'], "Oracle review lacks bounds/write evidence")
+        require(all(extract.address(row['target_start']) <= extract.address(value)
+                    < extract.address(row['target_end'])
+                    for value in review['evidence_addresses'].split(';')),
+                "Oracle evidence address outside target")
         for path, sha in ((review['source_path'], review['source_sha256']),
                           (review['oracle_binary'], review['oracle_sha256'])):
             require(hashlib.sha256(project_file(root, path).read_bytes()).hexdigest() == sha,

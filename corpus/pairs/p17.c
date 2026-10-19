@@ -18,7 +18,8 @@ void target(void) {
         index = sizeof(destination) - 1;
     }
     destination[index] = 42;
-    printf("%u\n", (unsigned)destination[0]);
+    char output[2] = {(char)('0' + destination[0]), '\0'};
+    puts(output);
 }
 
 int main(void) {

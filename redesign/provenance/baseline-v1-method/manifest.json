@@ -1,0 +1,25 @@
+{
+  "accepted_run": "phase5-d",
+  "files": {
+    "__init__.py": "56122d9be90873abb4a50eb83bfc69092d7bfb6ebad6de1c881e810bac38e57d",
+    "baseline_policy.json": "d29e320b4bfcf395022afc251f1421bcdb97a4a44d39fe1cc6e5a291b97d3401",
+    "context_policy.json": "ba4fea120120ff6d457470d05aaa4d7b59e873443e83cbacdef65252c6259445",
+    "ghidra/LiftBundle.java": "9aa4487de3897f74cb62b2d454f831bc4636386b6155903d3f62bdecdaefb1df",
+    "pipeline/__init__.py": "904c3c21eea5dc9df6012a23952cd08473c588128214067e06cfe67c3c55e875",
+    "pipeline/baseline.py": "68bf96d8cc962286fb5c13f8ebe97f0b8428f78cfc072e379e65a6d1022f77bf",
+    "pipeline/baseline_snapshot.py": "631a76c94c4467d5c6018001383f423e2c32069d14d907f10fb72553174b8f75",
+    "pipeline/baseline_worker.py": "c61fb1075870ac943715b4721fd518303d851e8ac91ded9f75ef8735782afcb8",
+    "pipeline/bounds.py": "e35a9f3ae3eaba59be7c011f8e4ce1600900494988e40bbb38f0a59b02d93316",
+    "pipeline/build.py": "25d1249f3a63c1e22b274d22cd40b392af98f0f03b378a110472fff78b4bc63f",
+    "pipeline/bundles.py": "0df3c288c8334a5687ce43895c1927c40798eb78884a37190db44c56d6215d94",
+    "pipeline/context_worker.py": "907262722f02290803fb04895992227c48644285823bce56d25aff0f8ec5a18a",
+    "pipeline/export_context.py": "7bd6b2550f5facffff0944819ad06b62e394b502d034e973a14c643a3e77729b",
+    "pipeline/inventory.py": "d2a829a0b4d43457654603c6c898023aad968393368ab300a658b2ae80f98dd4",
+    "pipeline/oracle.py": "e18bbdf9e60164d14211ac4c4981c54ab1c18958085c3815a2bfbb82f33b019e",
+    "pipeline/pcode.py": "a68d62506e87a7d612144bd2d63d759dca4a810f040a2c059c974e850f7d91a7",
+    "pipeline/sanitize.py": "36ccd4a8a8a5fb09148d7c19fcaeaba8bd4a499eb66daa355cf9cf516762745d",
+    "schemas/baseline-result-v1.json": "fb83c72f676fe4f0ce3dcc82c763a5ac64570455226d88ede4c5706d18f0d5af",
+    "schemas/bundle-v2.json": "a1d11dca3ae5324b78be6a9937392bd3aca4d0af4677276dbf0c746fd8ea1a4c"
+  },
+  "method_id": "ghidra-constant-bounds-v1"
+}

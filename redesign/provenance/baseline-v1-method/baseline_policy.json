@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "method_id": "ghidra-constant-bounds-v1",
+  "engine": "ghidra-high-pcode",
+  "max_steps": 4096,
+  "max_paths": 64,
+  "max_call_depth": 8,
+  "max_object_bytes": 4096,
+  "max_string_bytes": 4096,
+  "decompiler_timeout_seconds": 60,
+  "process_timeout_seconds": 300,
+  "control_flow": "concrete_acyclic_paths_only",
+  "stack_bounds": "unknown_without_independent_binary_object_evidence",
+  "allocation_failure": "explore_null_and_fresh_success",
+  "library_contracts": {
+    "malloc": {"prototype": "void *malloc(unsigned long size);", "kind": "malloc"},
+    "calloc": {"prototype": "void *calloc(unsigned long count, unsigned long size);", "kind": "calloc"},
+    "free": {"prototype": "void free(void *ptr);", "kind": "free"},
+    "memcpy": {"prototype": "void *memcpy(void *dest, const void *src, unsigned long count);", "kind": "copy"},
+    "memmove": {"prototype": "void *memmove(void *dest, const void *src, unsigned long count);", "kind": "copy"},
+    "memset": {"prototype": "void *memset(void *dest, int value, unsigned long count);", "kind": "set"},
+    "strcpy": {"prototype": "char *strcpy(char *dest, const char *src);", "kind": "string_copy"},
+    "strlen": {"prototype": "unsigned long strlen(const char *src);", "kind": "string_length"},
+    "puts": {"prototype": "int puts(const char *src);", "kind": "read_only"},
+    "putchar": {"prototype": "int putchar(int value);", "kind": "read_only"},
+    "printf": {"prototype": "int printf(const char *format, ...);", "kind": "formatted_output"},
+    "exit": {"prototype": "void exit(int status);", "kind": "terminate"},
+    "_exit": {"prototype": "void _exit(int status);", "kind": "terminate"},
+    "abort": {"prototype": "void abort(void);", "kind": "terminate"}
+  }
+}

@@ -1,0 +1,136 @@
+
+safe O0 b413f8898569cd9d60d6a03ce
+main
+  40122f:	55                   	push   rbp
+  401230:	48 89 e5             	mov    rbp,rsp
+  401233:	b8 00 00 00 00       	mov    eax,0x0
+  401238:	e8 89 ff ff ff       	call   4011c6 <process_case>
+  40123d:	b8 00 00 00 00       	mov    eax,0x0
+  401242:	5d                   	pop    rbp
+  401243:	c3                   	ret
+process_case
+  4011c6:	55                   	push   rbp
+  4011c7:	48 89 e5             	mov    rbp,rsp
+  4011ca:	48 83 ec 10          	sub    rsp,0x10
+  4011ce:	48 c7 45 f8 00 00 00 00 	mov    QWORD PTR [rbp-0x8],0x0
+  4011d6:	bf 08 00 00 00       	mov    edi,0x8
+  4011db:	e8 a0 fe ff ff       	call   401080 <malloc@plt>
+  4011e0:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  4011e4:	48 83 7d f8 00       	cmp    QWORD PTR [rbp-0x8],0x0
+  4011e9:	75 0a                	jne    4011f5 <process_case+0x2f>
+  4011eb:	bf ff ff ff ff       	mov    edi,0xffffffff
+  4011f0:	e8 bb fe ff ff       	call   4010b0 <exit@plt>
+  4011f5:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  4011f9:	48 c7 00 fb ff ff 7f 	mov    QWORD PTR [rax],0x7ffffffb
+  401200:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401204:	48 8b 00             	mov    rax,QWORD PTR [rax]
+  401207:	48 89 c7             	mov    rdi,rax
+  40120a:	e8 22 01 00 00       	call   401331 <printLongLongLine>
+  40120f:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401213:	48 89 c7             	mov    rdi,rax
+  401216:	e8 15 fe ff ff       	call   401030 <free@plt>
+  40121b:	90                   	nop
+  40121c:	c9                   	leave
+  40121d:	c3                   	ret
+
+safe O1 b656d62219301a09d930c74c2
+main
+  4011a9:	48 83 ec 08          	sub    rsp,0x8
+  4011ad:	bf fb ff ff 7f       	mov    edi,0x7ffffffb
+  4011b2:	e8 ab 00 00 00       	call   401262 <printLongLongLine>
+  4011b7:	b8 00 00 00 00       	mov    eax,0x0
+  4011bc:	48 83 c4 08          	add    rsp,0x8
+  4011c0:	c3                   	ret
+
+safe O2 b774249bfe8645edb6c053b60
+main
+  4010b0:	48 83 ec 08          	sub    rsp,0x8
+  4010b4:	bf fb ff ff 7f       	mov    edi,0x7ffffffb
+  4010b9:	e8 a2 01 00 00       	call   401260 <printLongLongLine>
+  4010be:	31 c0                	xor    eax,eax
+  4010c0:	48 83 c4 08          	add    rsp,0x8
+  4010c4:	c3                   	ret
+  4010c5:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010cf:	90                   	nop
+
+safe O3 b91851490abb816d65e5d136c
+main
+  4010b0:	48 83 ec 08          	sub    rsp,0x8
+  4010b4:	bf fb ff ff 7f       	mov    edi,0x7ffffffb
+  4010b9:	e8 a2 01 00 00       	call   401260 <printLongLongLine>
+  4010be:	31 c0                	xor    eax,eax
+  4010c0:	48 83 c4 08          	add    rsp,0x8
+  4010c4:	c3                   	ret
+  4010c5:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010cf:	90                   	nop
+
+vulnerable O0 b463b7a4820eebd389376486b
+main
+  40121e:	55                   	push   rbp
+  40121f:	48 89 e5             	mov    rbp,rsp
+  401222:	b8 00 00 00 00       	mov    eax,0x0
+  401227:	e8 9a ff ff ff       	call   4011c6 <process_case>
+  40122c:	b8 00 00 00 00       	mov    eax,0x0
+  401231:	5d                   	pop    rbp
+  401232:	c3                   	ret
+process_case
+  4011c6:	55                   	push   rbp
+  4011c7:	48 89 e5             	mov    rbp,rsp
+  4011ca:	48 83 ec 10          	sub    rsp,0x10
+  4011ce:	48 c7 45 f8 00 00 00 00 	mov    QWORD PTR [rbp-0x8],0x0
+  4011d6:	bf 08 00 00 00       	mov    edi,0x8
+  4011db:	e8 a0 fe ff ff       	call   401080 <malloc@plt>
+  4011e0:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  4011e4:	48 83 7d f8 00       	cmp    QWORD PTR [rbp-0x8],0x0
+  4011e9:	75 0a                	jne    4011f5 <process_case+0x2f>
+  4011eb:	bf ff ff ff ff       	mov    edi,0xffffffff
+  4011f0:	e8 bb fe ff ff       	call   4010b0 <exit@plt>
+  4011f5:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  4011f9:	48 c7 00 fb ff ff 7f 	mov    QWORD PTR [rax],0x7ffffffb
+  401200:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401204:	48 8b 00             	mov    rax,QWORD PTR [rax]
+  401207:	48 89 c7             	mov    rdi,rax
+  40120a:	e8 11 01 00 00       	call   401320 <printLongLongLine>
+  40120f:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401213:	48 89 c7             	mov    rdi,rax
+  401216:	e8 15 fe ff ff       	call   401030 <free@plt>
+  40121b:	90                   	nop
+  40121c:	c9                   	leave
+  40121d:	c3                   	ret
+
+vulnerable O1 b3b7ecdd0eb2e2437d38276b9
+main
+  4011a9:	48 83 ec 08          	sub    rsp,0x8
+  4011ad:	b8 00 00 00 00       	mov    eax,0x0
+  4011b2:	e8 df ff ff ff       	call   401196 <process_case>
+  4011b7:	b8 00 00 00 00       	mov    eax,0x0
+  4011bc:	48 83 c4 08          	add    rsp,0x8
+  4011c0:	c3                   	ret
+process_case
+  401196:	48 83 ec 08          	sub    rsp,0x8
+  40119a:	bf fb ff ff 7f       	mov    edi,0x7ffffffb
+  40119f:	e8 be 00 00 00       	call   401262 <printLongLongLine>
+  4011a4:	48 83 c4 08          	add    rsp,0x8
+  4011a8:	c3                   	ret
+
+vulnerable O2 b3f0c28b1935c490b5ccb38c0
+main
+  4010b0:	48 83 ec 08          	sub    rsp,0x8
+  4010b4:	bf fb ff ff 7f       	mov    edi,0x7ffffffb
+  4010b9:	e8 a2 01 00 00       	call   401260 <printLongLongLine>
+  4010be:	31 c0                	xor    eax,eax
+  4010c0:	48 83 c4 08          	add    rsp,0x8
+  4010c4:	c3                   	ret
+  4010c5:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010cf:	90                   	nop
+
+vulnerable O3 b3105a03e9c7bd04dad88fb91
+main
+  4010b0:	48 83 ec 08          	sub    rsp,0x8
+  4010b4:	bf fb ff ff 7f       	mov    edi,0x7ffffffb
+  4010b9:	e8 a2 01 00 00       	call   401260 <printLongLongLine>
+  4010be:	31 c0                	xor    eax,eax
+  4010c0:	48 83 c4 08          	add    rsp,0x8
+  4010c4:	c3                   	ret
+  4010c5:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010cf:	90                   	nop

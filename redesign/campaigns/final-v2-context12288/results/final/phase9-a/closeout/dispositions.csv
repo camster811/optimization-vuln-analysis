@@ -1,9 +1,0 @@
-optimization,cwe,planned,unresolved_truth,extraction_failures,context_failures,present,inlined/merged,eliminated,not_vulnerable,vulnerable_CWE-121,vulnerable_CWE-122,baseline_A,baseline_C,baseline_E,baseline_U,baseline_M,llm_A,llm_C,llm_E,llm_U,llm_M
-O0,CWE-121,20,0,0,0,20,0,0,10,10,0,20,0,0,20,0,20,13,5,2,0
-O0,CWE-122,20,0,0,0,16,4,0,12,0,8,20,0,0,20,0,20,16,1,3,0
-O1,CWE-121,20,0,0,0,8,4,8,14,6,0,20,2,0,18,0,20,16,3,1,0
-O1,CWE-122,20,0,0,0,4,12,4,12,0,8,20,4,0,16,0,20,17,2,1,0
-O2,CWE-121,20,0,0,0,4,6,10,14,6,0,20,2,0,18,0,20,14,6,0,0
-O2,CWE-122,20,0,0,0,4,12,4,12,0,8,20,4,0,16,0,20,18,2,0,0
-O3,CWE-121,20,0,0,0,4,6,10,14,6,0,20,2,0,18,0,20,14,6,0,0
-O3,CWE-122,20,0,0,0,0,16,4,12,0,8,20,4,0,16,0,20,17,3,0,0

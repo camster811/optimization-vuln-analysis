@@ -1,0 +1,53 @@
+{
+  "schema_version": 2,
+  "campaign_id": "juliet-redesign-v1",
+  "phase": "development",
+  "platform": "x86-64-linux-gnu",
+  "matrix": {
+    "variants": ["vulnerable", "safe"],
+    "optimizations": ["O0", "O1", "O2", "O3"],
+    "symbols": ["retained", "stripped"]
+  },
+  "splits": {
+    "pilot": {
+      "CWE-121": {"intraprocedural": 0, "interprocedural": 1},
+      "CWE-122": {"intraprocedural": 0, "interprocedural": 1}
+    },
+    "final": {
+      "CWE-121": {"intraprocedural": 2, "interprocedural": 3},
+      "CWE-122": {"intraprocedural": 2, "interprocedural": 3}
+    }
+  },
+  "compiler": {
+    "name": "gcc-15",
+    "expected_version": "15.2.0",
+    "expected_binutils_version": "2.46",
+    "optimizations": ["O0", "O1", "O2", "O3"],
+    "common_flags": [
+      "-std=c11", "-Wall", "-Wextra", "-g", "-gdwarf-5",
+      "-m64", "-march=x86-64", "-mtune=generic",
+      "-fno-stack-protector", "-U_FORTIFY_SOURCE", "-D_FORTIFY_SOURCE=0",
+      "-fcf-protection=none", "-fno-pie", "-fno-lto",
+      "-fdebug-prefix-map={workspace}=/experiment",
+      "-ffile-prefix-map={workspace}=/experiment"
+    ],
+    "link_flags": ["-no-pie", "-fno-lto", "-Wl,-z,noexecstack"]
+  },
+  "ghidra": {
+    "expected_version": "12.1.4",
+    "language": "x86:LE:64:default",
+    "compiler_spec": "gcc"
+  },
+  "inference": {
+    "seeds": [4101, 4102, 4103],
+    "schedule_seed": 20261019,
+    "method_lock": "pending_phase_7"
+  },
+  "evaluation": {
+    "primary_truth": "binary_label",
+    "secondary_truth": "source_label",
+    "bootstrap_unit": "family_id",
+    "bootstrap_repetitions": 10000,
+    "bootstrap_seed": 20261019
+  }
+}

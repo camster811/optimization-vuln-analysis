@@ -1,0 +1,1838 @@
+[
+  {
+    "bundle_sha256": "943358a9f97d9cdbfb5d7008292e02e1b17f139359b7c2d099f0fb8d583e5146",
+    "error_code": null,
+    "ir_sha256": "d13a6a07d6c61195301fdf6224a373128c1ff7c773242f7f107160a201bb09c0",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "ra5f6072d3eed46cfbcd279df",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011ae",
+        "0x40122a",
+        "0x401232"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 8,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 10,
+          "evidence": [
+            "0x401232",
+            "0x40124d"
+          ],
+          "object_offset": -26,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x401232",
+          "size": 1
+        },
+        {
+          "bound_basis": "recovered_scalar_slot",
+          "capacity": 8,
+          "evidence": [
+            "0x40122a",
+            "0x40124d"
+          ],
+          "object_offset": -16,
+          "offset": 0,
+          "outcome": "within_bounds",
+          "region": "stack",
+          "site": "0x40122a",
+          "size": 8
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011ae",
+            "0x40123c",
+            "0x40124d"
+          ],
+          "object_offset": null,
+          "offset": -48,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ae",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "86c157a00c82f4f03ba627409b8eca6b3404e3bd456ddacfa7f3be75e3ee9ea4",
+    "error_code": null,
+    "ir_sha256": "d13a6a07d6c61195301fdf6224a373128c1ff7c773242f7f107160a201bb09c0",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r554326385460ddc012533b72",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011ae",
+        "0x40122a",
+        "0x401232"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 8,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 10,
+          "evidence": [
+            "0x401232",
+            "0x40124d"
+          ],
+          "object_offset": -26,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x401232",
+          "size": 1
+        },
+        {
+          "bound_basis": "recovered_scalar_slot",
+          "capacity": 8,
+          "evidence": [
+            "0x40122a",
+            "0x40124d"
+          ],
+          "object_offset": -16,
+          "offset": 0,
+          "outcome": "within_bounds",
+          "region": "stack",
+          "site": "0x40122a",
+          "size": 8
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011ae",
+            "0x40123c",
+            "0x40124d"
+          ],
+          "object_offset": null,
+          "offset": -48,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ae",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "ffd3ab8400b30b68666423285694ecdafc20d643b055de6ac0ccb3f7a42104ea",
+    "error_code": null,
+    "ir_sha256": "651ea84abd64d003444043dca0bd48e3b8826fddff753a4435024dbfadee667c",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "ra14394a63fae12a0ebbc9594",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011d2",
+        "0x401223"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "unsupported_pcode"
+      ],
+      "status": "abstained",
+      "steps": 7,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 11,
+          "evidence": [
+            "0x4011d2",
+            "0x40122d",
+            "0x401240"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4011d2",
+          "size": 8
+        },
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 18,
+          "evidence": [
+            "0x401223",
+            "0x401240"
+          ],
+          "object_offset": -18,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x401223",
+          "size": 1
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "d1ff23f881dcf2147b9d4ff46ef7c4aeda929e1c38f049dd9b678af50d25eb6f",
+    "error_code": null,
+    "ir_sha256": "651ea84abd64d003444043dca0bd48e3b8826fddff753a4435024dbfadee667c",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rba2857782b28db376bbf00cb",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011d2",
+        "0x401223"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "unsupported_pcode"
+      ],
+      "status": "abstained",
+      "steps": 7,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 11,
+          "evidence": [
+            "0x4011d2",
+            "0x40122d",
+            "0x401240"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4011d2",
+          "size": 8
+        },
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 18,
+          "evidence": [
+            "0x401223",
+            "0x401240"
+          ],
+          "object_offset": -18,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x401223",
+          "size": 1
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "e45cac83de09d4c0993d6a551353e959143477335575bb2395b3e694afa172eb",
+    "error_code": null,
+    "ir_sha256": "4adfccff5264ae5c01b274d88c85ccd8dd0c7b2705ef708082754562e3bb33aa",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rf0991c071d66077512884d89",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4010b9",
+        "0x4011ca"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 5,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 18,
+          "evidence": [
+            "0x4010b9"
+          ],
+          "object_offset": -18,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4010b9",
+          "size": 1
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010be",
+            "0x4011ca"
+          ],
+          "object_offset": null,
+          "offset": -19,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ca",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "4d8d17ce336b730a33838ada473404a2ca2e9f23d76729f240ee5fdf51254866",
+    "error_code": null,
+    "ir_sha256": "4adfccff5264ae5c01b274d88c85ccd8dd0c7b2705ef708082754562e3bb33aa",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r959c77e21be3df4354337381",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4010b9",
+        "0x4011ca"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 5,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 18,
+          "evidence": [
+            "0x4010b9"
+          ],
+          "object_offset": -18,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4010b9",
+          "size": 1
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010be",
+            "0x4011ca"
+          ],
+          "object_offset": null,
+          "offset": -19,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ca",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "e45cac83de09d4c0993d6a551353e959143477335575bb2395b3e694afa172eb",
+    "error_code": null,
+    "ir_sha256": "4adfccff5264ae5c01b274d88c85ccd8dd0c7b2705ef708082754562e3bb33aa",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rbfcf0887c152a774487dadaa",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4010b9",
+        "0x4011ca"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 5,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 18,
+          "evidence": [
+            "0x4010b9"
+          ],
+          "object_offset": -18,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4010b9",
+          "size": 1
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010be",
+            "0x4011ca"
+          ],
+          "object_offset": null,
+          "offset": -19,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ca",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "4d8d17ce336b730a33838ada473404a2ca2e9f23d76729f240ee5fdf51254866",
+    "error_code": null,
+    "ir_sha256": "4adfccff5264ae5c01b274d88c85ccd8dd0c7b2705ef708082754562e3bb33aa",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r8562513a8bf7d0108d1e603b",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4010b9",
+        "0x4011ca"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 5,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 18,
+          "evidence": [
+            "0x4010b9"
+          ],
+          "object_offset": -18,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4010b9",
+          "size": 1
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010be",
+            "0x4011ca"
+          ],
+          "object_offset": null,
+          "offset": -19,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ca",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "7ed32c9802aa5d6c6621319a3b16406a56ed0b93cfcc93444e7a70804d021c39",
+    "error_code": null,
+    "ir_sha256": "4b6f08bcce66d7bad610a5170f53f336608f59f6b199149b7027984f1086630f",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r1dbd15218a05332e5eb32d5d",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011ae",
+        "0x40122a",
+        "0x401232"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 8,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 21,
+          "evidence": [
+            "0x401232",
+            "0x40125e"
+          ],
+          "object_offset": -37,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x401232",
+          "size": 1
+        },
+        {
+          "bound_basis": "recovered_scalar_slot",
+          "capacity": 8,
+          "evidence": [
+            "0x40122a",
+            "0x40125e"
+          ],
+          "object_offset": -16,
+          "offset": 0,
+          "outcome": "within_bounds",
+          "region": "stack",
+          "site": "0x40122a",
+          "size": 8
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011ae",
+            "0x40123c",
+            "0x40125e"
+          ],
+          "object_offset": null,
+          "offset": -48,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ae",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "ef3cf104ab464f6053276966b182e1f3f4b14240740c096cf93e1826edb2dde0",
+    "error_code": null,
+    "ir_sha256": "4b6f08bcce66d7bad610a5170f53f336608f59f6b199149b7027984f1086630f",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rb66672e0b99749662580b378",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011ae",
+        "0x40122a",
+        "0x401232"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 8,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 21,
+          "evidence": [
+            "0x401232",
+            "0x40125e"
+          ],
+          "object_offset": -37,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x401232",
+          "size": 1
+        },
+        {
+          "bound_basis": "recovered_scalar_slot",
+          "capacity": 8,
+          "evidence": [
+            "0x40122a",
+            "0x40125e"
+          ],
+          "object_offset": -16,
+          "offset": 0,
+          "outcome": "within_bounds",
+          "region": "stack",
+          "site": "0x40122a",
+          "size": 8
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011ae",
+            "0x40123c",
+            "0x40125e"
+          ],
+          "object_offset": null,
+          "offset": -48,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ae",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "d717ce872c73504959665e91789b618ea79d5fbb854fc3e4a09b49ec132b2388",
+    "error_code": null,
+    "ir_sha256": "8353834d6285f9bd5aca82373f804111715a30648e84daca3f42e19ea183642f",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r0ee4bd2c9abcc07d4bee3e7c",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011d2",
+        "0x40123b"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "unsupported_pcode"
+      ],
+      "status": "abstained",
+      "steps": 6,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 11,
+          "evidence": [
+            "0x4011d2",
+            "0x401245"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4011d2",
+          "size": 8
+        },
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 19,
+          "evidence": [
+            "0x40123b"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x40123b",
+          "size": 1
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "290fc320aa151cbd00b790463f5a29deacb860e9595f400ef68877473ef87870",
+    "error_code": null,
+    "ir_sha256": "8353834d6285f9bd5aca82373f804111715a30648e84daca3f42e19ea183642f",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r42d21d4fb1363e65b7eaa85d",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011d2",
+        "0x40123b"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "unsupported_pcode"
+      ],
+      "status": "abstained",
+      "steps": 6,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 11,
+          "evidence": [
+            "0x4011d2",
+            "0x401245"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4011d2",
+          "size": 8
+        },
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 19,
+          "evidence": [
+            "0x40123b"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x40123b",
+          "size": 1
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "ea82297e79da4cbfcfb61e882a5607d0dfa3cf8b6044167b8703aad5021902ef",
+    "error_code": null,
+    "ir_sha256": "c39fcb4e1a6a511a6c6410bb3917a36a9a3d37452409f4179ed74499bd00b192",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rd96f94b9b1d0399c71fb430b",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4010b9",
+        "0x4011ca"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 5,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 19,
+          "evidence": [
+            "0x4010b9"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4010b9",
+          "size": 1
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010be",
+            "0x4011ca"
+          ],
+          "object_offset": null,
+          "offset": -19,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ca",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "ebb9e9d0af13d50b26b0d97acb9edbfbec69e1c01944403bc90501bfe8e56d3f",
+    "error_code": null,
+    "ir_sha256": "c39fcb4e1a6a511a6c6410bb3917a36a9a3d37452409f4179ed74499bd00b192",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r31c80f177c1ee5b6891f3fb9",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4010b9",
+        "0x4011ca"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 5,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 19,
+          "evidence": [
+            "0x4010b9"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4010b9",
+          "size": 1
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010be",
+            "0x4011ca"
+          ],
+          "object_offset": null,
+          "offset": -19,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ca",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "ea82297e79da4cbfcfb61e882a5607d0dfa3cf8b6044167b8703aad5021902ef",
+    "error_code": null,
+    "ir_sha256": "c39fcb4e1a6a511a6c6410bb3917a36a9a3d37452409f4179ed74499bd00b192",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "reb0f2a3d9d2882fbbcfec898",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4010b9",
+        "0x4011ca"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 5,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 19,
+          "evidence": [
+            "0x4010b9"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4010b9",
+          "size": 1
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010be",
+            "0x4011ca"
+          ],
+          "object_offset": null,
+          "offset": -19,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ca",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "ebb9e9d0af13d50b26b0d97acb9edbfbec69e1c01944403bc90501bfe8e56d3f",
+    "error_code": null,
+    "ir_sha256": "c39fcb4e1a6a511a6c6410bb3917a36a9a3d37452409f4179ed74499bd00b192",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "reac8c423864ff24d97c6aef5",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4010b9",
+        "0x4011ca"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "inferred_stack_object_extent",
+        "instruction_pcode_store_fallback",
+        "missing_stack_array_extent"
+      ],
+      "status": "abstained",
+      "steps": 5,
+      "write_checks": [
+        {
+          "bound_basis": "inferred_stack_object_extent",
+          "capacity": 19,
+          "evidence": [
+            "0x4010b9"
+          ],
+          "object_offset": -19,
+          "offset": 0,
+          "outcome": "within_inferred_extent",
+          "region": "stack",
+          "site": "0x4010b9",
+          "size": 1
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010be",
+            "0x4011ca"
+          ],
+          "object_offset": null,
+          "offset": -19,
+          "outcome": "unknown",
+          "region": "stack",
+          "site": "0x4011ca",
+          "size": 8
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "9d09a41f519092fc3f73bc4c649b241de2e68ce70ed7c762bc3b5f77f15b32e9",
+    "error_code": null,
+    "ir_sha256": "ee72d96d6cca91134702872b7d26431340ee4e7a9b8bf404789af4f1e41068cc",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rc24d885eb5101822727fe6bf",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x401221",
+        "0x401271"
+      ],
+      "paths": 0,
+      "reason_codes": [
+        "unaccounted_native_write"
+      ],
+      "status": "abstained",
+      "steps": 0,
+      "write_checks": []
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "7cb21e39d154dfaf9f49792c468491d9162037a72a331ac6d9555f08784b3a9b",
+    "error_code": null,
+    "ir_sha256": "ee72d96d6cca91134702872b7d26431340ee4e7a9b8bf404789af4f1e41068cc",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rb9c38171f525fa84edcbd8b1",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x401221",
+        "0x401271"
+      ],
+      "paths": 0,
+      "reason_codes": [
+        "unaccounted_native_write"
+      ],
+      "status": "abstained",
+      "steps": 0,
+      "write_checks": []
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "df106ae3f54dd55706849a8e8a16afd8d5b2e139476538a3044a7f59ba865546",
+    "error_code": null,
+    "ir_sha256": "2753045c06b793f4a3f604cd5659aba8bcababfd740955afe23502bdfc6f36e1",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r0af0770df613d08245c6c799",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011ca",
+        "0x4011f0"
+      ],
+      "paths": 2,
+      "reason_codes": [
+        "cyclic_control_flow"
+      ],
+      "status": "abstained",
+      "steps": 19,
+      "write_checks": [
+        {
+          "bound_basis": "requested_allocation",
+          "capacity": 40,
+          "evidence": [
+            "0x4011d9",
+            "0x4011de",
+            "0x4011e1",
+            "0x4011ed",
+            "0x4011f0",
+            "0x401236"
+          ],
+          "object_offset": null,
+          "offset": 0,
+          "outcome": "within_bounds",
+          "region": "heap",
+          "site": "0x4011f0",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011ca",
+            "0x401236"
+          ],
+          "object_offset": null,
+          "offset": 4210804,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4011ca",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011d9",
+            "0x4011de",
+            "0x4011e1",
+            "0x4011f0",
+            "0x401236"
+          ],
+          "object_offset": null,
+          "offset": 4210804,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4011f0",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "c00ffa3306e26eb2d5aee94d04e13352b146e658cf0193d271b97293d6f7a762",
+    "error_code": null,
+    "ir_sha256": "2753045c06b793f4a3f604cd5659aba8bcababfd740955afe23502bdfc6f36e1",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r15d4cc9211f42243546a6c36",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x4011ca",
+        "0x4011f0"
+      ],
+      "paths": 2,
+      "reason_codes": [
+        "cyclic_control_flow"
+      ],
+      "status": "abstained",
+      "steps": 19,
+      "write_checks": [
+        {
+          "bound_basis": "requested_allocation",
+          "capacity": 40,
+          "evidence": [
+            "0x4011d9",
+            "0x4011de",
+            "0x4011e1",
+            "0x4011ed",
+            "0x4011f0",
+            "0x401236"
+          ],
+          "object_offset": null,
+          "offset": 0,
+          "outcome": "within_bounds",
+          "region": "heap",
+          "site": "0x4011f0",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011ca",
+            "0x401236"
+          ],
+          "object_offset": null,
+          "offset": 4210804,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4011ca",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011d9",
+            "0x4011de",
+            "0x4011e1",
+            "0x4011f0",
+            "0x401236"
+          ],
+          "object_offset": null,
+          "offset": 4210804,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4011f0",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "efcc7b23c3fc0b80d2b62e85c9f883d3ab9deab63db5b31fec4fb8e783ed2c72",
+    "error_code": null,
+    "ir_sha256": "f5692c9d4c78fee60c6ca8451ecc094c94b336a4f08e2d8e822c365bd0253c92",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r00d96a0e6dda924277042caf",
+    "prediction": {
+      "decision": "vulnerable_CWE-122",
+      "evidence": [
+        "0x4010e4",
+        "0x4010ee",
+        "0x4011f6",
+        "0x4011f8",
+        "0x40120e",
+        "0x401216",
+        "0x401219",
+        "0x40121b"
+      ],
+      "paths": 2,
+      "reason_codes": [
+        "heap_write_exceeds_allocation"
+      ],
+      "status": "classified",
+      "steps": 16,
+      "write_checks": [
+        {
+          "bound_basis": "requested_allocation",
+          "capacity": 40,
+          "evidence": [
+            "0x4010e4",
+            "0x4010ee",
+            "0x4011f6",
+            "0x4011f8",
+            "0x40120e",
+            "0x401216",
+            "0x401219",
+            "0x40121b"
+          ],
+          "object_offset": null,
+          "offset": 40,
+          "outcome": "exceeds_allocation",
+          "region": "heap",
+          "site": "0x40121b",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e4"
+          ],
+          "object_offset": null,
+          "offset": 4210804,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010e4",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "ac2df4db95b65cf92cdc0354e8553e321d3e1f379e869f380ecd27c97d12568e",
+    "error_code": null,
+    "ir_sha256": "f5692c9d4c78fee60c6ca8451ecc094c94b336a4f08e2d8e822c365bd0253c92",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r94300d392290fd09c14d2785",
+    "prediction": {
+      "decision": "vulnerable_CWE-122",
+      "evidence": [
+        "0x4010e4",
+        "0x4010ee",
+        "0x4011f6",
+        "0x4011f8",
+        "0x40120e",
+        "0x401216",
+        "0x401219",
+        "0x40121b"
+      ],
+      "paths": 2,
+      "reason_codes": [
+        "heap_write_exceeds_allocation"
+      ],
+      "status": "classified",
+      "steps": 16,
+      "write_checks": [
+        {
+          "bound_basis": "requested_allocation",
+          "capacity": 40,
+          "evidence": [
+            "0x4010e4",
+            "0x4010ee",
+            "0x4011f6",
+            "0x4011f8",
+            "0x40120e",
+            "0x401216",
+            "0x401219",
+            "0x40121b"
+          ],
+          "object_offset": null,
+          "offset": 40,
+          "outcome": "exceeds_allocation",
+          "region": "heap",
+          "site": "0x40121b",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e4"
+          ],
+          "object_offset": null,
+          "offset": 4210804,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010e4",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "72582716aed4dcd274ed97f26aa1ce4339a50f5755f4eb7455fb3621f445f593",
+    "error_code": null,
+    "ir_sha256": "37c8b4b6283f4b38113423c88945523b0ce53b4dc6e21429883ffbb50137c49c",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r415a0d69f8b8b38ddd704e47",
+    "prediction": {
+      "decision": "vulnerable_CWE-122",
+      "evidence": [
+        "0x4010f8",
+        "0x4010fd",
+        "0x401100",
+        "0x401102"
+      ],
+      "paths": 2,
+      "reason_codes": [
+        "heap_write_exceeds_allocation"
+      ],
+      "status": "classified",
+      "steps": 12,
+      "write_checks": [
+        {
+          "bound_basis": "requested_allocation",
+          "capacity": 40,
+          "evidence": [
+            "0x4010f8",
+            "0x4010fd",
+            "0x401100",
+            "0x401102"
+          ],
+          "object_offset": null,
+          "offset": 40,
+          "outcome": "exceeds_allocation",
+          "region": "heap",
+          "site": "0x401102",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010ee"
+          ],
+          "object_offset": null,
+          "offset": 4210804,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010ee",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "c9bd00b61220cff16438bd84226e48f68b2916a8bd2626eb39535e1673722349",
+    "error_code": null,
+    "ir_sha256": "37c8b4b6283f4b38113423c88945523b0ce53b4dc6e21429883ffbb50137c49c",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r404d5e6cdf343679234ee26a",
+    "prediction": {
+      "decision": "vulnerable_CWE-122",
+      "evidence": [
+        "0x4010f8",
+        "0x4010fd",
+        "0x401100",
+        "0x401102"
+      ],
+      "paths": 2,
+      "reason_codes": [
+        "heap_write_exceeds_allocation"
+      ],
+      "status": "classified",
+      "steps": 12,
+      "write_checks": [
+        {
+          "bound_basis": "requested_allocation",
+          "capacity": 40,
+          "evidence": [
+            "0x4010f8",
+            "0x4010fd",
+            "0x401100",
+            "0x401102"
+          ],
+          "object_offset": null,
+          "offset": 40,
+          "outcome": "exceeds_allocation",
+          "region": "heap",
+          "site": "0x401102",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010ee"
+          ],
+          "object_offset": null,
+          "offset": 4210804,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010ee",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "eb40807bce2b4d4f6cccf1c7d2fdf7e5e71ae0bec2406bc8d1d20dcf52bc7284",
+    "error_code": null,
+    "ir_sha256": "ef2e64150f798cef5967eea894e8d35401c2877ce1c32bcb80a891f9fc0f868a",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rea3a430a239c0d91ced4ae85",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x40122c",
+        "0x401282"
+      ],
+      "paths": 0,
+      "reason_codes": [
+        "unaccounted_native_write"
+      ],
+      "status": "abstained",
+      "steps": 0,
+      "write_checks": []
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "9c6cb959d24cf2fde0c196dc3be2bca33088353523fecdb7ec524a1a9380d1d5",
+    "error_code": null,
+    "ir_sha256": "ef2e64150f798cef5967eea894e8d35401c2877ce1c32bcb80a891f9fc0f868a",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rc5824c0bb3c0ec909bd46e65",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x40122c",
+        "0x401282"
+      ],
+      "paths": 0,
+      "reason_codes": [
+        "unaccounted_native_write"
+      ],
+      "status": "abstained",
+      "steps": 0,
+      "write_checks": []
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "aa545413afebb449f4d795666a8079d5a0f59393a391cb9be27c06af0872b496",
+    "error_code": null,
+    "ir_sha256": "348fede3ab613410c32c34a90732b520c066b8daf5283aabb40340015bbf45f0",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r073935280cbf8bbffc694f53",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x401220",
+        "0x401341"
+      ],
+      "paths": 2,
+      "reason_codes": [
+        "cyclic_control_flow"
+      ],
+      "status": "abstained",
+      "steps": 22,
+      "write_checks": [
+        {
+          "bound_basis": "requested_allocation",
+          "capacity": 40,
+          "evidence": [
+            "0x4011da",
+            "0x4011e1",
+            "0x401200",
+            "0x401208",
+            "0x40120b",
+            "0x401215",
+            "0x401220",
+            "0x401341",
+            "0x401350"
+          ],
+          "object_offset": null,
+          "offset": 0,
+          "outcome": "within_bounds",
+          "region": "heap",
+          "site": "0x401220",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011da",
+            "0x4011e1",
+            "0x401200",
+            "0x401208",
+            "0x40120b",
+            "0x401220",
+            "0x401341",
+            "0x401350"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x401220",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x401341"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x401341",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "a5d672bb38ec993a7ee1f4fb9a5a72b3c40b6e8fb1b556f0e1cca00dfc2c7eff",
+    "error_code": null,
+    "ir_sha256": "348fede3ab613410c32c34a90732b520c066b8daf5283aabb40340015bbf45f0",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r732725a3b228724d855bdf14",
+    "prediction": {
+      "decision": "uncertain",
+      "evidence": [
+        "0x401220",
+        "0x401341"
+      ],
+      "paths": 2,
+      "reason_codes": [
+        "cyclic_control_flow"
+      ],
+      "status": "abstained",
+      "steps": 22,
+      "write_checks": [
+        {
+          "bound_basis": "requested_allocation",
+          "capacity": 40,
+          "evidence": [
+            "0x4011da",
+            "0x4011e1",
+            "0x401200",
+            "0x401208",
+            "0x40120b",
+            "0x401215",
+            "0x401220",
+            "0x401341",
+            "0x401350"
+          ],
+          "object_offset": null,
+          "offset": 0,
+          "outcome": "within_bounds",
+          "region": "heap",
+          "site": "0x401220",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4011da",
+            "0x4011e1",
+            "0x401200",
+            "0x401208",
+            "0x40120b",
+            "0x401220",
+            "0x401341",
+            "0x401350"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x401220",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x401341"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x401341",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "18ce58b005c2eb7ce1b3990b2ec60b1faab411bd43725bc8dc7d97b5f52741e5",
+    "error_code": null,
+    "ir_sha256": "4d5c16ceb59b59be37943ea8d9e8eb14bdefbe7553f9a2815b0fc6992eea4780",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rafa6871472fd8f0db9dd5142",
+    "prediction": {
+      "decision": "not_vulnerable",
+      "evidence": [
+        "0x4010e4",
+        "0x4010ee",
+        "0x4010f9",
+        "0x4011f6",
+        "0x4011f8",
+        "0x40120d",
+        "0x4012a0",
+        "0x4012a3",
+        "0x4012a5"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "all_selected_writes_accounted_for"
+      ],
+      "status": "classified",
+      "steps": 17,
+      "write_checks": [
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e4",
+            "0x4010ee",
+            "0x4010f9",
+            "0x4011f6",
+            "0x4011f8",
+            "0x40120d",
+            "0x4012a0",
+            "0x4012a3",
+            "0x4012a5"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010f9",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e4",
+            "0x4010ee",
+            "0x4011f6",
+            "0x4011f8",
+            "0x40120d",
+            "0x4012a0",
+            "0x4012a3",
+            "0x4012a5"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x40120d",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e4"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010e4",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "7ce85a290aac650619863aad3e66a03c5dd4f27992c95bd71fbcfb574a9bd00c",
+    "error_code": null,
+    "ir_sha256": "4d5c16ceb59b59be37943ea8d9e8eb14bdefbe7553f9a2815b0fc6992eea4780",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "rbb2e9cd05647a5da48094abc",
+    "prediction": {
+      "decision": "not_vulnerable",
+      "evidence": [
+        "0x4010e4",
+        "0x4010ee",
+        "0x4010f9",
+        "0x4011f6",
+        "0x4011f8",
+        "0x40120d",
+        "0x4012a0",
+        "0x4012a3",
+        "0x4012a5"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "all_selected_writes_accounted_for"
+      ],
+      "status": "classified",
+      "steps": 17,
+      "write_checks": [
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e4",
+            "0x4010ee",
+            "0x4010f9",
+            "0x4011f6",
+            "0x4011f8",
+            "0x40120d",
+            "0x4012a0",
+            "0x4012a3",
+            "0x4012a5"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010f9",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e4",
+            "0x4010ee",
+            "0x4011f6",
+            "0x4011f8",
+            "0x40120d",
+            "0x4012a0",
+            "0x4012a3",
+            "0x4012a5"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x40120d",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e4"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010e4",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "21790e1222d3b5030ce8712058ccec4c2304a481e90ff9bb730323cf948cab5b",
+    "error_code": null,
+    "ir_sha256": "58ab41d8b0ee91f23c02bf552555cf51b45438b09ef38c9643d25a25742d376c",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r7d9508e3f1b8530f73138fc5",
+    "prediction": {
+      "decision": "not_vulnerable",
+      "evidence": [
+        "0x4010e9",
+        "0x4010f3",
+        "0x4010fe",
+        "0x401280",
+        "0x401283",
+        "0x401285"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "all_selected_writes_accounted_for"
+      ],
+      "status": "classified",
+      "steps": 11,
+      "write_checks": [
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e9"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010e9",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010f3",
+            "0x4010fe",
+            "0x401280",
+            "0x401283",
+            "0x401285"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010fe",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  },
+  {
+    "bundle_sha256": "db5d153c9f854fb770d461c11adb15f379066349a7f95f3eed24467a0e73173f",
+    "error_code": null,
+    "ir_sha256": "58ab41d8b0ee91f23c02bf552555cf51b45438b09ef38c9643d25a25742d376c",
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "observation_id": "r0e3d4ae5b41a54ed7221a3dd",
+    "prediction": {
+      "decision": "not_vulnerable",
+      "evidence": [
+        "0x4010e9",
+        "0x4010f3",
+        "0x4010fe",
+        "0x401280",
+        "0x401283",
+        "0x401285"
+      ],
+      "paths": 1,
+      "reason_codes": [
+        "all_selected_writes_accounted_for"
+      ],
+      "status": "classified",
+      "steps": 11,
+      "write_checks": [
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010e9"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010e9",
+          "size": 4
+        },
+        {
+          "bound_basis": null,
+          "capacity": null,
+          "evidence": [
+            "0x4010f3",
+            "0x4010fe",
+            "0x401280",
+            "0x401283",
+            "0x401285"
+          ],
+          "object_offset": null,
+          "offset": 4210812,
+          "outcome": "static_storage_write",
+          "region": "static",
+          "site": "0x4010fe",
+          "size": 4
+        }
+      ]
+    },
+    "schema_version": 2,
+    "status": "completed"
+  }
+]

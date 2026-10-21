@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-19",
+  "history": [
+    {
+      "accepted_for_phase4_validation": false,
+      "counts": {
+        "available": 32
+      },
+      "extraction_manifest_sha256": "54751686283576b9b64e2b0053b2bfb0e60aaceed9636e17a6bcf46df7a5bfec",
+      "method_sha256": {
+        "context_policy.json": "06e2014f1e71da6fa3db7dfc82e2675f3d12691381fc4e7821dccda4a88867d7",
+        "ghidra/ExtractBundle.java": "5f611003eb27a1235bf9293626dc376aded8dec15774929609597c050c651986",
+        "pipeline/bundles.py": "2873e7555b595028ba22e3b452d9a61696f2df5fe8afc6056723c252382c1cd2",
+        "pipeline/context_worker.py": "31197de85558644c232dcdade7af4eef278f0b44a17a7ea4fcbf82ca922a6e77",
+        "pipeline/export_context.py": "b0f4877bac40128f88cd178c5f694b635d3e179d620a138bff6e6340fda5ac24",
+        "schemas/bundle-v2.json": "2f7d1b4633461bb3ecc065b815536e90fe1e2d9e5f63c00d0d42ab97710fdf64"
+      },
+      "planned_observations": 32,
+      "reason": "Development prototype; superseded before method lock. phase4-a/b exposed Java perf-data PID collisions and were invalidated by subsequent policy/method changes; their verification refused publication.",
+      "recorded_observations": 32,
+      "run_id": "development-a"
+    },
+    {
+      "accepted_for_phase4_validation": false,
+      "counts": {
+        "available": 30,
+        "extraction_unavailable": 2
+      },
+      "extraction_manifest_sha256": "862e5b10ad106ecb0c775566eddfc388f73c264730e728ad7bc9990bf2d0a075",
+      "method_sha256": {
+        "context_policy.json": "06e2014f1e71da6fa3db7dfc82e2675f3d12691381fc4e7821dccda4a88867d7",
+        "ghidra/ExtractBundle.java": "b3c182dfe422e205f69c4bf2cee85593404d8c13a41311dc1e5666cee60ddb6e",
+        "pipeline/bundles.py": "d4198910436b48fb3b1ff659b6cc803254da287b8a4e51593800d5d36d5aacea",
+        "pipeline/context_worker.py": "fc7c66160961453cff1749d2ffdf1755483df7f94aed13e6fd68ecb88aad658c",
+        "pipeline/export_context.py": "f0a69f38c17f1d219d94f3568afce8cb11330a487bbc9770abd5f12ebbf13b34",
+        "schemas/bundle-v2.json": "a1d11dca3ae5324b78be6a9937392bd3aca4d0af4677276dbf0c746fd8ea1a4c"
+      },
+      "planned_observations": 32,
+      "reason": "Development prototype; superseded before method lock. phase4-a/b exposed Java perf-data PID collisions and were invalidated by subsequent policy/method changes; their verification refused publication.",
+      "recorded_observations": 32,
+      "run_id": "phase4-a"
+    },
+    {
+      "accepted_for_phase4_validation": false,
+      "counts": {
+        "available": 31,
+        "extraction_unavailable": 1
+      },
+      "extraction_manifest_sha256": "89df6ccee5e89c08b36af40e7c2f38e9b38f91019846595141aa0aec00c454e3",
+      "method_sha256": {
+        "context_policy.json": "06e2014f1e71da6fa3db7dfc82e2675f3d12691381fc4e7821dccda4a88867d7",
+        "ghidra/ExtractBundle.java": "b3c182dfe422e205f69c4bf2cee85593404d8c13a41311dc1e5666cee60ddb6e",
+        "pipeline/bundles.py": "d4198910436b48fb3b1ff659b6cc803254da287b8a4e51593800d5d36d5aacea",
+        "pipeline/context_worker.py": "fc7c66160961453cff1749d2ffdf1755483df7f94aed13e6fd68ecb88aad658c",
+        "pipeline/export_context.py": "f0a69f38c17f1d219d94f3568afce8cb11330a487bbc9770abd5f12ebbf13b34",
+        "schemas/bundle-v2.json": "a1d11dca3ae5324b78be6a9937392bd3aca4d0af4677276dbf0c746fd8ea1a4c"
+      },
+      "planned_observations": 32,
+      "reason": "Development prototype; superseded before method lock. phase4-a/b exposed Java perf-data PID collisions and were invalidated by subsequent policy/method changes; their verification refused publication.",
+      "recorded_observations": 32,
+      "run_id": "phase4-b"
+    },
+    {
+      "accepted_for_phase4_validation": true,
+      "counts": {
+        "available": 32
+      },
+      "extraction_manifest_sha256": "f801ac94e9e3384e331d1b84f9dafa55d53adafbf2d17495a189b901ee855501",
+      "method_sha256": {
+        "context_policy.json": "ba4fea120120ff6d457470d05aaa4d7b59e873443e83cbacdef65252c6259445",
+        "ghidra/ConfigurePublicAnalysis.java": "06270a4ee4ff9fad008273e7642f5efff24cb1aaae82bfeef5fcfd76c8dbcb4c",
+        "ghidra/ExtractBundle.java": "fea65ff35936d8043221ac2eed820f2a79981f3b0d6c89e2942d70c6f9640230",
+        "pipeline/bundles.py": "0df3c288c8334a5687ce43895c1927c40798eb78884a37190db44c56d6215d94",
+        "pipeline/context_worker.py": "907262722f02290803fb04895992227c48644285823bce56d25aff0f8ec5a18a",
+        "pipeline/export_context.py": "7bd6b2550f5facffff0944819ad06b62e394b502d034e973a14c643a3e77729b",
+        "schemas/bundle-v2.json": "a1d11dca3ae5324b78be6a9937392bd3aca4d0af4677276dbf0c746fd8ea1a4c"
+      },
+      "planned_observations": 32,
+      "reason": "Complete fixed-method run; canonical bundles compare identically across both accepted runs.",
+      "recorded_observations": 32,
+      "run_id": "phase4-c"
+    },
+    {
+      "accepted_for_phase4_validation": true,
+      "counts": {
+        "available": 32
+      },
+      "extraction_manifest_sha256": "1703d3ae78e94a3e9c7f9cbcdb1bd1e705ded86a2eb85586f2b7482a8fa3872f",
+      "method_sha256": {
+        "context_policy.json": "ba4fea120120ff6d457470d05aaa4d7b59e873443e83cbacdef65252c6259445",
+        "ghidra/ConfigurePublicAnalysis.java": "06270a4ee4ff9fad008273e7642f5efff24cb1aaae82bfeef5fcfd76c8dbcb4c",
+        "ghidra/ExtractBundle.java": "fea65ff35936d8043221ac2eed820f2a79981f3b0d6c89e2942d70c6f9640230",
+        "pipeline/bundles.py": "0df3c288c8334a5687ce43895c1927c40798eb78884a37190db44c56d6215d94",
+        "pipeline/context_worker.py": "907262722f02290803fb04895992227c48644285823bce56d25aff0f8ec5a18a",
+        "pipeline/export_context.py": "7bd6b2550f5facffff0944819ad06b62e394b502d034e973a14c643a3e77729b",
+        "schemas/bundle-v2.json": "a1d11dca3ae5324b78be6a9937392bd3aca4d0af4677276dbf0c746fd8ea1a4c"
+      },
+      "planned_observations": 32,
+      "reason": "Complete fixed-method run; canonical bundles compare identically across both accepted runs.",
+      "recorded_observations": 32,
+      "run_id": "phase4-d"
+    }
+  ],
+  "phase": 4,
+  "preservation": "Raw logs, per-cell records and manifests remain in separate ignored build/pilot/context run directories. No existing public records were overwritten. No predictors or final-case assignments occurred.",
+  "schema_version": 1
+}

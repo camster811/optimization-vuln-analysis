@@ -1,0 +1,427 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "architecture": {
+      "enum": [
+        "x86-64"
+      ]
+    },
+    "assumptions": {
+      "const": [
+        "One invocation of the localized entry; no concurrent mutation or library interposition.",
+        "System V x86-64 ABI and ordinary libc allocation, string and output semantics.",
+        "Decompiler types and referenced-data windows are uncertain recovery, not proven object bounds."
+      ]
+    },
+    "calls": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "caller": {
+            "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "call",
+              "tail"
+            ]
+          },
+          "resolution": {
+            "enum": [
+              "application",
+              "external",
+              "unresolved"
+            ]
+          },
+          "site": {
+            "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+            "type": "string"
+          },
+          "target_address": {
+            "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+            "type": "string"
+          },
+          "target_entry": {
+            "anyOf": [
+              {
+                "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "target_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "caller",
+          "site",
+          "target_address",
+          "target_name",
+          "target_entry",
+          "kind",
+          "resolution"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "completeness": {
+      "additionalProperties": false,
+      "properties": {
+        "data": {
+          "enum": [
+            "complete",
+            "uncertain",
+            "incomplete"
+          ]
+        },
+        "decompilation": {
+          "enum": [
+            "complete",
+            "incomplete"
+          ]
+        },
+        "external_bodies": {
+          "enum": [
+            "excluded"
+          ]
+        },
+        "localization": {
+          "enum": [
+            "private_entry_address"
+          ]
+        },
+        "omissions": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "address": {
+                "anyOf": [
+                  {
+                    "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "reason": {
+                "enum": [
+                  "entry_function_not_recovered",
+                  "function_limit",
+                  "instruction_limit",
+                  "data_total_limit",
+                  "data_reference_limit",
+                  "decompilation_failed",
+                  "data_reference_unavailable",
+                  "indirect_transfer",
+                  "target_function_not_recovered",
+                  "analysis_cancelled",
+                  "analysis_timeout",
+                  "export_failed",
+                  "build_unavailable",
+                  "entry_unavailable",
+                  "engine_unavailable",
+                  "engine_failed",
+                  "invalid_export",
+                  "metadata_leakage",
+                  "bundle_byte_limit",
+                  "token_upper_bound_limit"
+                ]
+              }
+            },
+            "required": [
+              "reason",
+              "address"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "traversal": {
+          "enum": [
+            "complete",
+            "incomplete"
+          ]
+        }
+      },
+      "required": [
+        "traversal",
+        "data",
+        "decompilation",
+        "external_bodies",
+        "localization",
+        "omissions"
+      ],
+      "type": "object"
+    },
+    "data": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "address": {
+            "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+            "type": "string"
+          },
+          "bytes": {
+            "pattern": "^(?:[0-9a-f]{2})+$",
+            "type": "string"
+          },
+          "extent_status": {
+            "enum": [
+              "recovered_type_extent",
+              "unknown_window"
+            ]
+          },
+          "interpretation": {
+            "enum": [
+              "uncertain_binary_recovery_not_an_object_bound"
+            ]
+          },
+          "recovered_type": {
+            "type": "string"
+          },
+          "references": {
+            "items": {
+              "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "storage": {
+            "enum": [
+              "initialized",
+              "zero_filled"
+            ]
+          },
+          "string_prefix": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "truncated": {
+            "type": "boolean"
+          },
+          "writable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "address",
+          "size",
+          "bytes",
+          "string_prefix",
+          "writable",
+          "storage",
+          "extent_status",
+          "recovered_type",
+          "interpretation",
+          "references",
+          "truncated"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "entry_address": {
+      "anyOf": [
+        {
+          "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "functions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "decompilation": {
+            "additionalProperties": false,
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "error",
+                  "timeout",
+                  "cancelled",
+                  "not_run"
+                ]
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "text"
+            ],
+            "type": "object"
+          },
+          "entry": {
+            "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+            "type": "string"
+          },
+          "instructions": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "address": {
+                  "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+                  "type": "string"
+                },
+                "bytes": {
+                  "pattern": "^(?:[0-9a-f]{2})+$",
+                  "type": "string"
+                },
+                "mnemonic": {
+                  "type": "string"
+                },
+                "operands": {
+                  "type": "string"
+                },
+                "size": {
+                  "maximum": 15,
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "address",
+                "size",
+                "bytes",
+                "mnemonic",
+                "operands"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "name": {
+            "type": "string"
+          },
+          "name_origin": {
+            "enum": [
+              "default",
+              "analysis",
+              "imported",
+              "user_defined"
+            ]
+          },
+          "ranges": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "end": {
+                  "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+                  "type": "string"
+                },
+                "start": {
+                  "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "start",
+                "end"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "entry",
+          "name",
+          "name_origin",
+          "ranges",
+          "instructions",
+          "decompilation"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "policy_id": {
+      "enum": [
+        "entry-closure-v1"
+      ]
+    },
+    "schema_version": {
+      "enum": [
+        2
+      ]
+    },
+    "status": {
+      "enum": [
+        "available",
+        "context_unavailable",
+        "extraction_unavailable"
+      ]
+    },
+    "unresolved_transfers": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "caller": {
+            "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "call",
+              "jump"
+            ]
+          },
+          "reason": {
+            "enum": [
+              "indirect_transfer",
+              "target_function_not_recovered"
+            ]
+          },
+          "site": {
+            "pattern": "^0x(?:0|[1-9a-f][0-9a-f]{0,15})$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "caller",
+          "site",
+          "kind",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "architecture",
+    "policy_id",
+    "assumptions",
+    "entry_address",
+    "status",
+    "functions",
+    "calls",
+    "data",
+    "unresolved_transfers",
+    "completeness"
+  ],
+  "title": "Public binary context bundle v2",
+  "type": "object"
+}

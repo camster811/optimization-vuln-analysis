@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "reviewer": "Codex source review; not independent human adjudication",
+  "review_date": "2026-10-19",
+  "selection_basis": "Seeded family ordering and source-only eligibility; no predictor output used",
+  "interpretation": "Interprocedural buffer reasoning transfers a buffer, extent, or index to a helper. Output routines and helpers returning only control constants do not qualify by themselves.",
+  "decisions": [
+    {
+      "cwe": "CWE-121", "rank": 1,
+      "family_id": "CWE121_Stack_Based_Buffer_Overflow__CWE193_char_declare_loop",
+      "decision": "pilot", "pair_id": "pilot-01", "flow": "41",
+      "prior_exposure": "Earlier hand-modified corpus used related stack-copy mechanisms; this family is permanently development-only regardless of exact earlier lineage.",
+      "earlier_flows": "01-18,31,32,34 keep the buffer and write in the same function; predicate/output helpers alone do not transfer buffer bounds or data. 41 passes the destination buffer to a copy helper.",
+      "source": "testcases/CWE121_Stack_Based_Buffer_Overflow/s02/CWE121_Stack_Based_Buffer_Overflow__CWE193_char_declare_loop_41.c",
+      "original_entries": {"vulnerable": "CWE121_Stack_Based_Buffer_Overflow__CWE193_char_declare_loop_41_bad", "safe": "goodG2B"},
+      "reason": "Fixed string copy of 11 bytes into a 10-byte or 11-byte stack destination, passed directly to a helper. The only safe leaf entry is goodG2B.",
+      "assumptions": "No external input. Execute the selected entry once; library calls follow ordinary C semantics. No claim about optimized binary truth is made here."
+    },
+    {
+      "cwe": "CWE-122", "rank": 1,
+      "family_id": "CWE122_Heap_Based_Buffer_Overflow__c_src_char_cpy",
+      "decision": "source_ineligible",
+      "reason": "The heap allocation is the source string, while the overflowing destination is char dest[50] on the stack. It does not supply the required heap-destination pair. This is source classification, not an analyzer-performance exclusion.",
+      "evidence_sources": [
+        "testcases/CWE122_Heap_Based_Buffer_Overflow/s10/CWE122_Heap_Based_Buffer_Overflow__c_src_char_cpy_01.c",
+        "testcases/CWE122_Heap_Based_Buffer_Overflow/s10/CWE122_Heap_Based_Buffer_Overflow__c_src_char_cpy_41.c"
+      ]
+    },
+    {
+      "cwe": "CWE-122", "rank": 2,
+      "family_id": "CWE122_Heap_Based_Buffer_Overflow__c_CWE129_large",
+      "decision": "pilot", "pair_id": "pilot-02", "flow": "21",
+      "prior_exposure": "No exact-family provenance established from the prior hand-modified corpus; selected only for development and permanently excluded from final sampling.",
+      "earlier_flows": "01-18 keep the index and write within the same function. Flow 21 passes the index to a helper that allocates and accesses the heap buffer.",
+      "source": "testcases/CWE122_Heap_Based_Buffer_Overflow/s06/CWE122_Heap_Based_Buffer_Overflow__c_CWE129_large_21.c",
+      "original_entries": {"vulnerable": "CWE122_Heap_Based_Buffer_Overflow__c_CWE129_large_21_bad", "safe": "goodB2G1"},
+      "reason": "Index 10 is passed to a helper allocating ten ints. The selected original safe path checks both bounds. goodB2G1 is lexicographically first among goodB2G1, goodB2G2, and goodG2B; the aggregate good wrapper is not a single safe path.",
+      "assumptions": "No external input. Execute the selected entry once. Allocation succeeds for the overflow witness; allocation failure takes the original exit path. No claim about optimized binary truth is made here."
+    }
+  ]
+}

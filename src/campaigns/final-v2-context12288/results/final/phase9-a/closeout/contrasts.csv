@@ -1,0 +1,17 @@
+contrast,method,matched_cells,families,estimate,lower,upper,defined_replicates
+O1_minus_O0,baseline,40,10,0.15,0.0,0.35,10000
+O1_minus_O0,llm,40,10,0.1,-0.175,0.35,10000
+O2_minus_O0,baseline,40,10,0.15,0.0,0.35,10000
+O2_minus_O0,llm,40,10,0.075,-0.225,0.4,10000
+O3_minus_O0,baseline,40,10,0.15,0.0,0.35,10000
+O3_minus_O0,llm,40,10,0.05,-0.25,0.375,10000
+stripped_minus_retained,baseline,80,10,0.0,0.0,0.0,10000
+stripped_minus_retained,llm,80,10,-0.0125,-0.075,0.05,10000
+stripped_minus_retained_O0,baseline,20,10,0.0,0.0,0.0,10000
+stripped_minus_retained_O0,llm,20,10,-0.05,-0.25,0.15,10000
+stripped_minus_retained_O1,baseline,20,10,0.0,0.0,0.0,10000
+stripped_minus_retained_O1,llm,20,10,0.05,0.0,0.15,10000
+stripped_minus_retained_O2,baseline,20,10,0.0,0.0,0.0,10000
+stripped_minus_retained_O2,llm,20,10,0.0,0.0,0.0,10000
+stripped_minus_retained_O3,baseline,20,10,0.0,0.0,0.0,10000
+stripped_minus_retained_O3,llm,20,10,-0.05,-0.15,0.0,10000

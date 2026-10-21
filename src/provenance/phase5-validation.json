@@ -1,0 +1,2317 @@
+{
+  "counts": {
+    "completed": 32
+  },
+  "decisions": {
+    "not_vulnerable": 4,
+    "uncertain": 24,
+    "vulnerable_CWE-122": 4
+  },
+  "engine": {
+    "files": {
+      "Ghidra/Configurations/Public_Release/lib/Public_Release.jar": "780359277f2515a23e1af2d48d80a0708f55a0f16dcccc6bc6da85922695a499",
+      "Ghidra/Debug/AnnotationValidator/lib/AnnotationValidator.jar": "48f60576e7e942ef1ca31158edfb17a9001a8602edef852d009ca1c6a71f0987",
+      "Ghidra/Debug/Debugger-agent-dbgeng/lib/Debugger-agent-dbgeng.jar": "809ddb2ff015ece960ea27b0c23d521cb86ff9f8185bbae3c76e04ee4696f177",
+      "Ghidra/Debug/Debugger-agent-drgn/lib/Debugger-agent-drgn.jar": "d9bb22b444f331a4e233c5286711b46d25549e0d7ecbdbfe92dbd3eb4f09b15d",
+      "Ghidra/Debug/Debugger-agent-gdb/lib/Debugger-agent-gdb.jar": "d1dcb40dba392f417b3a223ae4a40d2c30d54d0974836a7789a27d8cccbc884e",
+      "Ghidra/Debug/Debugger-agent-lldb/lib/Debugger-agent-lldb.jar": "5abda47bcf4bd1aa837541b21c4641172f2a0752c7b30e222bea1e73a13bd9a2",
+      "Ghidra/Debug/Debugger-agent-x64dbg/lib/Debugger-agent-x64dbg.jar": "d1e528367708053d67e0d8898238a9c1a8774b2aaa0ba7ca02ef6893237e8a7d",
+      "Ghidra/Debug/Debugger-api/lib/Debugger-api.jar": "5c2e046f823bf199b7254c5b20b78771062c5811f84a27eba59f8547b3d70e6c",
+      "Ghidra/Debug/Debugger-importers/lib/Debugger-importers.jar": "7f4e4a35cf759d0c7be483920089313c03e7c8cb598998948bc094260106b6db",
+      "Ghidra/Debug/Debugger-isf/lib/Debugger-isf.jar": "6af672db8e26bbbedbdb3dcb8c41f13d857f496413c265c2ab5a4a6787747acb",
+      "Ghidra/Debug/Debugger-jpda/lib/Debugger-jpda.jar": "04e60ebbbd10b8b092b60da5f7f7b80b61720872677ee32ddbf6e92dc7e3648e",
+      "Ghidra/Debug/Debugger-rmi-trace/lib/Debugger-rmi-trace.jar": "7f23863136e9595c9e00dc6c98b506c218bf03f27ebc48b26df42b16454cc35a",
+      "Ghidra/Debug/Debugger/lib/Debugger.jar": "5b24a187571c11e04f80aba44337c2d5c346b4dc5d4ee5eb1752445f518b38a7",
+      "Ghidra/Debug/Framework-TraceModeling/lib/Framework-TraceModeling.jar": "2db253bc0fe356571525d63f214a49d58d5497e745ca45410a69a23c333186c3",
+      "Ghidra/Debug/ProposedUtils/lib/ProposedUtils.jar": "3e33cc665d0e9564a42a2d4ce023c151cb94b6a9124fb2003af5f493ead81792",
+      "Ghidra/Debug/ProposedUtils/lib/protobuf-java-4.31.0.jar": "68773dccd6cc5835af7a748759cecf5ea20ff083136e3847fbe94572b8e0ed6a",
+      "Ghidra/Debug/TaintAnalysis/lib/TaintAnalysis.jar": "63af78b6c5009c8a3ef52e949171b598e141bd1342de545d1de891e7938cb54d",
+      "Ghidra/Features/BSim/lib/BSim.jar": "68e44522ce6c9572a95c7c48dccc087c897d447c2b68794eb298fbd838c5dabf",
+      "Ghidra/Features/BSim/lib/commons-dbcp2-2.9.0.jar": "887720912c5cbbcdff6e0e21d5034937555f8ffc597381eff8fa77f33ce6d64e",
+      "Ghidra/Features/BSim/lib/commons-logging-1.2.jar": "daddea1ea0be0f56978ab3006b8ac92834afeefbd9b7e4e6316fca57df0fa636",
+      "Ghidra/Features/BSim/lib/commons-pool2-2.11.1.jar": "ea0505ee7515e58b1ac0e686e4d1a5d9f7d808e251a61bc371aa0595b9963f83",
+      "Ghidra/Features/BSim/lib/h2-2.2.220.jar": "978ab863018d3f965e38880571c36293ea8b10a8086194159c4d5d20b50f0a57",
+      "Ghidra/Features/BSim/lib/postgresql-42.7.13.jar": "6e0e4cc2d8cae902084f8a2b18728b073a6fd9d1f87c9d8bff8f298c18185b93",
+      "Ghidra/Features/BSimFeatureVisualizer/lib/BSimFeatureVisualizer.jar": "4fbd29601108f2f3cd644ff981721f00513fd18b34d63591d62a37b3337356f9",
+      "Ghidra/Features/Base/data/pcodetest/EmuTesting.gdt": "3fac4370a3ef22cadda735cc5654440d968d56323924bd3d4f3b53a88fcba22f",
+      "Ghidra/Features/Base/data/typeinfo/generic/generic_clib.gdt": "3fe6758b771fa35b482321b2f01b9a3ce42d15b588ca25953d7c4f7deab0f542",
+      "Ghidra/Features/Base/data/typeinfo/generic/generic_clib_64.gdt": "f13500b804b24a2a2dccb034783a437e30faa0e17cff79a19fb565d4f2e16810",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.15_anybit_any.gdt": "8d00d7804eb32cfa204c8895c042b6f2670e2b898cdcd21adc2971552dc1b95b",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.16_anybit_any.gdt": "e1004ee298129f3ab2604373e8f001e8c5e9692a45a07af665a46efb2284a603",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.17_anybit_any.gdt": "0e65de82ea6cef692bd21778c616b3658d5f42b841eefb2e6143bd9cf6c9c667",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.18_anybit_any.gdt": "b6d598e8660187976669f3e07b0a52d24b909efec1f7c2bd23ac33e7040a60ad",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.19_anybit_any.gdt": "3b57b171b9d91b131c33d7d3e92f77f420671b7906b61d6966b5746bb6a9ee5b",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.20_anybit_any.gdt": "668c026d03a4f026ededa0d15816c48af2b23491834e5579a13e4debf9b399e1",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.21_anybit_any.gdt": "637edc46c85e61bd0b27b0c582bdc7e3a6c6e74ceb7a7f0c2134cae58e5c4251",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.22_anybit_any.gdt": "38d5c1c7586f860b1311447502447f9548226dce580519b22c57323c2d4f6b7c",
+      "Ghidra/Features/Base/data/typeinfo/golang/golang_1.23_anybit_any.gdt": "9de4f96727c96c2f4a7c85211a7cb35db2838e2621fd6754d314cf0d2bfdac1a",
+      "Ghidra/Features/Base/data/typeinfo/mac_10.9/mac_osx.gdt": "933a8adcb31c12e24246edc17606f06ce84e876a950203deb03517bcc7931c82",
+      "Ghidra/Features/Base/data/typeinfo/rust/rust-common.gdt": "eb366a710f75188c58b87b323daf0f0494fde095cef1fea0415ae3f39776248e",
+      "Ghidra/Features/Base/data/typeinfo/win32/windows_vs12_32.gdt": "123b938636bef40112d1b476021191710b7a5ce1e7dfb040635c9efaa4619a17",
+      "Ghidra/Features/Base/data/typeinfo/win32/windows_vs12_64.gdt": "fd712c4ee2264aec5287ff40ea143cf249c55568a452f8e14a18471cd6715f61",
+      "Ghidra/Features/Base/lib/Base.jar": "5ce4a06970f6d0a5c1458d627443a4e474742e06208e8f9c001679bd17f0b7bf",
+      "Ghidra/Features/Base/lib/biz.aQute.bnd.util-7.0.0.jar": "39575d150249962a9c6d46cce7e672e777c8a8620a1d2d220c7f2c0a799e7623",
+      "Ghidra/Features/Base/lib/biz.aQute.bndlib-7.0.0.jar": "80a569d006f32e925cee4ce8af926b7e6fdaaaab5ccbfd5fe4c9cdff9c4dd2df",
+      "Ghidra/Features/Base/lib/org.apache.felix.framework-7.0.5.jar": "aba72932c5ffe52d1ae9fb735415474bc8305fd04f050e851f3a8f67da1834fd",
+      "Ghidra/Features/Base/lib/org.osgi.util.promise-1.3.0.jar": "7053c57e7d7d88fec6b90979a3af125e1d2bb847268a328a2f1ed65ad0a4c185",
+      "Ghidra/Features/Base/lib/phidias-0.3.7.jar": "c8d0760ce3b0ed1453d435bcdd31e34f0be3ac09024e7e1a98b8a3cebf4a6bb5",
+      "Ghidra/Features/Base/lib/slf4j-api-1.7.25.jar": "18c4a0095d5c1da6b817592e767bb23d29dd2f560ad74df75ff3961dbde25b79",
+      "Ghidra/Features/Base/lib/slf4j-nop-1.7.25.jar": "6cb127138f41b5a869f9ecdd061ad17799a0e3fe7204600797154eb0432eeb12",
+      "Ghidra/Features/BytePatterns/lib/BytePatterns.jar": "1880de309e7d40f9607fa620c2d910bc7a05021926cd21c75709c2b11f1f70b7",
+      "Ghidra/Features/ByteViewer/lib/ByteViewer.jar": "1d35098a03d6c3d8e26af13e7637fd413a43855172881b313858e3dc784e8093",
+      "Ghidra/Features/CodeCompare/lib/CodeCompare.jar": "07851bd9b39897feef51ddeca95cb60b975e462af2c502fd527e206e84f8cea3",
+      "Ghidra/Features/DataGraph/lib/DataGraph.jar": "c7efc24079638188f90c8b3f6c4ae2bef814f2e2d7c9be4479d90ecc0f439be2",
+      "Ghidra/Features/DebugUtils/lib/DebugUtils.jar": "0d240ceae7a3b350b41e8db0958d59f2ee6adc1c03f79f342fdcde4db7405b0a",
+      "Ghidra/Features/Decompiler/lib/Decompiler.jar": "8fcbca197aee63507607f66512a64756b0ad77545964257b2048477b5faea3f4",
+      "Ghidra/Features/Decompiler/os/linux_x86_64/decompile": "4a97ff9a3dbac5757c7240a664571e82345e4abc4f67cd211cd9d402abe4543d",
+      "Ghidra/Features/Decompiler/os/linux_x86_64/sleigh": "593d75ff9eebbf7a972a6a06307c860b2335e128bdf09b6e5fe1e628b6087863",
+      "Ghidra/Features/DecompilerDependent/lib/DecompilerDependent.jar": "751b8de7d4d7de74f69a019483c20b05294f8baa6a1b1286decf280c0c0c591c",
+      "Ghidra/Features/FileFormats/lib/AXMLPrinter2.jar": "00ed038eb6abaf6ddec8d202a3ed7a81b521458f4cd459948115cfd02ff59d6d",
+      "Ghidra/Features/FileFormats/lib/FileFormats.jar": "baff64e76f68ddb922867cac0d3c11fec5b06f3b1bfabe87d1c4da271bf21c87",
+      "Ghidra/Features/FileFormats/lib/baksmali-2.5.2.jar": "1ed236266d7dc4907aade0b19a34f77efac25342b63c8ace52e579039941b389",
+      "Ghidra/Features/FileFormats/lib/dex-ir-2.4.24.jar": "e700750b790658fab0d5c782f68a1fbdc587ef8a29f8b32c816bf925d2945900",
+      "Ghidra/Features/FileFormats/lib/dex-reader-2.4.24.jar": "4a1f0b119ee853fdbb2b9e57cc10738ac906d111a8b6b0234da78f48dceb1ab2",
+      "Ghidra/Features/FileFormats/lib/dex-reader-api-2.4.24.jar": "809bcd19dcacd699ba0482c274d320b69d2e147109875b8c557729aae593c4ac",
+      "Ghidra/Features/FileFormats/lib/dex-translator-2.4.24.jar": "d54bf195ae04defd4a6cc401bf58644d34ce29c700b953a5f00f7f1d7b03da55",
+      "Ghidra/Features/FileFormats/lib/dexlib2-2.5.2.jar": "5a5c8982d8bd7d6e3bb1a0713049e3c78b719ec32b20f6b619885cec30a0dd61",
+      "Ghidra/Features/FileFormats/lib/sevenzipjbinding-16.02-2.01.jar": "133ca3f69c8c735d8997c09477504f48a9f2e61ea7b704b3714a9066b1efb88e",
+      "Ghidra/Features/FileFormats/lib/sevenzipjbinding-all-platforms-16.02-2.01.jar": "72fab53a9d31e16d653fe1f400011d02a7f6bc6a91e8634b5cfad5ce15d467bb",
+      "Ghidra/Features/FileFormats/lib/util-2.5.2.jar": "4f580a9cff3ebb83cb3fd20bec88e37e4f183796ca652732992611620282daea",
+      "Ghidra/Features/FunctionGraph/lib/FunctionGraph.jar": "157108df0d122d338e421ad5a0ccf8aa9f613044fad938baf5727003bdd26fda",
+      "Ghidra/Features/FunctionGraphDecompilerExtension/lib/FunctionGraphDecompilerExtension.jar": "96951925a1e24f3fea1cdd5dde967831e42191b8a76172a7cf1520e3d4800909",
+      "Ghidra/Features/FunctionID/lib/FunctionID.jar": "a61bfd6a31407f903626d5d0fd6e52c772e970ec2a61bfea55e879565a906410",
+      "Ghidra/Features/GhidraGo/lib/GhidraGo.jar": "de912a49d9b00f0ef649d8c91415bf602639b2ed6a62ba5b3f9e54d955c5d6b6",
+      "Ghidra/Features/GhidraServer/lib/GhidraServer.jar": "5ef844a6f368791fb54753f6c9941ff3d32a066d652c0ef4c3dee7740853e6a1",
+      "Ghidra/Features/GnuDemangler/lib/GnuDemangler.jar": "e102cb5bee8dd26dbdafe1657b7b92f0e2a8fae682c28276fc057249162640cd",
+      "Ghidra/Features/GraphFunctionCalls/lib/GraphFunctionCalls.jar": "b119d1772d2c6a94bf9c39a21ee34ba2f3c5aa2587d4b37cdbc53cfc91042685",
+      "Ghidra/Features/GraphServices/lib/GraphServices.jar": "68b06e98beca3e0d127b684506228a789c35d4a9cd3c88297a4949b997beee40",
+      "Ghidra/Features/GraphServices/lib/jgrapht-core-1.5.1.jar": "a4d810cb63e0a77a753d147094fea9dd42e82cfc57aa289f9f85229f26043bb4",
+      "Ghidra/Features/GraphServices/lib/jgrapht-io-1.5.1.jar": "86c7fc66cc1907bfc26b366d4dd292cd0da286bde1fd088a11c0d9729d6dcc5c",
+      "Ghidra/Features/GraphServices/lib/jheaps-0.13.jar": "63414290c3497f8ac0f102209207088dec46fd4747e0f56a26c69308e85c6415",
+      "Ghidra/Features/GraphServices/lib/jungrapht-layout-1.4.jar": "a3040129dc39ed2326b36ca15c634422ee579a46178668f99442e38b3e607099",
+      "Ghidra/Features/GraphServices/lib/jungrapht-visualization-1.4.jar": "97053a1dd2cdab263fb5611f1bc82b862b3099f951e3cd0564e3e23d193f4dd8",
+      "Ghidra/Features/MicrosoftCodeAnalyzer/lib/MicrosoftCodeAnalyzer.jar": "ef999fdc53192e4f05e3cc6bdcf6e306cf60487858433be5d9a19dc5d1b62189",
+      "Ghidra/Features/MicrosoftDemangler/lib/MicrosoftDemangler.jar": "20cba1b4635fd0dfdd22d34eea8b2f064ea954202ae51222d505e717381e31af",
+      "Ghidra/Features/MicrosoftDmang/lib/MicrosoftDmang.jar": "80ec8237054698d5fac7cf494f3492a6cbc2c81e168bd6eea34363b3406f2eba",
+      "Ghidra/Features/PDB/lib/PDB.jar": "0d747716ef011fa7e11b25f63cfcbc6b3a7e78a79c8f516253e0c218c594d6b6",
+      "Ghidra/Features/ProgramDiff/lib/ProgramDiff.jar": "2cf59d5a776f3cd4775800676373b37eb0034b01a0f111d9cb9abfcce3944cf2",
+      "Ghidra/Features/ProgramGraph/lib/ProgramGraph.jar": "27d10eb623c9673e236e23c05ebd07b25ff7619546da42e6ed1752835eaec01d",
+      "Ghidra/Features/PyGhidra/lib/PyGhidra.jar": "8d1458e3d726ea841a9f9fe749760665f662f0d4fe55e5e8be279e546178cd95",
+      "Ghidra/Features/Recognizers/lib/Recognizers.jar": "3fc7f27561b517a42088c5d33e253bef746dc037f7ecce5e5a03abee47b21c0c",
+      "Ghidra/Features/Sarif/lib/Sarif.jar": "ecd44c0a00fffb3d340ddcb9ae2d84b36f4f6ca161867bb415b3112f8ce855be",
+      "Ghidra/Features/Sarif/lib/java-sarif-2.1-modified.jar": "7f736566494756d271aa5e4b1af6c89dc50d074ab1c6374a47df822264226b01",
+      "Ghidra/Features/SourceCodeLookup/lib/SourceCodeLookup.jar": "ac4a9e5e4091ed2a974ace3651f2f64fa7097d0df65453e30b922d4f9484a6ab",
+      "Ghidra/Features/SwiftDemangler/lib/SwiftDemangler.jar": "ff8580e2126f34cf61ccbe7ff1d163b80bd3cc107f33b30ea8efbd0611e5a9ef",
+      "Ghidra/Features/SystemEmulation/lib/SystemEmulation.jar": "eb77ee0ccc88f38bb9cd632203cac3954706c54fcbf4791baebce2aa63700352",
+      "Ghidra/Features/VersionTracking/lib/VersionTracking.jar": "298914270e7ac9f910b7a0e754d217a85e7e8e840d53ecd908d633d4d0e69cb5",
+      "Ghidra/Features/VersionTrackingBSim/lib/VersionTrackingBSim.jar": "9321b9267131a00db05157f34e46ae9746217b485bbe7b6b47e7976a7658ba39",
+      "Ghidra/Features/WildcardAssembler/lib/WildcardAssembler.jar": "d2bde2120a6ae0f47ebc07ecb6b01d80e80601756e3fc30bf35100619f003775",
+      "Ghidra/Framework/DB/lib/DB.jar": "7643b6c3e408d1c8db8d82e65106aa13572a0aeacab59494c1bdbba1213d7031",
+      "Ghidra/Framework/Docking/lib/Docking.jar": "1de202e7ec92f1c493648941658c84900d2e988ad527dc24f99567f6a96e95f5",
+      "Ghidra/Framework/Emulation/lib/Emulation.jar": "6688844a23b4f375be4c7cf4f64db015ef44d31e552b37e611a1bf58370786d3",
+      "Ghidra/Framework/Emulation/lib/asm-9.7.1.jar": "8cadd43ac5eb6d09de05faecca38b917a040bb9139c7edeb4cc81c740b713281",
+      "Ghidra/Framework/Emulation/lib/asm-analysis-9.7.1.jar": "85b29371884ba31bb76edf22323c2c24e172c3267a67152eba3d1ccc2e041ef2",
+      "Ghidra/Framework/Emulation/lib/asm-commons-9.7.1.jar": "9a579b54d292ad9be171d4313fd4739c635592c2b5ac3a459bbd1049cddec6a0",
+      "Ghidra/Framework/Emulation/lib/asm-tree-9.7.1.jar": "9929881f59eb6b840e86d54570c77b59ce721d104e6dfd7a40978991c2d3b41f",
+      "Ghidra/Framework/Emulation/lib/asm-util-9.7.1.jar": "f885be71b5c90556f5f1ad1c4f9276b29b96057c497d46666fe4ddbec3cb43c6",
+      "Ghidra/Framework/FileSystem/lib/FileSystem.jar": "86e33474950fb85265c3549e89ea13f51e932df77c18740972a96e9a032135b5",
+      "Ghidra/Framework/Generic/lib/Generic.jar": "b16e5b07cc0e2c339f4c17cccdb63bca5801aec22f32bd1e63d420050908cafe",
+      "Ghidra/Framework/Generic/lib/bcpkix-jdk18on-1.84.jar": "c87f16ed9e5ec61bc94151e9f3646ac44e50cd448121ce84367fa4b7ec7ec1bb",
+      "Ghidra/Framework/Generic/lib/bcprov-jdk18on-1.84.jar": "64d6c5a6121fcd927152dd182cbed39afe0fda641a970d9bcc0c9cb1858b2731",
+      "Ghidra/Framework/Generic/lib/bcutil-jdk18on-1.84.jar": "b374e16963421fb9cfb01cc20d7ad8fd2f8b8188e3eef0ec0a8965e245f7619a",
+      "Ghidra/Framework/Generic/lib/commons-codec-1.18.0.jar": "ba005f304cef92a3dede24a38ad5ac9b8afccf0d8f75839d6c1338634cf7f6e4",
+      "Ghidra/Framework/Generic/lib/commons-collections4-4.6.0.jar": "4e0d0896bac5356cead277bac0283f09813e14417e3e84e0c86b573b54d218a3",
+      "Ghidra/Framework/Generic/lib/commons-compress-1.27.1.jar": "293d80f54b536b74095dcd7ea3cf0a29bbfc3402519281332495f4420d370d16",
+      "Ghidra/Framework/Generic/lib/commons-io-2.19.0.jar": "824268919b4b62f9f40f08c54381de5993b078f58667e332d17348ae019d72b9",
+      "Ghidra/Framework/Generic/lib/commons-lang3-3.20.0.jar": "69e5c9fa35da7a51a5fd2099dfe56a2d8d32cf233e2f6d770e796146440263f4",
+      "Ghidra/Framework/Generic/lib/commons-text-1.10.0.jar": "770cd903fa7b604d1f7ef7ba17f84108667294b2b478be8ed1af3bffb4ae0018",
+      "Ghidra/Framework/Generic/lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+      "Ghidra/Framework/Generic/lib/gson-2.13.2.jar": "dd0ce1b55a3ed2080cb70f9c655850cda86c206862310009dcb5e5c95265a5e0",
+      "Ghidra/Framework/Generic/lib/guava-32.1.3-jre.jar": "6d4e2b5a118aab62e6e5e29d185a0224eed82c85c40ac3d33cf04a270c3b3744",
+      "Ghidra/Framework/Generic/lib/jdom2-2.0.6.1.jar": "0b20f45e3a0fd8f0d12cdc5316b06776e902b1365db00118876f9175c60f302c",
+      "Ghidra/Framework/Generic/lib/log4j-api-2.26.1.jar": "f1810a4704ccce019d02bba029dc02a4f2ac0c997f647b465e7d409c1927f822",
+      "Ghidra/Framework/Generic/lib/log4j-core-2.26.1.jar": "2ec8c3bf5a6d7c89be8620116a2fc973f7dda1ad0261ad393c4d4726edfd3dcb",
+      "Ghidra/Framework/Graph/lib/Graph.jar": "3e1b09e7e605f56e1db231375b1bc8dfaa662bfd3b119319c822c45292398e13",
+      "Ghidra/Framework/Graph/lib/jgrapht-core-1.5.1.jar": "a4d810cb63e0a77a753d147094fea9dd42e82cfc57aa289f9f85229f26043bb4",
+      "Ghidra/Framework/Graph/lib/jgrapht-io-1.5.1.jar": "86c7fc66cc1907bfc26b366d4dd292cd0da286bde1fd088a11c0d9729d6dcc5c",
+      "Ghidra/Framework/Graph/lib/jung-algorithms-2.1.1.jar": "ed138e2f6b2b2f13af61a13f1788bce6f1de8858c42ee70a7d41e6283937a30a",
+      "Ghidra/Framework/Graph/lib/jung-api-2.1.1.jar": "6cb735963c36d5155d0de5f19a03485b9a26e67550e160b3dd89009a6f51694e",
+      "Ghidra/Framework/Graph/lib/jung-graph-impl-2.1.1.jar": "4911da04d77b4f7bb465a65ae3cc3a000cae4d52b587911e3c0b4c4b643493c1",
+      "Ghidra/Framework/Graph/lib/jung-visualization-2.1.1.jar": "933ba26c2308c3bf4566c3828979b68ad7422724571712e5af0de876bdffa2ae",
+      "Ghidra/Framework/Gui/lib/Gui.jar": "42b77f87b54662b318d58db724ea9b09f7584844b8fab8bec4a0b6dbb64626b8",
+      "Ghidra/Framework/Gui/lib/flatlaf-3.5.4.jar": "3c34b6aeb2f170a954c4358647eb43b68b447a2c351ff311072f7157a5d4e2fe",
+      "Ghidra/Framework/Help/lib/Help.jar": "f3a037377a7f5fcb05740f6637bfba5555ca374ef63f8c849d4b741324e0afbc",
+      "Ghidra/Framework/Help/lib/javahelp-2.0.05.jar": "fcf4922d38ff85184f1d2328317bb60826e14da948abd606ee3d5b8c6a70debd",
+      "Ghidra/Framework/Help/lib/timingframework-1.0.jar": "7461e9246c3b05191645a7f94c104680cc31865bb4d912082ac02ff77120cf4b",
+      "Ghidra/Framework/Project/lib/Project.jar": "daa10c182c66a3449a21de17e05f6172312939085563a152309cddcd837ba17d",
+      "Ghidra/Framework/Project/lib/xz-1.9.jar": "211b306cfc44f8f96df3a0a3ddaf75ba8c5289eed77d60d72f889bb855f535e5",
+      "Ghidra/Framework/Pty/lib/Pty.jar": "a1fc2dd0193f64754d80b8f4dd5151114513345e1ae02e206c677cf560cab3f5",
+      "Ghidra/Framework/Pty/lib/jna-5.14.0.jar": "34ed1e1f27fa896bca50dbc4e99cf3732967cec387a7a0d5e3486c09673fe8c6",
+      "Ghidra/Framework/Pty/lib/jna-platform-5.14.0.jar": "ae4caceb3840730c2537f9b7fb55a01baba580286b4122951488bcee558c2449",
+      "Ghidra/Framework/SoftwareModeling/lib/SoftwareModeling.jar": "bdcb6ef174ef8bc0be46fc979aaad5af5a4820d1f253ac4ea39ca419bce10fa3",
+      "Ghidra/Framework/SoftwareModeling/lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+      "Ghidra/Framework/SoftwareModeling/lib/isorelax-20050913.jar": "3427152431cf7f967f92e69e5cac16147c5d8fb4b4e5a8a72f5291788efcff8c",
+      "Ghidra/Framework/SoftwareModeling/lib/msv-20050913.jar": "14be3a550e508433b4fe10775d540e9eb58b3ef04ed7456bc7c7d285c90c87a2",
+      "Ghidra/Framework/SoftwareModeling/lib/relaxngDatatype-20050913.jar": "4d45a93eb5cdc32631966673c954b83fc9b60a0681bbddcefa2c4976d04cddf2",
+      "Ghidra/Framework/SoftwareModeling/lib/xsdlib-20050913.jar": "6b8efa18ff570c0916da702c46906b9e8a139e1c05dbf1e4d8bdeba244c1b2b3",
+      "Ghidra/Framework/Utility/lib/Utility.jar": "bb42a14285530c7d41373e1d130677bd2b90b34f32aedba5042f23663d652c7e",
+      "Ghidra/Processors/68000/lib/68000.jar": "d5a8247e9dcfca9e6129004cf465d48236cba782a4242bcef1b64586f726a21f",
+      "Ghidra/Processors/8051/lib/8051.jar": "8778b0dfb2e5d13d99398165705bd926a24a8fe89f85675929f6232240854b1f",
+      "Ghidra/Processors/AARCH64/lib/AARCH64.jar": "369b68b5ab32ab6e8dc800cddecb522db2a1290004a10c62d14555289eaddfe3",
+      "Ghidra/Processors/ARM/lib/ARM.jar": "18186bdcc1c80dc98a11da70267e9cff5339b5e1473e3a28c57627f85d5ea0d5",
+      "Ghidra/Processors/Atmel/lib/Atmel.jar": "13604fe008056d24eed4f46cbb255dcb0e0a6186c0bec84eb0c2b4bdaf32bade",
+      "Ghidra/Processors/DATA/lib/DATA.jar": "04b8cc3809ce2f27df8ad5dfb643ef12448891ba6e8c1c9e7cee63c83f1985f7",
+      "Ghidra/Processors/Dalvik/lib/Dalvik.jar": "5a69feae44bf4de60a2f98e86e0dbb822031448d569d95da9c4e01b448509629",
+      "Ghidra/Processors/HCS12/lib/HCS12.jar": "c4f08fe0f7c532fc3e4495769648c7a78466aebeb97a3fc95e2e6351678bdafb",
+      "Ghidra/Processors/Hexagon/lib/Hexagon.jar": "a099925530964b3a6010cd14eaa84781b43f06b41ada8e9e2100eb4a22155998",
+      "Ghidra/Processors/JVM/lib/JVM.jar": "c9311b55fa83f4ab87563590428c2a1cea4c41bd1832d719ddea25dcd4524f61",
+      "Ghidra/Processors/Loongarch/lib/Loongarch.jar": "877d7129a4aeb510ba795ba69dc1fdfb2891b5e374df61eb65c05b9df3a618be",
+      "Ghidra/Processors/MIPS/lib/MIPS.jar": "9ddfad9b3551d1610bb1bc936c3dd3a8e5e29ee305f63afd2e11f92c3a2a14d7",
+      "Ghidra/Processors/NDS32/lib/NDS32.jar": "6e0a43659a27e185af2f0f382e180550af65f669c36be9e604de56bb04f195a8",
+      "Ghidra/Processors/PA-RISC/lib/PA-RISC.jar": "2eea2035f9ace38902271a670cd76534cdcc673b9f78ea14b8d8be3956635195",
+      "Ghidra/Processors/PIC/lib/PIC.jar": "1760edb7a932638e80b10ee979a3a6eacc2eb475b4570946779e2cbd022e2b1a",
+      "Ghidra/Processors/PowerPC/lib/PowerPC.jar": "243e85a3b99d72f78fe06ea9e5b9fec23d721b0bc38cf00b92fbe755e5f56238",
+      "Ghidra/Processors/RISCV/lib/RISCV.jar": "1b4361530717cb06b3b112baa2b6b5ee6aeb7f5bf10bf9d9c547c2b537bedc4e",
+      "Ghidra/Processors/Sparc/lib/Sparc.jar": "c3da700d04a831b6d840c4988499a728f1788278faee1ba51ead66f30d9a0d3e",
+      "Ghidra/Processors/SuperH4/lib/SuperH4.jar": "4fd6dd1c4da739cb1313eadb3fd4a9ca4bc70de6dcef0f725684030d2bfd655c",
+      "Ghidra/Processors/TI_MSP430/lib/TI_MSP430.jar": "59d5fe282d739912f0a930232f29573df3c40b41b208ae17f0bb1524e5f0c572",
+      "Ghidra/Processors/V850/lib/V850.jar": "5ad4633255ba56bbbc844bd147a69f6ceff9e430dcd1004ff91b03f0f62d7626",
+      "Ghidra/Processors/Xtensa/lib/Xtensa.jar": "a3a342d082a312fa9a202efb941a28a00d539610939a4d700ea413d3e9bf2303",
+      "Ghidra/Processors/eBPF/lib/eBPF.jar": "69ddde6120c03564f7036b43f0a3b3b4e37569c3e54d34c21724079f9f98da06",
+      "Ghidra/Processors/tricore/lib/tricore.jar": "493be110956003f604f28736ede8cdabc3d7fde3570118ec8433f879ad5e0c61",
+      "Ghidra/Processors/x86/data/build.xml": "1c4ddcebd21770a573b2bbaa64bc0ba77345e6b97195b2eaacc4ef07bfadb891",
+      "Ghidra/Processors/x86/data/extensions/rust/unix32/cc.xml": "1eef9aa987c370ea7ab6dd0baa5c82090d08f1e3918444beb224fa95266eed66",
+      "Ghidra/Processors/x86/data/extensions/rust/unix32/probe_fixup.xml": "fe46e13247ce660ae67e7dd3875954ff2ef4290a05781f24882ffbdd5e571bec",
+      "Ghidra/Processors/x86/data/extensions/rust/unix32/try_fixup.xml": "68c2b2afb09f2d040be1c04890dcb5c38c638fb71832eadb31e1e1172e394c49",
+      "Ghidra/Processors/x86/data/extensions/rust/unix64/cc.xml": "1771774cadeafdb149330c4f11d0fd9b9d655839e0efccec5ca245bcae88fce8",
+      "Ghidra/Processors/x86/data/extensions/rust/unix64/probe_fixup.xml": "fe46e13247ce660ae67e7dd3875954ff2ef4290a05781f24882ffbdd5e571bec",
+      "Ghidra/Processors/x86/data/extensions/rust/unix64/try_fixup.xml": "b483d9d2673721ca7db40ff17172f83d190ccfa81c18066218f23e6eec299655",
+      "Ghidra/Processors/x86/data/extensions/rust/windows32/probe_fixup.xml": "fe46e13247ce660ae67e7dd3875954ff2ef4290a05781f24882ffbdd5e571bec",
+      "Ghidra/Processors/x86/data/extensions/rust/windows32/try_fixup.xml": "f713c6f74e92868a229393a6d8d56e63b3b74a651e1bc62dc7e8c642ad476d0a",
+      "Ghidra/Processors/x86/data/extensions/rust/windows64/probe_fixup.xml": "fe46e13247ce660ae67e7dd3875954ff2ef4290a05781f24882ffbdd5e571bec",
+      "Ghidra/Processors/x86/data/extensions/rust/windows64/try_fixup.xml": "de72cd5d3329145a514a141d80793b763f371175754e2a0834a1bb4f1a0b256e",
+      "Ghidra/Processors/x86/data/languages/adx.sinc": "0eed99ef539a602beea5eafddb4892c0c3a8588e9d7306bba536dacd3c88d448",
+      "Ghidra/Processors/x86/data/languages/avx.sinc": "e550db98d770efa8c32acbb642f796eb177979d99f34e63dd56815ac6e66034e",
+      "Ghidra/Processors/x86/data/languages/avx2.sinc": "ac3a1d23b636428f41cc80b568340beb39350630702286ab594a671a1ca14638",
+      "Ghidra/Processors/x86/data/languages/avx2_manual.sinc": "b3cedf86dd413bd5828e8cc2160261220eec88606bea65e445a918e4793e9f3c",
+      "Ghidra/Processors/x86/data/languages/avx512.sinc": "445b81fb0130b98a7be14c00f89dfe48494fa9acd57307860299e7b2d9c30d71",
+      "Ghidra/Processors/x86/data/languages/avx512_manual.sinc": "84e53563a9cc94913d2520fe5989eba97825693a9fbaf78c1978cbe9fda95959",
+      "Ghidra/Processors/x86/data/languages/avx_manual.sinc": "31665eac0e7ab86b2c3ba9512743ccbfefc85fa8b917099c94261f4e610014f2",
+      "Ghidra/Processors/x86/data/languages/bmi1.sinc": "5709517a8eb8f40d98bd554a2e01aa7631153dc91df25e3747b7be9e96b8f3cf",
+      "Ghidra/Processors/x86/data/languages/bmi2.sinc": "e1af5bb84f0a65cf9af89257c91f502c3f22a84950e3da0baf71026f2b157a69",
+      "Ghidra/Processors/x86/data/languages/cet.sinc": "a9715b5a0a8d278dc7a48f0a020c2a309d60c505a76936a701663e422927a339",
+      "Ghidra/Processors/x86/data/languages/clwb.sinc": "9000fedf783efc006025fd5355061dbeaeb4d025d589512c216e9e04757befb9",
+      "Ghidra/Processors/x86/data/languages/cmpccxadd.sinc": "67b8b394c7373b777744e8857be1e8e041b951f0a9cfdd3da47c323fe34365de",
+      "Ghidra/Processors/x86/data/languages/fma.sinc": "80b4640a5c10437400e436b006de7a14931ff5708ea31f2f1d77443d9a77911f",
+      "Ghidra/Processors/x86/data/languages/gfni.sinc": "89dd1245ccc51bdf8bbda4e701c767f9397bad6d60321bdaa2aa8af8f513588c",
+      "Ghidra/Processors/x86/data/languages/ia.sinc": "5112439554604933fb7f5d1afc123c0517727d4583c18bf795d0c49b66dd1570",
+      "Ghidra/Processors/x86/data/languages/lockable.sinc": "de3639160b248e993c53986ac59b4f8d8ea8d449373c9771c76a19a0914b7d10",
+      "Ghidra/Processors/x86/data/languages/lzcnt.sinc": "7ada365d803e610988a9f9ff2bdf54ae2dab8a3f454173353b774f44bbc3d3ab",
+      "Ghidra/Processors/x86/data/languages/macros.sinc": "4107a81f9aadd9566c95fff301b68ef3054ee59b44ead8daa83e8808d122d146",
+      "Ghidra/Processors/x86/data/languages/mpx.sinc": "e1cac27dc26ea99f9b2ae4428fb1e2b8c072fec6cbd78842fa9cd60daa73d9ed",
+      "Ghidra/Processors/x86/data/languages/old/x86RealV1.lang": "ad05d6c80492f34cde3462d6f0032a7d3474f80412f3599eea0213d380407a52",
+      "Ghidra/Processors/x86/data/languages/old/x86RealV1.trans": "abba316c3c6eb8e113cc64e370caea27a6e89f8945164411b03337ce83cdd7fc",
+      "Ghidra/Processors/x86/data/languages/old/x86RealV2.lang": "7e8aa599c0f82ccfa869e3e99dc814773b484f2756e81328f69ee85c1c090e68",
+      "Ghidra/Processors/x86/data/languages/old/x86RealV2.trans": "704897c7ee4d69b2515eb2a3d2f0312fc67ac8cd227a5c39e13c01fb8e677d58",
+      "Ghidra/Processors/x86/data/languages/old/x86RealV3.lang": "41f1660b7733acef889746560ea7bb6fc3239497643cee11aeb815560986c369",
+      "Ghidra/Processors/x86/data/languages/old/x86RealV3.trans": "793da757a140dc4d9062e625c76221a2c14e0f0192a2915beff37def6dcd2897",
+      "Ghidra/Processors/x86/data/languages/old/x86V1.lang": "086eac45021e98212240c0d9c91bf95dcad311e511f0233025db925caee8e7c6",
+      "Ghidra/Processors/x86/data/languages/old/x86V1.trans": "ddc878fdbbd719fc5fdea48c1af59983a75e846fe0deb89b088c2680b4ae3b56",
+      "Ghidra/Processors/x86/data/languages/old/x86V2.lang": "dc5292c00f37c3972d77c17ae7440f410b3230d4eca12dffc092684d949060d6",
+      "Ghidra/Processors/x86/data/languages/old/x86V2.trans": "6d73ff33f86391effabc9cfb67b08de6d8d05941bb8d23cfc9872cf9ccd9b3f5",
+      "Ghidra/Processors/x86/data/languages/old/x86V3.lang": "45501d2a5447457c5bc59fcd9a169def594f3dab87ee7154f2a7ad02fd4b87c3",
+      "Ghidra/Processors/x86/data/languages/old/x86V3.trans": "cef1979ff1f879a4fa2d3d76282be393d7137a6ad0520fca6ad010c012879926",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_compat32_v2.lang": "f91df794605144407e755274727d9e34a102bb3bcf7391ab6d5733eca63a5f0c",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_compat32_v2.trans": "dcb9df8bcc2b6555a51d9be2d772e4508f9c9599c8ccc57dfcd86bfab8c86174",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_compat32_v3.lang": "faffb8303e58639525486841d6660814f9570fb8192066559da3b7266564126f",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_compat32_v3.trans": "838932c2906ce247d69b5b46b5703ff0555f50c77ee49aba7b7da7f2a8a9c01d",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_v1.lang": "0407f6abe6863b67fa1228ca11d1e5e1205ead2be938f03c01fec6c90bd45b4e",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_v1.trans": "2bfb4e428849f8e979b5daa6ab08bf6ec3cd0b59158645ba2d5d43a69754b4ad",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_v2.lang": "59bebdbfeed24becd366ac2b9088dd61d57bd2be705145f02150c210f9793ee7",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_v2.trans": "5f0a3d425fa4eae425b1f90c676054a531a3c64204a08cfb7c291dd2ad216cb3",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_v3.lang": "072d0997eec4f06b32098562d420e18fc01ac8089a0e6c08c32f2908ab19a16e",
+      "Ghidra/Processors/x86/data/languages/old/x86_64bit_v3.trans": "cc0c45f5ad4ffe71e8fc192c003311cc79e4d61c98cb129214ee72fd288edac4",
+      "Ghidra/Processors/x86/data/languages/old/x86_ProtV2.lang": "280c9e4ca24eeaeefdb061b2ba225c18948ab910faecd970ac674587c8370e29",
+      "Ghidra/Processors/x86/data/languages/old/x86_ProtV2.trans": "d6746c0eb1584a8f62f890b83aa5de74512fc3a7607e0c1d5c57dcb793ab3de4",
+      "Ghidra/Processors/x86/data/languages/old/x86_ProtV3.lang": "e80ed91dec36080d4d6f2295f2cba75dd0c06803b38948fb27ed2c36e75c9474",
+      "Ghidra/Processors/x86/data/languages/old/x86_ProtV3.trans": "b3ac348ababdb192703499922e6cb9affe474b75dacb984d5f4f69b016db2f88",
+      "Ghidra/Processors/x86/data/languages/old/x86smmV1.lang": "5e8118a5447187f7536b06b24031d47c8ed55a39d0b772f8033d3d9d13fe00fc",
+      "Ghidra/Processors/x86/data/languages/old/x86smmV1.trans": "fbaab22736e45d39b2a9e5269109cdbae27773b8a80ab207e7d54432f2f7ba3a",
+      "Ghidra/Processors/x86/data/languages/old/x86smmV2.lang": "bb692af42775c081249d5f6c30a03d30489ae36f605382451c07eda8ede75a99",
+      "Ghidra/Processors/x86/data/languages/old/x86smmV2.trans": "456757fff9750e98488d4a286a6bdd6f0b697fbfcd54307cccf648f1e67d6349",
+      "Ghidra/Processors/x86/data/languages/old/x86smmV3.lang": "4f3e5112dd4d22697712d4952eb26d92872197168f2ffd05c30890be1f7149fe",
+      "Ghidra/Processors/x86/data/languages/old/x86smmV3.trans": "3a1e0bacccb2387ccd5b823ace1eda944a1a1b4bbfaa04c787f8f1164911bce4",
+      "Ghidra/Processors/x86/data/languages/pclmulqdq.sinc": "08b2a1065005f42873165851a67ac8788d164d4be9f6117ae7a816b80a09cb2d",
+      "Ghidra/Processors/x86/data/languages/rao.sinc": "e2773686e667ffa77e4ef47561b2bc88b921412b13333a2535a3f9c1dfbb35fb",
+      "Ghidra/Processors/x86/data/languages/rdrand.sinc": "7f5a8237992287fe757b4a7e5394dea50b4c000579171a2e9fcc98e49b9fe441",
+      "Ghidra/Processors/x86/data/languages/sgx.sinc": "b4dcd030f6794adc5a839459d66f3991cff8289cce635532bdb345b951ab06cb",
+      "Ghidra/Processors/x86/data/languages/sha.sinc": "8b6b67c3d6c55b6ed35596cf70b9e09f455476b49a68f79f0f23e1fb5d5ab139",
+      "Ghidra/Processors/x86/data/languages/smx.sinc": "1854dba219a63d40ad3420d778315cb6d7a995f47a18baff6c07008173784603",
+      "Ghidra/Processors/x86/data/languages/x86-16-real.pspec": "68cf2d52405e23103695c118519dd09c89b2963d3811530fbbf6a297ec14cb81",
+      "Ghidra/Processors/x86/data/languages/x86-16.cspec": "85f7c1fd851a51518885d94f34fbc677e7cc289dc2a86d2244f5b9114dcedede",
+      "Ghidra/Processors/x86/data/languages/x86-16.gdis": "f872d703809df47716f238cd29dd74604b35a61ccf640ef76c720c68d7cc759a",
+      "Ghidra/Processors/x86/data/languages/x86-16.pspec": "804ea9c26c6085d3800da5f44565be69fac76ec7732444d43183053315dc905d",
+      "Ghidra/Processors/x86/data/languages/x86-32-golang.cspec": "5c75fcbb539a1302fbbcf4fa5baa4d29d43b32bfa261c0366633829d1ebed213",
+      "Ghidra/Processors/x86/data/languages/x86-32-golang.register.info": "4e32f5ba6ed53b6022469f9702ba1e4d861495d8e9ed37ed6ab2504ca5b5561c",
+      "Ghidra/Processors/x86/data/languages/x86-64-compat32.pspec": "a7bd2d8eb2e88164a342fd9615baf6dc5a1551dc159f41c48f4f59a94232a0bb",
+      "Ghidra/Processors/x86/data/languages/x86-64-gcc.cspec": "5eaa848f3eba7ebd4023541f9f37645dae077e8426fb562592f398d599530a9e",
+      "Ghidra/Processors/x86/data/languages/x86-64-golang.cspec": "d999ff0cb58c30c93b31564991061fd1bbd6b88752054786a7d895e45fcd6a60",
+      "Ghidra/Processors/x86/data/languages/x86-64-golang.register.info": "3f23aacd3727b42a31665d1f73bf8704aa5e2004c2eb2b8df998e35595e0fcdc",
+      "Ghidra/Processors/x86/data/languages/x86-64-swift.cspec": "e3e24ed6672ff467f28bbb41094f88a856caf0b9ae4595f4b37c743c355184bc",
+      "Ghidra/Processors/x86/data/languages/x86-64-win.cspec": "fc40214ffcad2080f8b468bad6738254eabeabd54231d96efe2d88cd04f19d53",
+      "Ghidra/Processors/x86/data/languages/x86-64.dwarf": "5bde75e5d277770c148d5da95464e82bbd1b4823aa37bc38b971396ee7c02ee6",
+      "Ghidra/Processors/x86/data/languages/x86-64.pspec": "c9b37d3acee646dd59cdb53294b567f6df53bcfb2b57887c0652c07419347e70",
+      "Ghidra/Processors/x86/data/languages/x86-64.sla": "c836cab8c74f7794d1ca8c85b520287f4455800c5c28305962938ececb8b4bd9",
+      "Ghidra/Processors/x86/data/languages/x86-64.slaspec": "69cc4e74a89355b2baf6b7789f54f4a888c35bfa9c12c703e686c33c2cf217ff",
+      "Ghidra/Processors/x86/data/languages/x86.dwarf": "598ad09d375b6aa8622bc7b1052ca3a0ad1d0d4f3a533abd266f4bbbd8959727",
+      "Ghidra/Processors/x86/data/languages/x86.ldefs": "fd75871939ac5c767da7d3c0023e09538c9ebf45f0b5939b4c33205e04e0a666",
+      "Ghidra/Processors/x86/data/languages/x86.opinion": "9b12d454cf3bb04d033bedf98fde414dce59f36046b325a60ed41a6a36b691c9",
+      "Ghidra/Processors/x86/data/languages/x86.pspec": "b83be4039dd2e89ceaca7e6200d3c2cbd4152f7bdee8555065a4b9de1ce76b91",
+      "Ghidra/Processors/x86/data/languages/x86.sla": "796340fe37d328a182bab735daf023e3f81b8b6c50c3a2e93f810f068f11005d",
+      "Ghidra/Processors/x86/data/languages/x86.slaspec": "b7a08d09ea809d3b832cc718f28146eb4858cf899f903177068118dc78fd51e4",
+      "Ghidra/Processors/x86/data/languages/x86borland.cspec": "665a7b590d587c5544a2f16a0a819b3d0ba1e908d9336535c4ef0718b4d301e6",
+      "Ghidra/Processors/x86/data/languages/x86delphi.cspec": "c8a472adcf38cf14f8f3c72bd560380f11cb02ab34adec797f6bf16ec5cd2f18",
+      "Ghidra/Processors/x86/data/languages/x86gcc.cspec": "37ac2ec43156602443b4e5625625ae5e71c61d151a8b06ece6068648046f80cd",
+      "Ghidra/Processors/x86/data/languages/x86win.cspec": "5145482b1c9aa6a9c6ad4d5554f98a35fb11b82a13e226df96018a171ea94988",
+      "Ghidra/Processors/x86/data/manuals/x86.idx": "d2036e7ced2df5df4fe6a4a2bacba2cc7b4808444798e2ac90f41d7ff954f3e3",
+      "Ghidra/Processors/x86/data/patterns/patternconstraints.xml": "a09d21bf77a56c6554bc06aff12fc4853a193c5360076db5baa47547ebf58180",
+      "Ghidra/Processors/x86/data/patterns/prepatternconstraints.xml": "552202073b2287536476d43523332fe59b832e6909fafff5ebcbefcdaec62902",
+      "Ghidra/Processors/x86/data/patterns/x86-16_default_patterns.xml": "5bf76c32ac8c88655c6bbb94c712c9a7b5615afb89193ed517e6e03b73ecf7bb",
+      "Ghidra/Processors/x86/data/patterns/x86-64gcc_patterns.xml": "5aab53b51b73bb5b58342d2e18fa69db9f40d39e2382930284047cb586b36e2e",
+      "Ghidra/Processors/x86/data/patterns/x86-64win_patterns.xml": "3bf60152a78d7efef81dc338146245c7c484bd75b9d584a680d558356f3adf5e",
+      "Ghidra/Processors/x86/data/patterns/x86delphi_patterns.xml": "c66ea0eceedf0b3ffe4d0c95045a3d59e7016ea0317b6f6dc11e70935ba9630a",
+      "Ghidra/Processors/x86/data/patterns/x86gcc_patterns.xml": "5e8409a48e31b75bdacea9f4a34a25c695e61fe3615be2b5a230a5bd6bb5023d",
+      "Ghidra/Processors/x86/data/patterns/x86gcc_prepatterns.xml": "87c98f91cb11f3a039cdf5995bffc1a81b938c9f4ba0ce9aa650c1d9f62358b2",
+      "Ghidra/Processors/x86/data/patterns/x86win_patterns.xml": "f6d0f67d07a9d34182797054637166e222787fa675a309f5c86302457a5eaa10",
+      "Ghidra/Processors/x86/data/patterns/x86win_prepatterns.xml": "11cee666fb5c2d91fd9626170a8ea5baf2cfd48b7d8ace6daf523ac820a5d32a",
+      "Ghidra/Processors/x86/data/sleighArgs.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Ghidra/Processors/x86/lib/x86.jar": "e62c5ee4886cb29d9c000a398bec8e88593f195208382eb5fd755be76176a42b",
+      "Ghidra/application.properties": "e84c26b08545eee63d24a1a8a4dd7905e4209538e2e7192093877c435c64eb67",
+      "support/analyzeHeadless": "302880328a0024ee24cfe0326d4d9a61c2237116d95f2e0e0df090f747f95e30",
+      "support/launch.sh": "32be94ba54ee447c2a71d0191398de4fa7998817f078c315f996350d06df31b5"
+    },
+    "home": "/home/camst/repos/ghidra_12.1.4_PUBLIC",
+    "java": {
+      "path": "/usr/lib/jvm/java-21-openjdk-amd64/bin/java",
+      "sha256": "af14efcaa70a4bfd214159034f6c13c93a1099d90315f57f711c01dcbfdd111c",
+      "version": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment (build 21.0.12.1+1-1-26.04.4-Ubuntu)\nOpenJDK 64-Bit Server VM (build 21.0.12.1+1-1-26.04.4-Ubuntu, mixed mode, sharing)"
+    },
+    "version": "12.1.4"
+  },
+  "lift_manifest_sha256": "983dbad1a095c5a45ee5921d7af91641a1ec3a842d8d806ccf635b750f9ff58a",
+  "manifest_sha256": "7ad199131f3f81133c41f4cd3e8bd62709714106782c4b4268e734a6cca2d7a6",
+  "methods": {
+    "baseline_policy.json": "439f1af01cda96624b857ec0db9571faa0d862ff5801ec996eaa4195f6984a35",
+    "context_policy.json": "ba4fea120120ff6d457470d05aaa4d7b59e873443e83cbacdef65252c6259445",
+    "ghidra/LiftBundle.java": "c950f579b4d3cf6d0fbf3615442f990bb5f48660955e4af813578b3ff3dda5f1",
+    "pipeline/baseline.py": "ad084a55d1507787e4b7e7b4c020ef09cea82ce03e415c2b09f6235fdbf9a5ae",
+    "pipeline/baseline_worker.py": "30ec4f8cc7d1814b10a7cf908501355e976283f3a5488507fe49c21a750750b4",
+    "pipeline/bounds.py": "84dcedad0d33338f4cb3ec44cedd91a59166ae2215c5f83f771bf7920eecda34",
+    "pipeline/bundles.py": "0df3c288c8334a5687ce43895c1927c40798eb78884a37190db44c56d6215d94",
+    "pipeline/context_worker.py": "907262722f02290803fb04895992227c48644285823bce56d25aff0f8ec5a18a",
+    "pipeline/inventory.py": "d2a829a0b4d43457654603c6c898023aad968393368ab300a658b2ae80f98dd4",
+    "pipeline/pcode.py": "72f73e7facc5d52e91dc3d98557906a79e0fce571c318de7ae6b8622a2fc8698",
+    "pipeline/stack.py": "684b6cf689e7295dc425ffb1983362f0d00bb85e6716a278134d8ac9917eabe4",
+    "schemas/baseline-result-v2.json": "b0f9a46e3f102acc65d1e4d8e64add67ccb0de42a7aac4ba1be89971695644a0",
+    "schemas/bundle-v2.json": "a1d11dca3ae5324b78be6a9937392bd3aca4d0af4677276dbf0c746fd8ea1a4c"
+  },
+  "phase": 5,
+  "pilot_review": {
+    "abstentions": 24,
+    "classified": 8,
+    "confusion": [
+      {
+        "count": 4,
+        "oracle": "not_vulnerable",
+        "prediction": "not_vulnerable"
+      },
+      {
+        "count": 12,
+        "oracle": "not_vulnerable",
+        "prediction": "uncertain"
+      },
+      {
+        "count": 8,
+        "oracle": "vulnerable_CWE-121",
+        "prediction": "uncertain"
+      },
+      {
+        "count": 4,
+        "oracle": "vulnerable_CWE-122",
+        "prediction": "uncertain"
+      },
+      {
+        "count": 4,
+        "oracle": "vulnerable_CWE-122",
+        "prediction": "vulnerable_CWE-122"
+      }
+    ],
+    "correct_classifications": 8,
+    "disagreements": [],
+    "heuristic_stack_checks": 16,
+    "not_final_effect_estimation": true
+  },
+  "policy": {
+    "allocation_failure": "explore_null_and_fresh_success",
+    "control_flow": "concrete_acyclic_paths_only",
+    "decompiler_timeout_seconds": 60,
+    "engine": "ghidra-high-pcode",
+    "library_contracts": {
+      "_exit": {
+        "kind": "terminate",
+        "prototype": "void _exit(int status);"
+      },
+      "abort": {
+        "kind": "terminate",
+        "prototype": "void abort(void);"
+      },
+      "calloc": {
+        "kind": "calloc",
+        "prototype": "void *calloc(unsigned long count, unsigned long size);"
+      },
+      "exit": {
+        "kind": "terminate",
+        "prototype": "void exit(int status);"
+      },
+      "free": {
+        "kind": "free",
+        "prototype": "void free(void *ptr);"
+      },
+      "malloc": {
+        "kind": "malloc",
+        "prototype": "void *malloc(unsigned long size);"
+      },
+      "memcpy": {
+        "kind": "copy",
+        "prototype": "void *memcpy(void *dest, const void *src, unsigned long count);"
+      },
+      "memmove": {
+        "kind": "copy",
+        "prototype": "void *memmove(void *dest, const void *src, unsigned long count);"
+      },
+      "memset": {
+        "kind": "set",
+        "prototype": "void *memset(void *dest, int value, unsigned long count);"
+      },
+      "printf": {
+        "kind": "formatted_output",
+        "prototype": "int printf(const char *format, ...);"
+      },
+      "putchar": {
+        "kind": "read_only",
+        "prototype": "int putchar(int value);"
+      },
+      "puts": {
+        "kind": "read_only",
+        "prototype": "int puts(const char *src);"
+      },
+      "strcpy": {
+        "kind": "string_copy",
+        "prototype": "char *strcpy(char *dest, const char *src);"
+      },
+      "strlen": {
+        "kind": "string_length",
+        "prototype": "unsigned long strlen(const char *src);"
+      }
+    },
+    "max_call_depth": 8,
+    "max_object_bytes": 4096,
+    "max_paths": 64,
+    "max_steps": 4096,
+    "max_string_bytes": 4096,
+    "method_id": "ghidra-inferred-stack-bounds-v2",
+    "native_store_fallback": "constant_affine_stack_stores_only",
+    "process_timeout_seconds": 300,
+    "schema_version": 1,
+    "stack_bounds": "heuristic_nonoverlapping_recovered_arrays"
+  },
+  "predictions": [
+    {
+      "bundle_sha256": "943358a9f97d9cdbfb5d7008292e02e1b17f139359b7c2d099f0fb8d583e5146",
+      "error_code": null,
+      "ir_sha256": "d13a6a07d6c61195301fdf6224a373128c1ff7c773242f7f107160a201bb09c0",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "ra5f6072d3eed46cfbcd279df",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011ae",
+          "0x40122a",
+          "0x401232"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 8,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 10,
+            "evidence": [
+              "0x401232",
+              "0x40124d"
+            ],
+            "object_offset": -26,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x401232",
+            "size": 1
+          },
+          {
+            "bound_basis": "recovered_scalar_slot",
+            "capacity": 8,
+            "evidence": [
+              "0x40122a",
+              "0x40124d"
+            ],
+            "object_offset": -16,
+            "offset": 0,
+            "outcome": "within_bounds",
+            "region": "stack",
+            "site": "0x40122a",
+            "size": 8
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011ae",
+              "0x40123c",
+              "0x40124d"
+            ],
+            "object_offset": null,
+            "offset": -48,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ae",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "86c157a00c82f4f03ba627409b8eca6b3404e3bd456ddacfa7f3be75e3ee9ea4",
+      "error_code": null,
+      "ir_sha256": "d13a6a07d6c61195301fdf6224a373128c1ff7c773242f7f107160a201bb09c0",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r554326385460ddc012533b72",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011ae",
+          "0x40122a",
+          "0x401232"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 8,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 10,
+            "evidence": [
+              "0x401232",
+              "0x40124d"
+            ],
+            "object_offset": -26,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x401232",
+            "size": 1
+          },
+          {
+            "bound_basis": "recovered_scalar_slot",
+            "capacity": 8,
+            "evidence": [
+              "0x40122a",
+              "0x40124d"
+            ],
+            "object_offset": -16,
+            "offset": 0,
+            "outcome": "within_bounds",
+            "region": "stack",
+            "site": "0x40122a",
+            "size": 8
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011ae",
+              "0x40123c",
+              "0x40124d"
+            ],
+            "object_offset": null,
+            "offset": -48,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ae",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "ffd3ab8400b30b68666423285694ecdafc20d643b055de6ac0ccb3f7a42104ea",
+      "error_code": null,
+      "ir_sha256": "651ea84abd64d003444043dca0bd48e3b8826fddff753a4435024dbfadee667c",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "ra14394a63fae12a0ebbc9594",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011d2",
+          "0x401223"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "unsupported_pcode"
+        ],
+        "status": "abstained",
+        "steps": 7,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 11,
+            "evidence": [
+              "0x4011d2",
+              "0x40122d",
+              "0x401240"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4011d2",
+            "size": 8
+          },
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 18,
+            "evidence": [
+              "0x401223",
+              "0x401240"
+            ],
+            "object_offset": -18,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x401223",
+            "size": 1
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "d1ff23f881dcf2147b9d4ff46ef7c4aeda929e1c38f049dd9b678af50d25eb6f",
+      "error_code": null,
+      "ir_sha256": "651ea84abd64d003444043dca0bd48e3b8826fddff753a4435024dbfadee667c",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rba2857782b28db376bbf00cb",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011d2",
+          "0x401223"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "unsupported_pcode"
+        ],
+        "status": "abstained",
+        "steps": 7,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 11,
+            "evidence": [
+              "0x4011d2",
+              "0x40122d",
+              "0x401240"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4011d2",
+            "size": 8
+          },
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 18,
+            "evidence": [
+              "0x401223",
+              "0x401240"
+            ],
+            "object_offset": -18,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x401223",
+            "size": 1
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "e45cac83de09d4c0993d6a551353e959143477335575bb2395b3e694afa172eb",
+      "error_code": null,
+      "ir_sha256": "4adfccff5264ae5c01b274d88c85ccd8dd0c7b2705ef708082754562e3bb33aa",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rf0991c071d66077512884d89",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4010b9",
+          "0x4011ca"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 5,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 18,
+            "evidence": [
+              "0x4010b9"
+            ],
+            "object_offset": -18,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4010b9",
+            "size": 1
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010be",
+              "0x4011ca"
+            ],
+            "object_offset": null,
+            "offset": -19,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ca",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "4d8d17ce336b730a33838ada473404a2ca2e9f23d76729f240ee5fdf51254866",
+      "error_code": null,
+      "ir_sha256": "4adfccff5264ae5c01b274d88c85ccd8dd0c7b2705ef708082754562e3bb33aa",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r959c77e21be3df4354337381",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4010b9",
+          "0x4011ca"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 5,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 18,
+            "evidence": [
+              "0x4010b9"
+            ],
+            "object_offset": -18,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4010b9",
+            "size": 1
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010be",
+              "0x4011ca"
+            ],
+            "object_offset": null,
+            "offset": -19,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ca",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "e45cac83de09d4c0993d6a551353e959143477335575bb2395b3e694afa172eb",
+      "error_code": null,
+      "ir_sha256": "4adfccff5264ae5c01b274d88c85ccd8dd0c7b2705ef708082754562e3bb33aa",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rbfcf0887c152a774487dadaa",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4010b9",
+          "0x4011ca"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 5,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 18,
+            "evidence": [
+              "0x4010b9"
+            ],
+            "object_offset": -18,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4010b9",
+            "size": 1
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010be",
+              "0x4011ca"
+            ],
+            "object_offset": null,
+            "offset": -19,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ca",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "4d8d17ce336b730a33838ada473404a2ca2e9f23d76729f240ee5fdf51254866",
+      "error_code": null,
+      "ir_sha256": "4adfccff5264ae5c01b274d88c85ccd8dd0c7b2705ef708082754562e3bb33aa",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r8562513a8bf7d0108d1e603b",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4010b9",
+          "0x4011ca"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 5,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 18,
+            "evidence": [
+              "0x4010b9"
+            ],
+            "object_offset": -18,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4010b9",
+            "size": 1
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010be",
+              "0x4011ca"
+            ],
+            "object_offset": null,
+            "offset": -19,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ca",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "7ed32c9802aa5d6c6621319a3b16406a56ed0b93cfcc93444e7a70804d021c39",
+      "error_code": null,
+      "ir_sha256": "4b6f08bcce66d7bad610a5170f53f336608f59f6b199149b7027984f1086630f",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r1dbd15218a05332e5eb32d5d",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011ae",
+          "0x40122a",
+          "0x401232"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 8,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 21,
+            "evidence": [
+              "0x401232",
+              "0x40125e"
+            ],
+            "object_offset": -37,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x401232",
+            "size": 1
+          },
+          {
+            "bound_basis": "recovered_scalar_slot",
+            "capacity": 8,
+            "evidence": [
+              "0x40122a",
+              "0x40125e"
+            ],
+            "object_offset": -16,
+            "offset": 0,
+            "outcome": "within_bounds",
+            "region": "stack",
+            "site": "0x40122a",
+            "size": 8
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011ae",
+              "0x40123c",
+              "0x40125e"
+            ],
+            "object_offset": null,
+            "offset": -48,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ae",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "ef3cf104ab464f6053276966b182e1f3f4b14240740c096cf93e1826edb2dde0",
+      "error_code": null,
+      "ir_sha256": "4b6f08bcce66d7bad610a5170f53f336608f59f6b199149b7027984f1086630f",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rb66672e0b99749662580b378",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011ae",
+          "0x40122a",
+          "0x401232"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 8,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 21,
+            "evidence": [
+              "0x401232",
+              "0x40125e"
+            ],
+            "object_offset": -37,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x401232",
+            "size": 1
+          },
+          {
+            "bound_basis": "recovered_scalar_slot",
+            "capacity": 8,
+            "evidence": [
+              "0x40122a",
+              "0x40125e"
+            ],
+            "object_offset": -16,
+            "offset": 0,
+            "outcome": "within_bounds",
+            "region": "stack",
+            "site": "0x40122a",
+            "size": 8
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011ae",
+              "0x40123c",
+              "0x40125e"
+            ],
+            "object_offset": null,
+            "offset": -48,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ae",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "d717ce872c73504959665e91789b618ea79d5fbb854fc3e4a09b49ec132b2388",
+      "error_code": null,
+      "ir_sha256": "8353834d6285f9bd5aca82373f804111715a30648e84daca3f42e19ea183642f",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r0ee4bd2c9abcc07d4bee3e7c",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011d2",
+          "0x40123b"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "unsupported_pcode"
+        ],
+        "status": "abstained",
+        "steps": 6,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 11,
+            "evidence": [
+              "0x4011d2",
+              "0x401245"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4011d2",
+            "size": 8
+          },
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 19,
+            "evidence": [
+              "0x40123b"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x40123b",
+            "size": 1
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "290fc320aa151cbd00b790463f5a29deacb860e9595f400ef68877473ef87870",
+      "error_code": null,
+      "ir_sha256": "8353834d6285f9bd5aca82373f804111715a30648e84daca3f42e19ea183642f",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r42d21d4fb1363e65b7eaa85d",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011d2",
+          "0x40123b"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "unsupported_pcode"
+        ],
+        "status": "abstained",
+        "steps": 6,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 11,
+            "evidence": [
+              "0x4011d2",
+              "0x401245"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4011d2",
+            "size": 8
+          },
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 19,
+            "evidence": [
+              "0x40123b"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x40123b",
+            "size": 1
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "ea82297e79da4cbfcfb61e882a5607d0dfa3cf8b6044167b8703aad5021902ef",
+      "error_code": null,
+      "ir_sha256": "c39fcb4e1a6a511a6c6410bb3917a36a9a3d37452409f4179ed74499bd00b192",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rd96f94b9b1d0399c71fb430b",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4010b9",
+          "0x4011ca"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 5,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 19,
+            "evidence": [
+              "0x4010b9"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4010b9",
+            "size": 1
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010be",
+              "0x4011ca"
+            ],
+            "object_offset": null,
+            "offset": -19,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ca",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "ebb9e9d0af13d50b26b0d97acb9edbfbec69e1c01944403bc90501bfe8e56d3f",
+      "error_code": null,
+      "ir_sha256": "c39fcb4e1a6a511a6c6410bb3917a36a9a3d37452409f4179ed74499bd00b192",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r31c80f177c1ee5b6891f3fb9",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4010b9",
+          "0x4011ca"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 5,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 19,
+            "evidence": [
+              "0x4010b9"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4010b9",
+            "size": 1
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010be",
+              "0x4011ca"
+            ],
+            "object_offset": null,
+            "offset": -19,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ca",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "ea82297e79da4cbfcfb61e882a5607d0dfa3cf8b6044167b8703aad5021902ef",
+      "error_code": null,
+      "ir_sha256": "c39fcb4e1a6a511a6c6410bb3917a36a9a3d37452409f4179ed74499bd00b192",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "reb0f2a3d9d2882fbbcfec898",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4010b9",
+          "0x4011ca"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 5,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 19,
+            "evidence": [
+              "0x4010b9"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4010b9",
+            "size": 1
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010be",
+              "0x4011ca"
+            ],
+            "object_offset": null,
+            "offset": -19,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ca",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "ebb9e9d0af13d50b26b0d97acb9edbfbec69e1c01944403bc90501bfe8e56d3f",
+      "error_code": null,
+      "ir_sha256": "c39fcb4e1a6a511a6c6410bb3917a36a9a3d37452409f4179ed74499bd00b192",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "reac8c423864ff24d97c6aef5",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4010b9",
+          "0x4011ca"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "inferred_stack_object_extent",
+          "instruction_pcode_store_fallback",
+          "missing_stack_array_extent"
+        ],
+        "status": "abstained",
+        "steps": 5,
+        "write_checks": [
+          {
+            "bound_basis": "inferred_stack_object_extent",
+            "capacity": 19,
+            "evidence": [
+              "0x4010b9"
+            ],
+            "object_offset": -19,
+            "offset": 0,
+            "outcome": "within_inferred_extent",
+            "region": "stack",
+            "site": "0x4010b9",
+            "size": 1
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010be",
+              "0x4011ca"
+            ],
+            "object_offset": null,
+            "offset": -19,
+            "outcome": "unknown",
+            "region": "stack",
+            "site": "0x4011ca",
+            "size": 8
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "9d09a41f519092fc3f73bc4c649b241de2e68ce70ed7c762bc3b5f77f15b32e9",
+      "error_code": null,
+      "ir_sha256": "ee72d96d6cca91134702872b7d26431340ee4e7a9b8bf404789af4f1e41068cc",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rc24d885eb5101822727fe6bf",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x401221",
+          "0x401271"
+        ],
+        "paths": 0,
+        "reason_codes": [
+          "unaccounted_native_write"
+        ],
+        "status": "abstained",
+        "steps": 0,
+        "write_checks": []
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "7cb21e39d154dfaf9f49792c468491d9162037a72a331ac6d9555f08784b3a9b",
+      "error_code": null,
+      "ir_sha256": "ee72d96d6cca91134702872b7d26431340ee4e7a9b8bf404789af4f1e41068cc",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rb9c38171f525fa84edcbd8b1",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x401221",
+          "0x401271"
+        ],
+        "paths": 0,
+        "reason_codes": [
+          "unaccounted_native_write"
+        ],
+        "status": "abstained",
+        "steps": 0,
+        "write_checks": []
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "df106ae3f54dd55706849a8e8a16afd8d5b2e139476538a3044a7f59ba865546",
+      "error_code": null,
+      "ir_sha256": "2753045c06b793f4a3f604cd5659aba8bcababfd740955afe23502bdfc6f36e1",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r0af0770df613d08245c6c799",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011ca",
+          "0x4011f0"
+        ],
+        "paths": 2,
+        "reason_codes": [
+          "cyclic_control_flow"
+        ],
+        "status": "abstained",
+        "steps": 19,
+        "write_checks": [
+          {
+            "bound_basis": "requested_allocation",
+            "capacity": 40,
+            "evidence": [
+              "0x4011d9",
+              "0x4011de",
+              "0x4011e1",
+              "0x4011ed",
+              "0x4011f0",
+              "0x401236"
+            ],
+            "object_offset": null,
+            "offset": 0,
+            "outcome": "within_bounds",
+            "region": "heap",
+            "site": "0x4011f0",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011ca",
+              "0x401236"
+            ],
+            "object_offset": null,
+            "offset": 4210804,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4011ca",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011d9",
+              "0x4011de",
+              "0x4011e1",
+              "0x4011f0",
+              "0x401236"
+            ],
+            "object_offset": null,
+            "offset": 4210804,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4011f0",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "c00ffa3306e26eb2d5aee94d04e13352b146e658cf0193d271b97293d6f7a762",
+      "error_code": null,
+      "ir_sha256": "2753045c06b793f4a3f604cd5659aba8bcababfd740955afe23502bdfc6f36e1",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r15d4cc9211f42243546a6c36",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x4011ca",
+          "0x4011f0"
+        ],
+        "paths": 2,
+        "reason_codes": [
+          "cyclic_control_flow"
+        ],
+        "status": "abstained",
+        "steps": 19,
+        "write_checks": [
+          {
+            "bound_basis": "requested_allocation",
+            "capacity": 40,
+            "evidence": [
+              "0x4011d9",
+              "0x4011de",
+              "0x4011e1",
+              "0x4011ed",
+              "0x4011f0",
+              "0x401236"
+            ],
+            "object_offset": null,
+            "offset": 0,
+            "outcome": "within_bounds",
+            "region": "heap",
+            "site": "0x4011f0",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011ca",
+              "0x401236"
+            ],
+            "object_offset": null,
+            "offset": 4210804,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4011ca",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011d9",
+              "0x4011de",
+              "0x4011e1",
+              "0x4011f0",
+              "0x401236"
+            ],
+            "object_offset": null,
+            "offset": 4210804,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4011f0",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "efcc7b23c3fc0b80d2b62e85c9f883d3ab9deab63db5b31fec4fb8e783ed2c72",
+      "error_code": null,
+      "ir_sha256": "f5692c9d4c78fee60c6ca8451ecc094c94b336a4f08e2d8e822c365bd0253c92",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r00d96a0e6dda924277042caf",
+      "prediction": {
+        "decision": "vulnerable_CWE-122",
+        "evidence": [
+          "0x4010e4",
+          "0x4010ee",
+          "0x4011f6",
+          "0x4011f8",
+          "0x40120e",
+          "0x401216",
+          "0x401219",
+          "0x40121b"
+        ],
+        "paths": 2,
+        "reason_codes": [
+          "heap_write_exceeds_allocation"
+        ],
+        "status": "classified",
+        "steps": 16,
+        "write_checks": [
+          {
+            "bound_basis": "requested_allocation",
+            "capacity": 40,
+            "evidence": [
+              "0x4010e4",
+              "0x4010ee",
+              "0x4011f6",
+              "0x4011f8",
+              "0x40120e",
+              "0x401216",
+              "0x401219",
+              "0x40121b"
+            ],
+            "object_offset": null,
+            "offset": 40,
+            "outcome": "exceeds_allocation",
+            "region": "heap",
+            "site": "0x40121b",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e4"
+            ],
+            "object_offset": null,
+            "offset": 4210804,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010e4",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "ac2df4db95b65cf92cdc0354e8553e321d3e1f379e869f380ecd27c97d12568e",
+      "error_code": null,
+      "ir_sha256": "f5692c9d4c78fee60c6ca8451ecc094c94b336a4f08e2d8e822c365bd0253c92",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r94300d392290fd09c14d2785",
+      "prediction": {
+        "decision": "vulnerable_CWE-122",
+        "evidence": [
+          "0x4010e4",
+          "0x4010ee",
+          "0x4011f6",
+          "0x4011f8",
+          "0x40120e",
+          "0x401216",
+          "0x401219",
+          "0x40121b"
+        ],
+        "paths": 2,
+        "reason_codes": [
+          "heap_write_exceeds_allocation"
+        ],
+        "status": "classified",
+        "steps": 16,
+        "write_checks": [
+          {
+            "bound_basis": "requested_allocation",
+            "capacity": 40,
+            "evidence": [
+              "0x4010e4",
+              "0x4010ee",
+              "0x4011f6",
+              "0x4011f8",
+              "0x40120e",
+              "0x401216",
+              "0x401219",
+              "0x40121b"
+            ],
+            "object_offset": null,
+            "offset": 40,
+            "outcome": "exceeds_allocation",
+            "region": "heap",
+            "site": "0x40121b",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e4"
+            ],
+            "object_offset": null,
+            "offset": 4210804,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010e4",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "72582716aed4dcd274ed97f26aa1ce4339a50f5755f4eb7455fb3621f445f593",
+      "error_code": null,
+      "ir_sha256": "37c8b4b6283f4b38113423c88945523b0ce53b4dc6e21429883ffbb50137c49c",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r415a0d69f8b8b38ddd704e47",
+      "prediction": {
+        "decision": "vulnerable_CWE-122",
+        "evidence": [
+          "0x4010f8",
+          "0x4010fd",
+          "0x401100",
+          "0x401102"
+        ],
+        "paths": 2,
+        "reason_codes": [
+          "heap_write_exceeds_allocation"
+        ],
+        "status": "classified",
+        "steps": 12,
+        "write_checks": [
+          {
+            "bound_basis": "requested_allocation",
+            "capacity": 40,
+            "evidence": [
+              "0x4010f8",
+              "0x4010fd",
+              "0x401100",
+              "0x401102"
+            ],
+            "object_offset": null,
+            "offset": 40,
+            "outcome": "exceeds_allocation",
+            "region": "heap",
+            "site": "0x401102",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010ee"
+            ],
+            "object_offset": null,
+            "offset": 4210804,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010ee",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "c9bd00b61220cff16438bd84226e48f68b2916a8bd2626eb39535e1673722349",
+      "error_code": null,
+      "ir_sha256": "37c8b4b6283f4b38113423c88945523b0ce53b4dc6e21429883ffbb50137c49c",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r404d5e6cdf343679234ee26a",
+      "prediction": {
+        "decision": "vulnerable_CWE-122",
+        "evidence": [
+          "0x4010f8",
+          "0x4010fd",
+          "0x401100",
+          "0x401102"
+        ],
+        "paths": 2,
+        "reason_codes": [
+          "heap_write_exceeds_allocation"
+        ],
+        "status": "classified",
+        "steps": 12,
+        "write_checks": [
+          {
+            "bound_basis": "requested_allocation",
+            "capacity": 40,
+            "evidence": [
+              "0x4010f8",
+              "0x4010fd",
+              "0x401100",
+              "0x401102"
+            ],
+            "object_offset": null,
+            "offset": 40,
+            "outcome": "exceeds_allocation",
+            "region": "heap",
+            "site": "0x401102",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010ee"
+            ],
+            "object_offset": null,
+            "offset": 4210804,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010ee",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "eb40807bce2b4d4f6cccf1c7d2fdf7e5e71ae0bec2406bc8d1d20dcf52bc7284",
+      "error_code": null,
+      "ir_sha256": "ef2e64150f798cef5967eea894e8d35401c2877ce1c32bcb80a891f9fc0f868a",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rea3a430a239c0d91ced4ae85",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x40122c",
+          "0x401282"
+        ],
+        "paths": 0,
+        "reason_codes": [
+          "unaccounted_native_write"
+        ],
+        "status": "abstained",
+        "steps": 0,
+        "write_checks": []
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "9c6cb959d24cf2fde0c196dc3be2bca33088353523fecdb7ec524a1a9380d1d5",
+      "error_code": null,
+      "ir_sha256": "ef2e64150f798cef5967eea894e8d35401c2877ce1c32bcb80a891f9fc0f868a",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rc5824c0bb3c0ec909bd46e65",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x40122c",
+          "0x401282"
+        ],
+        "paths": 0,
+        "reason_codes": [
+          "unaccounted_native_write"
+        ],
+        "status": "abstained",
+        "steps": 0,
+        "write_checks": []
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "aa545413afebb449f4d795666a8079d5a0f59393a391cb9be27c06af0872b496",
+      "error_code": null,
+      "ir_sha256": "348fede3ab613410c32c34a90732b520c066b8daf5283aabb40340015bbf45f0",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r073935280cbf8bbffc694f53",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x401220",
+          "0x401341"
+        ],
+        "paths": 2,
+        "reason_codes": [
+          "cyclic_control_flow"
+        ],
+        "status": "abstained",
+        "steps": 22,
+        "write_checks": [
+          {
+            "bound_basis": "requested_allocation",
+            "capacity": 40,
+            "evidence": [
+              "0x4011da",
+              "0x4011e1",
+              "0x401200",
+              "0x401208",
+              "0x40120b",
+              "0x401215",
+              "0x401220",
+              "0x401341",
+              "0x401350"
+            ],
+            "object_offset": null,
+            "offset": 0,
+            "outcome": "within_bounds",
+            "region": "heap",
+            "site": "0x401220",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011da",
+              "0x4011e1",
+              "0x401200",
+              "0x401208",
+              "0x40120b",
+              "0x401220",
+              "0x401341",
+              "0x401350"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x401220",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x401341"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x401341",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "a5d672bb38ec993a7ee1f4fb9a5a72b3c40b6e8fb1b556f0e1cca00dfc2c7eff",
+      "error_code": null,
+      "ir_sha256": "348fede3ab613410c32c34a90732b520c066b8daf5283aabb40340015bbf45f0",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r732725a3b228724d855bdf14",
+      "prediction": {
+        "decision": "uncertain",
+        "evidence": [
+          "0x401220",
+          "0x401341"
+        ],
+        "paths": 2,
+        "reason_codes": [
+          "cyclic_control_flow"
+        ],
+        "status": "abstained",
+        "steps": 22,
+        "write_checks": [
+          {
+            "bound_basis": "requested_allocation",
+            "capacity": 40,
+            "evidence": [
+              "0x4011da",
+              "0x4011e1",
+              "0x401200",
+              "0x401208",
+              "0x40120b",
+              "0x401215",
+              "0x401220",
+              "0x401341",
+              "0x401350"
+            ],
+            "object_offset": null,
+            "offset": 0,
+            "outcome": "within_bounds",
+            "region": "heap",
+            "site": "0x401220",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4011da",
+              "0x4011e1",
+              "0x401200",
+              "0x401208",
+              "0x40120b",
+              "0x401220",
+              "0x401341",
+              "0x401350"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x401220",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x401341"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x401341",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "18ce58b005c2eb7ce1b3990b2ec60b1faab411bd43725bc8dc7d97b5f52741e5",
+      "error_code": null,
+      "ir_sha256": "4d5c16ceb59b59be37943ea8d9e8eb14bdefbe7553f9a2815b0fc6992eea4780",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rafa6871472fd8f0db9dd5142",
+      "prediction": {
+        "decision": "not_vulnerable",
+        "evidence": [
+          "0x4010e4",
+          "0x4010ee",
+          "0x4010f9",
+          "0x4011f6",
+          "0x4011f8",
+          "0x40120d",
+          "0x4012a0",
+          "0x4012a3",
+          "0x4012a5"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "all_selected_writes_accounted_for"
+        ],
+        "status": "classified",
+        "steps": 17,
+        "write_checks": [
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e4",
+              "0x4010ee",
+              "0x4010f9",
+              "0x4011f6",
+              "0x4011f8",
+              "0x40120d",
+              "0x4012a0",
+              "0x4012a3",
+              "0x4012a5"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010f9",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e4",
+              "0x4010ee",
+              "0x4011f6",
+              "0x4011f8",
+              "0x40120d",
+              "0x4012a0",
+              "0x4012a3",
+              "0x4012a5"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x40120d",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e4"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010e4",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "7ce85a290aac650619863aad3e66a03c5dd4f27992c95bd71fbcfb574a9bd00c",
+      "error_code": null,
+      "ir_sha256": "4d5c16ceb59b59be37943ea8d9e8eb14bdefbe7553f9a2815b0fc6992eea4780",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "rbb2e9cd05647a5da48094abc",
+      "prediction": {
+        "decision": "not_vulnerable",
+        "evidence": [
+          "0x4010e4",
+          "0x4010ee",
+          "0x4010f9",
+          "0x4011f6",
+          "0x4011f8",
+          "0x40120d",
+          "0x4012a0",
+          "0x4012a3",
+          "0x4012a5"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "all_selected_writes_accounted_for"
+        ],
+        "status": "classified",
+        "steps": 17,
+        "write_checks": [
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e4",
+              "0x4010ee",
+              "0x4010f9",
+              "0x4011f6",
+              "0x4011f8",
+              "0x40120d",
+              "0x4012a0",
+              "0x4012a3",
+              "0x4012a5"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010f9",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e4",
+              "0x4010ee",
+              "0x4011f6",
+              "0x4011f8",
+              "0x40120d",
+              "0x4012a0",
+              "0x4012a3",
+              "0x4012a5"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x40120d",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e4"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010e4",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "21790e1222d3b5030ce8712058ccec4c2304a481e90ff9bb730323cf948cab5b",
+      "error_code": null,
+      "ir_sha256": "58ab41d8b0ee91f23c02bf552555cf51b45438b09ef38c9643d25a25742d376c",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r7d9508e3f1b8530f73138fc5",
+      "prediction": {
+        "decision": "not_vulnerable",
+        "evidence": [
+          "0x4010e9",
+          "0x4010f3",
+          "0x4010fe",
+          "0x401280",
+          "0x401283",
+          "0x401285"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "all_selected_writes_accounted_for"
+        ],
+        "status": "classified",
+        "steps": 11,
+        "write_checks": [
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e9"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010e9",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010f3",
+              "0x4010fe",
+              "0x401280",
+              "0x401283",
+              "0x401285"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010fe",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    },
+    {
+      "bundle_sha256": "db5d153c9f854fb770d461c11adb15f379066349a7f95f3eed24467a0e73173f",
+      "error_code": null,
+      "ir_sha256": "58ab41d8b0ee91f23c02bf552555cf51b45438b09ef38c9643d25a25742d376c",
+      "method_id": "ghidra-inferred-stack-bounds-v2",
+      "observation_id": "r0e3d4ae5b41a54ed7221a3dd",
+      "prediction": {
+        "decision": "not_vulnerable",
+        "evidence": [
+          "0x4010e9",
+          "0x4010f3",
+          "0x4010fe",
+          "0x401280",
+          "0x401283",
+          "0x401285"
+        ],
+        "paths": 1,
+        "reason_codes": [
+          "all_selected_writes_accounted_for"
+        ],
+        "status": "classified",
+        "steps": 11,
+        "write_checks": [
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010e9"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010e9",
+            "size": 4
+          },
+          {
+            "bound_basis": null,
+            "capacity": null,
+            "evidence": [
+              "0x4010f3",
+              "0x4010fe",
+              "0x401280",
+              "0x401283",
+              "0x401285"
+            ],
+            "object_offset": null,
+            "offset": 4210812,
+            "outcome": "static_storage_write",
+            "region": "static",
+            "site": "0x4010fe",
+            "size": 4
+          }
+        ]
+      },
+      "schema_version": 2,
+      "status": "completed"
+    }
+  ],
+  "reason_codes": {
+    "all_selected_writes_accounted_for": 4,
+    "cyclic_control_flow": 4,
+    "heap_write_exceeds_allocation": 4,
+    "inferred_stack_object_extent": 16,
+    "instruction_pcode_store_fallback": 16,
+    "missing_stack_array_extent": 12,
+    "unaccounted_native_write": 4,
+    "unsupported_pcode": 4
+  },
+  "record_hashes": {
+    "data/pilot/records/r00d96a0e6dda924277042caf.json": "efcc7b23c3fc0b80d2b62e85c9f883d3ab9deab63db5b31fec4fb8e783ed2c72",
+    "data/pilot/records/r073935280cbf8bbffc694f53.json": "aa545413afebb449f4d795666a8079d5a0f59393a391cb9be27c06af0872b496",
+    "data/pilot/records/r0af0770df613d08245c6c799.json": "df106ae3f54dd55706849a8e8a16afd8d5b2e139476538a3044a7f59ba865546",
+    "data/pilot/records/r0e3d4ae5b41a54ed7221a3dd.json": "db5d153c9f854fb770d461c11adb15f379066349a7f95f3eed24467a0e73173f",
+    "data/pilot/records/r0ee4bd2c9abcc07d4bee3e7c.json": "d717ce872c73504959665e91789b618ea79d5fbb854fc3e4a09b49ec132b2388",
+    "data/pilot/records/r15d4cc9211f42243546a6c36.json": "c00ffa3306e26eb2d5aee94d04e13352b146e658cf0193d271b97293d6f7a762",
+    "data/pilot/records/r1dbd15218a05332e5eb32d5d.json": "7ed32c9802aa5d6c6621319a3b16406a56ed0b93cfcc93444e7a70804d021c39",
+    "data/pilot/records/r31c80f177c1ee5b6891f3fb9.json": "ebb9e9d0af13d50b26b0d97acb9edbfbec69e1c01944403bc90501bfe8e56d3f",
+    "data/pilot/records/r404d5e6cdf343679234ee26a.json": "c9bd00b61220cff16438bd84226e48f68b2916a8bd2626eb39535e1673722349",
+    "data/pilot/records/r415a0d69f8b8b38ddd704e47.json": "72582716aed4dcd274ed97f26aa1ce4339a50f5755f4eb7455fb3621f445f593",
+    "data/pilot/records/r42d21d4fb1363e65b7eaa85d.json": "290fc320aa151cbd00b790463f5a29deacb860e9595f400ef68877473ef87870",
+    "data/pilot/records/r554326385460ddc012533b72.json": "86c157a00c82f4f03ba627409b8eca6b3404e3bd456ddacfa7f3be75e3ee9ea4",
+    "data/pilot/records/r732725a3b228724d855bdf14.json": "a5d672bb38ec993a7ee1f4fb9a5a72b3c40b6e8fb1b556f0e1cca00dfc2c7eff",
+    "data/pilot/records/r7d9508e3f1b8530f73138fc5.json": "21790e1222d3b5030ce8712058ccec4c2304a481e90ff9bb730323cf948cab5b",
+    "data/pilot/records/r8562513a8bf7d0108d1e603b.json": "4d8d17ce336b730a33838ada473404a2ca2e9f23d76729f240ee5fdf51254866",
+    "data/pilot/records/r94300d392290fd09c14d2785.json": "ac2df4db95b65cf92cdc0354e8553e321d3e1f379e869f380ecd27c97d12568e",
+    "data/pilot/records/r959c77e21be3df4354337381.json": "4d8d17ce336b730a33838ada473404a2ca2e9f23d76729f240ee5fdf51254866",
+    "data/pilot/records/ra14394a63fae12a0ebbc9594.json": "ffd3ab8400b30b68666423285694ecdafc20d643b055de6ac0ccb3f7a42104ea",
+    "data/pilot/records/ra5f6072d3eed46cfbcd279df.json": "943358a9f97d9cdbfb5d7008292e02e1b17f139359b7c2d099f0fb8d583e5146",
+    "data/pilot/records/rafa6871472fd8f0db9dd5142.json": "18ce58b005c2eb7ce1b3990b2ec60b1faab411bd43725bc8dc7d97b5f52741e5",
+    "data/pilot/records/rb66672e0b99749662580b378.json": "ef3cf104ab464f6053276966b182e1f3f4b14240740c096cf93e1826edb2dde0",
+    "data/pilot/records/rb9c38171f525fa84edcbd8b1.json": "7cb21e39d154dfaf9f49792c468491d9162037a72a331ac6d9555f08784b3a9b",
+    "data/pilot/records/rba2857782b28db376bbf00cb.json": "d1ff23f881dcf2147b9d4ff46ef7c4aeda929e1c38f049dd9b678af50d25eb6f",
+    "data/pilot/records/rbb2e9cd05647a5da48094abc.json": "7ce85a290aac650619863aad3e66a03c5dd4f27992c95bd71fbcfb574a9bd00c",
+    "data/pilot/records/rbfcf0887c152a774487dadaa.json": "e45cac83de09d4c0993d6a551353e959143477335575bb2395b3e694afa172eb",
+    "data/pilot/records/rc24d885eb5101822727fe6bf.json": "9d09a41f519092fc3f73bc4c649b241de2e68ce70ed7c762bc3b5f77f15b32e9",
+    "data/pilot/records/rc5824c0bb3c0ec909bd46e65.json": "9c6cb959d24cf2fde0c196dc3be2bca33088353523fecdb7ec524a1a9380d1d5",
+    "data/pilot/records/rd96f94b9b1d0399c71fb430b.json": "ea82297e79da4cbfcfb61e882a5607d0dfa3cf8b6044167b8703aad5021902ef",
+    "data/pilot/records/rea3a430a239c0d91ced4ae85.json": "eb40807bce2b4d4f6cccf1c7d2fdf7e5e71ae0bec2406bc8d1d20dcf52bc7284",
+    "data/pilot/records/reac8c423864ff24d97c6aef5.json": "ebb9e9d0af13d50b26b0d97acb9edbfbec69e1c01944403bc90501bfe8e56d3f",
+    "data/pilot/records/reb0f2a3d9d2882fbbcfec898.json": "ea82297e79da4cbfcfb61e882a5607d0dfa3cf8b6044167b8703aad5021902ef",
+    "data/pilot/records/rf0991c071d66077512884d89.json": "e45cac83de09d4c0993d6a551353e959143477335575bb2395b3e694afa172eb"
+  },
+  "regeneration": "passed",
+  "run_id": "phase5-v2-c",
+  "schema_version": 1,
+  "wall_seconds": {
+    "lifting": 70.515225,
+    "prediction": 1.302082
+  }
+}

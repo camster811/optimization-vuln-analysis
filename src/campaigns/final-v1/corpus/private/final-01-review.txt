@@ -1,0 +1,307 @@
+
+safe O0 b2a1aeeb81e049ef73818bab2
+flow_component_02
+  4011c6:	55                   	push   rbp
+  4011c7:	48 89 e5             	mov    rbp,rsp
+  4011ca:	48 83 ec 10          	sub    rsp,0x10
+  4011ce:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+  4011d2:	8b 05 9c 2e 00 00    	mov    eax,DWORD PTR [rip+0x2e9c]        # 404074 <flow_component_03>
+  4011d8:	85 c0                	test   eax,eax
+  4011da:	74 0c                	je     4011e8 <flow_component_02+0x22>
+  4011dc:	bf 04 20 40 00       	mov    edi,0x402004
+  4011e1:	e8 ac 03 00 00       	call   401592 <printLine>
+  4011e6:	eb 26                	jmp    40120e <flow_component_02+0x48>
+  4011e8:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  4011ec:	ba 31 00 00 00       	mov    edx,0x31
+  4011f1:	be 41 00 00 00       	mov    esi,0x41
+  4011f6:	48 89 c7             	mov    rdi,rax
+  4011f9:	e8 72 fe ff ff       	call   401070 <wmemset@plt>
+  4011fe:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401202:	48 05 c4 00 00 00    	add    rax,0xc4
+  401208:	c7 00 00 00 00 00    	mov    DWORD PTR [rax],0x0
+  40120e:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401212:	c9                   	leave
+  401213:	c3                   	ret
+main
+  40157d:	55                   	push   rbp
+  40157e:	48 89 e5             	mov    rbp,rsp
+  401581:	b8 00 00 00 00       	mov    eax,0x0
+  401586:	e8 89 fc ff ff       	call   401214 <process_case>
+  40158b:	b8 00 00 00 00       	mov    eax,0x0
+  401590:	5d                   	pop    rbp
+  401591:	c3                   	ret
+process_case
+  401214:	55                   	push   rbp
+  401215:	48 89 e5             	mov    rbp,rsp
+  401218:	48 81 ec 70 02 00 00 	sub    rsp,0x270
+  40121f:	48 8d 85 60 fe ff ff 	lea    rax,[rbp-0x1a0]
+  401226:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  40122a:	c7 05 40 2e 00 00 00 00 00 00 	mov    DWORD PTR [rip+0x2e40],0x0        # 404074 <flow_component_03>
+  401234:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401238:	48 89 c7             	mov    rdi,rax
+  40123b:	e8 86 ff ff ff       	call   4011c6 <flow_component_02>
+  401240:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  401244:	48 c7 85 90 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x270],0x0
+  40124f:	48 c7 85 98 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x268],0x0
+  40125a:	48 c7 85 a0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x260],0x0
+  401265:	48 c7 85 a8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x258],0x0
+  401270:	48 c7 85 b0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x250],0x0
+  40127b:	48 c7 85 b8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x248],0x0
+  401286:	48 c7 85 c0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x240],0x0
+  401291:	48 c7 85 c8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x238],0x0
+  40129c:	48 c7 85 d0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x230],0x0
+  4012a7:	48 c7 85 d8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x228],0x0
+  4012b2:	48 c7 85 e0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x220],0x0
+  4012bd:	48 c7 85 e8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x218],0x0
+  4012c8:	48 c7 85 f0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x210],0x0
+  4012d3:	48 c7 85 f8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x208],0x0
+  4012de:	48 c7 85 00 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x200],0x0
+  4012e9:	48 c7 85 08 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1f8],0x0
+  4012f4:	48 c7 85 10 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1f0],0x0
+  4012ff:	48 c7 85 18 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1e8],0x0
+  40130a:	48 c7 85 20 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1e0],0x0
+  401315:	48 c7 85 28 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1d8],0x0
+  401320:	48 c7 85 30 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1d0],0x0
+  40132b:	48 c7 85 38 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1c8],0x0
+  401336:	48 c7 85 40 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1c0],0x0
+  401341:	48 c7 85 48 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1b8],0x0
+  40134c:	48 c7 85 50 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1b0],0x0
+  401357:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  40135b:	48 89 c7             	mov    rdi,rax
+  40135e:	e8 fd fc ff ff       	call   401060 <wcslen@plt>
+  401363:	48 8d 14 85 00 00 00 00 	lea    rdx,[rax*4+0x0]
+  40136b:	48 8b 4d f8          	mov    rcx,QWORD PTR [rbp-0x8]
+  40136f:	48 8d 85 90 fd ff ff 	lea    rax,[rbp-0x270]
+  401376:	48 89 ce             	mov    rsi,rcx
+  401379:	48 89 c7             	mov    rdi,rax
+  40137c:	e8 2f fd ff ff       	call   4010b0 <memmove@plt>
+  401381:	c7 85 54 fe ff ff 00 00 00 00 	mov    DWORD PTR [rbp-0x1ac],0x0
+  40138b:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  40138f:	48 89 c7             	mov    rdi,rax
+  401392:	e8 1d 02 00 00       	call   4015b4 <printWLine>
+  401397:	90                   	nop
+  401398:	c9                   	leave
+  401399:	c3                   	ret
+
+safe O1 bcd292363dfa6abca979cde31
+main
+  401243:	48 83 ec 08          	sub    rsp,0x8
+  401247:	b8 00 00 00 00       	mov    eax,0x0
+  40124c:	e8 55 ff ff ff       	call   4011a6 <process_case>
+  401251:	b8 00 00 00 00       	mov    eax,0x0
+  401256:	48 83 c4 08          	add    rsp,0x8
+  40125a:	c3                   	ret
+process_case
+  4011a6:	53                   	push   rbx
+  4011a7:	48 81 ec 90 01 00 00 	sub    rsp,0x190
+  4011ae:	c7 05 b0 2e 00 00 00 00 00 00 	mov    DWORD PTR [rip+0x2eb0],0x0        # 404068 <flow_component_03>
+  4011b8:	ba 31 00 00 00       	mov    edx,0x31
+  4011bd:	be 41 00 00 00       	mov    esi,0x41
+  4011c2:	48 89 e7             	mov    rdi,rsp
+  4011c5:	e8 96 fe ff ff       	call   401060 <wmemset@plt>
+  4011ca:	c7 84 24 c4 00 00 00 00 00 00 00 	mov    DWORD PTR [rsp+0xc4],0x0
+  4011d5:	48 89 e7             	mov    rdi,rsp
+  4011d8:	e8 92 00 00 00       	call   40126f <printWLine>
+  4011dd:	48 81 c4 90 01 00 00 	add    rsp,0x190
+  4011e4:	5b                   	pop    rbx
+  4011e5:	c3                   	ret
+
+safe O2 b4b5baf8de07bbd2db1480f61
+main
+  4010c0:	48 83 ec 08          	sub    rsp,0x8
+  4010c4:	31 c0                	xor    eax,eax
+  4010c6:	e8 05 01 00 00       	call   4011d0 <process_case>
+  4010cb:	31 c0                	xor    eax,eax
+  4010cd:	48 83 c4 08          	add    rsp,0x8
+  4010d1:	c3                   	ret
+  4010d2:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010dc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+process_case
+  4011d0:	48 81 ec 98 01 00 00 	sub    rsp,0x198
+  4011d7:	ba 31 00 00 00       	mov    edx,0x31
+  4011dc:	be 41 00 00 00       	mov    esi,0x41
+  4011e1:	c7 05 7d 2e 00 00 00 00 00 00 	mov    DWORD PTR [rip+0x2e7d],0x0        # 404068 <flow_component_03>
+  4011eb:	48 89 e7             	mov    rdi,rsp
+  4011ee:	e8 6d fe ff ff       	call   401060 <wmemset@plt>
+  4011f3:	48 89 e7             	mov    rdi,rsp
+  4011f6:	c7 84 24 c4 00 00 00 00 00 00 00 	mov    DWORD PTR [rsp+0xc4],0x0
+  401201:	e8 8a 00 00 00       	call   401290 <printWLine>
+  401206:	48 81 c4 98 01 00 00 	add    rsp,0x198
+  40120d:	c3                   	ret
+  40120e:	66 90                	xchg   ax,ax
+
+safe O3 bd36ed28f68e8c1246a8e0614
+main
+  4010c0:	48 83 ec 08          	sub    rsp,0x8
+  4010c4:	31 c0                	xor    eax,eax
+  4010c6:	e8 05 01 00 00       	call   4011d0 <process_case>
+  4010cb:	31 c0                	xor    eax,eax
+  4010cd:	48 83 c4 08          	add    rsp,0x8
+  4010d1:	c3                   	ret
+  4010d2:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010dc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+process_case
+  4011d0:	48 81 ec 98 01 00 00 	sub    rsp,0x198
+  4011d7:	ba 31 00 00 00       	mov    edx,0x31
+  4011dc:	be 41 00 00 00       	mov    esi,0x41
+  4011e1:	c7 05 79 2e 00 00 00 00 00 00 	mov    DWORD PTR [rip+0x2e79],0x0        # 404064 <flow_component_03>
+  4011eb:	48 89 e7             	mov    rdi,rsp
+  4011ee:	e8 6d fe ff ff       	call   401060 <wmemset@plt>
+  4011f3:	48 89 e7             	mov    rdi,rsp
+  4011f6:	c7 84 24 c4 00 00 00 00 00 00 00 	mov    DWORD PTR [rsp+0xc4],0x0
+  401201:	e8 8a 00 00 00       	call   401290 <printWLine>
+  401206:	48 81 c4 98 01 00 00 	add    rsp,0x198
+  40120d:	c3                   	ret
+  40120e:	66 90                	xchg   ax,ax
+
+vulnerable O0 b21d6579f88a293ac82fd75b0
+flow_component_00
+  4011c6:	55                   	push   rbp
+  4011c7:	48 89 e5             	mov    rbp,rsp
+  4011ca:	48 83 ec 10          	sub    rsp,0x10
+  4011ce:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+  4011d2:	8b 05 9c 2e 00 00    	mov    eax,DWORD PTR [rip+0x2e9c]        # 404074 <flow_component_01>
+  4011d8:	85 c0                	test   eax,eax
+  4011da:	74 26                	je     401202 <flow_component_00+0x3c>
+  4011dc:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  4011e0:	ba 63 00 00 00       	mov    edx,0x63
+  4011e5:	be 41 00 00 00       	mov    esi,0x41
+  4011ea:	48 89 c7             	mov    rdi,rax
+  4011ed:	e8 7e fe ff ff       	call   401070 <wmemset@plt>
+  4011f2:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  4011f6:	48 05 8c 01 00 00    	add    rax,0x18c
+  4011fc:	c7 00 00 00 00 00    	mov    DWORD PTR [rax],0x0
+  401202:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401206:	c9                   	leave
+  401207:	c3                   	ret
+main
+  40138e:	55                   	push   rbp
+  40138f:	48 89 e5             	mov    rbp,rsp
+  401392:	b8 00 00 00 00       	mov    eax,0x0
+  401397:	e8 6c fe ff ff       	call   401208 <process_case>
+  40139c:	b8 00 00 00 00       	mov    eax,0x0
+  4013a1:	5d                   	pop    rbp
+  4013a2:	c3                   	ret
+process_case
+  401208:	55                   	push   rbp
+  401209:	48 89 e5             	mov    rbp,rsp
+  40120c:	48 81 ec 70 02 00 00 	sub    rsp,0x270
+  401213:	48 8d 85 60 fe ff ff 	lea    rax,[rbp-0x1a0]
+  40121a:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  40121e:	c7 05 4c 2e 00 00 01 00 00 00 	mov    DWORD PTR [rip+0x2e4c],0x1        # 404074 <flow_component_01>
+  401228:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  40122c:	48 89 c7             	mov    rdi,rax
+  40122f:	e8 92 ff ff ff       	call   4011c6 <flow_component_00>
+  401234:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  401238:	48 c7 85 90 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x270],0x0
+  401243:	48 c7 85 98 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x268],0x0
+  40124e:	48 c7 85 a0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x260],0x0
+  401259:	48 c7 85 a8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x258],0x0
+  401264:	48 c7 85 b0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x250],0x0
+  40126f:	48 c7 85 b8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x248],0x0
+  40127a:	48 c7 85 c0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x240],0x0
+  401285:	48 c7 85 c8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x238],0x0
+  401290:	48 c7 85 d0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x230],0x0
+  40129b:	48 c7 85 d8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x228],0x0
+  4012a6:	48 c7 85 e0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x220],0x0
+  4012b1:	48 c7 85 e8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x218],0x0
+  4012bc:	48 c7 85 f0 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x210],0x0
+  4012c7:	48 c7 85 f8 fd ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x208],0x0
+  4012d2:	48 c7 85 00 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x200],0x0
+  4012dd:	48 c7 85 08 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1f8],0x0
+  4012e8:	48 c7 85 10 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1f0],0x0
+  4012f3:	48 c7 85 18 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1e8],0x0
+  4012fe:	48 c7 85 20 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1e0],0x0
+  401309:	48 c7 85 28 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1d8],0x0
+  401314:	48 c7 85 30 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1d0],0x0
+  40131f:	48 c7 85 38 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1c8],0x0
+  40132a:	48 c7 85 40 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1c0],0x0
+  401335:	48 c7 85 48 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1b8],0x0
+  401340:	48 c7 85 50 fe ff ff 00 00 00 00 	mov    QWORD PTR [rbp-0x1b0],0x0
+  40134b:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  40134f:	48 89 c7             	mov    rdi,rax
+  401352:	e8 09 fd ff ff       	call   401060 <wcslen@plt>
+  401357:	48 8d 14 85 00 00 00 00 	lea    rdx,[rax*4+0x0]
+  40135f:	48 8b 4d f8          	mov    rcx,QWORD PTR [rbp-0x8]
+  401363:	48 8d 85 90 fd ff ff 	lea    rax,[rbp-0x270]
+  40136a:	48 89 ce             	mov    rsi,rcx
+  40136d:	48 89 c7             	mov    rdi,rax
+  401370:	e8 3b fd ff ff       	call   4010b0 <memmove@plt>
+  401375:	c7 85 54 fe ff ff 00 00 00 00 	mov    DWORD PTR [rbp-0x1ac],0x0
+  40137f:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401383:	48 89 c7             	mov    rdi,rax
+  401386:	e8 3a 00 00 00       	call   4013c5 <printWLine>
+  40138b:	90                   	nop
+  40138c:	c9                   	leave
+  40138d:	c3                   	ret
+
+vulnerable O1 b4546860e0a4cc932301a978f
+main
+  4011e6:	48 83 ec 08          	sub    rsp,0x8
+  4011ea:	b8 00 00 00 00       	mov    eax,0x0
+  4011ef:	e8 b2 ff ff ff       	call   4011a6 <process_case>
+  4011f4:	b8 00 00 00 00       	mov    eax,0x0
+  4011f9:	48 83 c4 08          	add    rsp,0x8
+  4011fd:	c3                   	ret
+process_case
+  4011a6:	53                   	push   rbx
+  4011a7:	48 81 ec 90 01 00 00 	sub    rsp,0x190
+  4011ae:	c7 05 ac 2e 00 00 01 00 00 00 	mov    DWORD PTR [rip+0x2eac],0x1        # 404064 <flow_component_01>
+  4011b8:	ba 63 00 00 00       	mov    edx,0x63
+  4011bd:	be 41 00 00 00       	mov    esi,0x41
+  4011c2:	48 89 e7             	mov    rdi,rsp
+  4011c5:	e8 96 fe ff ff       	call   401060 <wmemset@plt>
+  4011ca:	c7 84 24 8c 01 00 00 00 00 00 00 	mov    DWORD PTR [rsp+0x18c],0x0
+  4011d5:	48 89 e7             	mov    rdi,rsp
+  4011d8:	e8 35 00 00 00       	call   401212 <printWLine>
+  4011dd:	48 81 c4 90 01 00 00 	add    rsp,0x190
+  4011e4:	5b                   	pop    rbx
+  4011e5:	c3                   	ret
+
+vulnerable O2 b740d05e248c3ba33840f8af5
+main
+  4010c0:	48 83 ec 08          	sub    rsp,0x8
+  4010c4:	31 c0                	xor    eax,eax
+  4010c6:	e8 05 01 00 00       	call   4011d0 <process_case>
+  4010cb:	31 c0                	xor    eax,eax
+  4010cd:	48 83 c4 08          	add    rsp,0x8
+  4010d1:	c3                   	ret
+  4010d2:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010dc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+process_case
+  4011d0:	48 81 ec 98 01 00 00 	sub    rsp,0x198
+  4011d7:	ba 63 00 00 00       	mov    edx,0x63
+  4011dc:	be 41 00 00 00       	mov    esi,0x41
+  4011e1:	c7 05 79 2e 00 00 01 00 00 00 	mov    DWORD PTR [rip+0x2e79],0x1        # 404064 <flow_component_01>
+  4011eb:	48 89 e7             	mov    rdi,rsp
+  4011ee:	e8 6d fe ff ff       	call   401060 <wmemset@plt>
+  4011f3:	48 89 e7             	mov    rdi,rsp
+  4011f6:	c7 84 24 8c 01 00 00 00 00 00 00 	mov    DWORD PTR [rsp+0x18c],0x0
+  401201:	e8 2a 00 00 00       	call   401230 <printWLine>
+  401206:	48 81 c4 98 01 00 00 	add    rsp,0x198
+  40120d:	c3                   	ret
+  40120e:	66 90                	xchg   ax,ax
+
+vulnerable O3 b656c4af83ca6563598c12c85
+main
+  4010c0:	48 83 ec 08          	sub    rsp,0x8
+  4010c4:	31 c0                	xor    eax,eax
+  4010c6:	e8 05 01 00 00       	call   4011d0 <process_case>
+  4010cb:	31 c0                	xor    eax,eax
+  4010cd:	48 83 c4 08          	add    rsp,0x8
+  4010d1:	c3                   	ret
+  4010d2:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010dc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+process_case
+  4011d0:	48 81 ec 98 01 00 00 	sub    rsp,0x198
+  4011d7:	ba 63 00 00 00       	mov    edx,0x63
+  4011dc:	be 41 00 00 00       	mov    esi,0x41
+  4011e1:	48 89 e7             	mov    rdi,rsp
+  4011e4:	e8 77 fe ff ff       	call   401060 <wmemset@plt>
+  4011e9:	48 89 e7             	mov    rdi,rsp
+  4011ec:	c7 84 24 8c 01 00 00 00 00 00 00 	mov    DWORD PTR [rsp+0x18c],0x0
+  4011f7:	e8 34 00 00 00       	call   401230 <printWLine>
+  4011fc:	48 81 c4 98 01 00 00 	add    rsp,0x198
+  401203:	c3                   	ret
+  401204:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  40120e:	66 90                	xchg   ax,ax

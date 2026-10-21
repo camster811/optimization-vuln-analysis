@@ -1,5 +1,7 @@
 # Final Juliet campaign v1
 
+Phase 9 tooling is ready; final execution/results are pending. Use the [runbook](../../../documentation/juliet-redesign/phase9_runbook.md) for baseline execution, scheduled LLM inference, safe resumption, analysis regeneration, and results handoff. Outputs are stored separately from the frozen release.
+
 This is the isolated Phase 8 final-input workspace. The original `redesign/corpus/manifest.json` and Phase 7 method lock remain historical pilot evidence. This campaign's manifest assigns ten final families (80 references, 160 public observations, 480 scheduled LLM slots).
 
 The [Phase 8 report](../../../documentation/juliet-redesign/phase8_report.md) explains selection, private adjudication, availability and limitations. `release/freeze.json` is the final-input authority; `release/final-v1-inputs.tar.gz` is its private, versioned input archive. Both must be retained together. No final predictor runs are part of Phase 8.

@@ -1,0 +1,379 @@
+
+safe O0 b3446db09ca363b379356c49a
+flow_component_02
+  4011d6:	55                   	push   rbp
+  4011d7:	48 89 e5             	mov    rbp,rsp
+  4011da:	48 83 ec 10          	sub    rsp,0x10
+  4011de:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+  4011e2:	8b 05 94 2e 00 00    	mov    eax,DWORD PTR [rip+0x2e94]        # 40407c <flow_component_03>
+  4011e8:	85 c0                	test   eax,eax
+  4011ea:	74 0c                	je     4011f8 <flow_component_02+0x22>
+  4011ec:	bf 04 20 40 00       	mov    edi,0x402004
+  4011f1:	e8 c0 01 00 00       	call   4013b6 <printLine>
+  4011f6:	eb 1f                	jmp    401217 <flow_component_02+0x41>
+  4011f8:	bf 20 03 00 00       	mov    edi,0x320
+  4011fd:	e8 8e fe ff ff       	call   401090 <malloc@plt>
+  401202:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  401206:	48 83 7d f8 00       	cmp    QWORD PTR [rbp-0x8],0x0
+  40120b:	75 0a                	jne    401217 <flow_component_02+0x41>
+  40120d:	bf ff ff ff ff       	mov    edi,0xffffffff
+  401212:	e8 a9 fe ff ff       	call   4010c0 <exit@plt>
+  401217:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  40121b:	c9                   	leave
+  40121c:	c3                   	ret
+main
+  4013a1:	55                   	push   rbp
+  4013a2:	48 89 e5             	mov    rbp,rsp
+  4013a5:	b8 00 00 00 00       	mov    eax,0x0
+  4013aa:	e8 6e fe ff ff       	call   40121d <process_case>
+  4013af:	b8 00 00 00 00       	mov    eax,0x0
+  4013b4:	5d                   	pop    rbp
+  4013b5:	c3                   	ret
+process_case
+  40121d:	55                   	push   rbp
+  40121e:	48 89 e5             	mov    rbp,rsp
+  401221:	48 81 ec 30 03 00 00 	sub    rsp,0x330
+  401228:	48 c7 45 f0 00 00 00 00 	mov    QWORD PTR [rbp-0x10],0x0
+  401230:	c7 05 42 2e 00 00 00 00 00 00 	mov    DWORD PTR [rip+0x2e42],0x0        # 40407c <flow_component_03>
+  40123a:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+  40123e:	48 89 c7             	mov    rdi,rax
+  401241:	e8 90 ff ff ff       	call   4011d6 <flow_component_02>
+  401246:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+  40124a:	48 c7 45 f8 00 00 00 00 	mov    QWORD PTR [rbp-0x8],0x0
+  401252:	eb 23                	jmp    401277 <process_case+0x5a>
+  401254:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401258:	c7 84 c5 d0 fc ff ff 00 00 00 00 	mov    DWORD PTR [rbp+rax*8-0x330],0x0
+  401263:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  401267:	c7 84 c5 d4 fc ff ff 00 00 00 00 	mov    DWORD PTR [rbp+rax*8-0x32c],0x0
+  401272:	48 83 45 f8 01       	add    QWORD PTR [rbp-0x8],0x1
+  401277:	48 83 7d f8 63       	cmp    QWORD PTR [rbp-0x8],0x63
+  40127c:	76 d6                	jbe    401254 <process_case+0x37>
+  40127e:	48 8d 8d d0 fc ff ff 	lea    rcx,[rbp-0x330]
+  401285:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+  401289:	ba 20 03 00 00       	mov    edx,0x320
+  40128e:	48 89 ce             	mov    rsi,rcx
+  401291:	48 89 c7             	mov    rdi,rax
+  401294:	e8 e7 fd ff ff       	call   401080 <memcpy@plt>
+  401299:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+  40129d:	48 89 c7             	mov    rdi,rax
+  4012a0:	e8 0d 03 00 00       	call   4015b2 <printStructLine>
+  4012a5:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+  4012a9:	48 89 c7             	mov    rdi,rax
+  4012ac:	e8 7f fd ff ff       	call   401030 <free@plt>
+  4012b1:	90                   	nop
+  4012b2:	c9                   	leave
+  4012b3:	c3                   	ret
+
+safe O1 bde9024f7ad585a3b6169e71b
+main
+  401304:	48 83 ec 08          	sub    rsp,0x8
+  401308:	b8 00 00 00 00       	mov    eax,0x0
+  40130d:	e8 ce fe ff ff       	call   4011e0 <process_case>
+  401312:	b8 00 00 00 00       	mov    eax,0x0
+  401317:	48 83 c4 08          	add    rsp,0x8
+  40131b:	c3                   	ret
+process_case
+  4011e0:	53                   	push   rbx
+  4011e1:	48 81 ec 20 03 00 00 	sub    rsp,0x320
+  4011e8:	c7 05 86 2e 00 00 00 00 00 00 	mov    DWORD PTR [rip+0x2e86],0x0        # 404078 <flow_component_03>
+  4011f2:	bf 20 03 00 00       	mov    edi,0x320
+  4011f7:	e8 84 fe ff ff       	call   401080 <malloc@plt>
+  4011fc:	48 85 c0             	test   rax,rax
+  4011ff:	74 5c                	je     40125d <process_case+0x7d>
+  401201:	48 89 c3             	mov    rbx,rax
+  401204:	48 89 e0             	mov    rax,rsp
+  401207:	48 8d 94 24 20 03 00 00 	lea    rdx,[rsp+0x320]
+  40120f:	66 0f 1f 44 00 00    	nop    WORD PTR [rax+rax*1+0x0]
+  401215:	66 66 2e 0f 1f 84 00 00 00 00 00 	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401220:	c7 00 00 00 00 00    	mov    DWORD PTR [rax],0x0
+  401226:	c7 40 04 00 00 00 00 	mov    DWORD PTR [rax+0x4],0x0
+  40122d:	48 83 c0 08          	add    rax,0x8
+  401231:	48 39 d0             	cmp    rax,rdx
+  401234:	75 ea                	jne    401220 <process_case+0x40>
+  401236:	48 89 e6             	mov    rsi,rsp
+  401239:	b9 64 00 00 00       	mov    ecx,0x64
+  40123e:	48 89 df             	mov    rdi,rbx
+  401241:	f3 48 a5             	rep movs QWORD PTR [rdi],QWORD PTR [rsi]
+  401244:	48 89 df             	mov    rdi,rbx
+  401247:	e8 3a 02 00 00       	call   401486 <printStructLine>
+  40124c:	48 89 df             	mov    rdi,rbx
+  40124f:	e8 dc fd ff ff       	call   401030 <free@plt>
+  401254:	48 81 c4 20 03 00 00 	add    rsp,0x320
+  40125b:	5b                   	pop    rbx
+  40125c:	c3                   	ret
+  40125d:	bf ff ff ff ff       	mov    edi,0xffffffff
+  401262:	e8 49 fe ff ff       	call   4010b0 <exit@plt>
+
+safe O2 b47c163c40e57be72921ca575
+main
+  4010e0:	48 83 ec 08          	sub    rsp,0x8
+  4010e4:	31 c0                	xor    eax,eax
+  4010e6:	e8 a5 01 00 00       	call   401290 <process_case>
+  4010eb:	31 c0                	xor    eax,eax
+  4010ed:	48 83 c4 08          	add    rsp,0x8
+  4010f1:	c3                   	ret
+  4010f2:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010fc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+process_case
+  401290:	53                   	push   rbx
+  401291:	bf 20 03 00 00       	mov    edi,0x320
+  401296:	48 81 ec 20 03 00 00 	sub    rsp,0x320
+  40129d:	c7 05 d1 2d 00 00 00 00 00 00 	mov    DWORD PTR [rip+0x2dd1],0x0        # 404078 <flow_component_03>
+  4012a7:	e8 d4 fd ff ff       	call   401080 <malloc@plt>
+  4012ac:	48 85 c0             	test   rax,rax
+  4012af:	74 4a                	je     4012fb <process_case+0x6b>
+  4012b1:	48 89 c3             	mov    rbx,rax
+  4012b4:	48 89 e6             	mov    rsi,rsp
+  4012b7:	66 0f ef c0          	pxor   xmm0,xmm0
+  4012bb:	48 89 e2             	mov    rdx,rsp
+  4012be:	66 90                	xchg   ax,ax
+  4012c0:	0f 29 02             	movaps XMMWORD PTR [rdx],xmm0
+  4012c3:	48 8d 84 24 20 03 00 00 	lea    rax,[rsp+0x320]
+  4012cb:	48 83 c2 20          	add    rdx,0x20
+  4012cf:	0f 29 42 f0          	movaps XMMWORD PTR [rdx-0x10],xmm0
+  4012d3:	48 39 d0             	cmp    rax,rdx
+  4012d6:	75 e8                	jne    4012c0 <process_case+0x30>
+  4012d8:	48 89 df             	mov    rdi,rbx
+  4012db:	b9 64 00 00 00       	mov    ecx,0x64
+  4012e0:	f3 48 a5             	rep movs QWORD PTR [rdi],QWORD PTR [rsi]
+  4012e3:	48 89 df             	mov    rdi,rbx
+  4012e6:	e8 65 01 00 00       	call   401450 <printStructLine>
+  4012eb:	48 81 c4 20 03 00 00 	add    rsp,0x320
+  4012f2:	48 89 df             	mov    rdi,rbx
+  4012f5:	5b                   	pop    rbx
+  4012f6:	e9 35 fd ff ff       	jmp    401030 <free@plt>
+  4012fb:	bf ff ff ff ff       	mov    edi,0xffffffff
+  401300:	e8 ab fd ff ff       	call   4010b0 <exit@plt>
+  401305:	66 66 2e 0f 1f 84 00 00 00 00 00 	data16 cs nop WORD PTR [rax+rax*1+0x0]
+
+safe O3 b2ecb4990bc6fdf04958b5f9c
+main
+  4010e0:	48 83 ec 08          	sub    rsp,0x8
+  4010e4:	31 c0                	xor    eax,eax
+  4010e6:	e8 a5 01 00 00       	call   401290 <process_case>
+  4010eb:	31 c0                	xor    eax,eax
+  4010ed:	48 83 c4 08          	add    rsp,0x8
+  4010f1:	c3                   	ret
+  4010f2:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010fc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+process_case
+  401290:	53                   	push   rbx
+  401291:	bf 20 03 00 00       	mov    edi,0x320
+  401296:	48 81 ec 20 03 00 00 	sub    rsp,0x320
+  40129d:	c7 05 d1 2d 00 00 00 00 00 00 	mov    DWORD PTR [rip+0x2dd1],0x0        # 404078 <flow_component_03>
+  4012a7:	e8 d4 fd ff ff       	call   401080 <malloc@plt>
+  4012ac:	48 85 c0             	test   rax,rax
+  4012af:	74 4a                	je     4012fb <process_case+0x6b>
+  4012b1:	48 89 c3             	mov    rbx,rax
+  4012b4:	48 89 e6             	mov    rsi,rsp
+  4012b7:	66 0f ef c0          	pxor   xmm0,xmm0
+  4012bb:	48 89 e2             	mov    rdx,rsp
+  4012be:	66 90                	xchg   ax,ax
+  4012c0:	0f 29 02             	movaps XMMWORD PTR [rdx],xmm0
+  4012c3:	48 8d 84 24 20 03 00 00 	lea    rax,[rsp+0x320]
+  4012cb:	48 83 c2 20          	add    rdx,0x20
+  4012cf:	0f 29 42 f0          	movaps XMMWORD PTR [rdx-0x10],xmm0
+  4012d3:	48 39 d0             	cmp    rax,rdx
+  4012d6:	75 e8                	jne    4012c0 <process_case+0x30>
+  4012d8:	48 89 df             	mov    rdi,rbx
+  4012db:	b9 64 00 00 00       	mov    ecx,0x64
+  4012e0:	f3 48 a5             	rep movs QWORD PTR [rdi],QWORD PTR [rsi]
+  4012e3:	48 89 df             	mov    rdi,rbx
+  4012e6:	e8 65 01 00 00       	call   401450 <printStructLine>
+  4012eb:	48 81 c4 20 03 00 00 	add    rsp,0x320
+  4012f2:	48 89 df             	mov    rdi,rbx
+  4012f5:	5b                   	pop    rbx
+  4012f6:	e9 35 fd ff ff       	jmp    401030 <free@plt>
+  4012fb:	bf ff ff ff ff       	mov    edi,0xffffffff
+  401300:	e8 ab fd ff ff       	call   4010b0 <exit@plt>
+  401305:	66 66 2e 0f 1f 84 00 00 00 00 00 	data16 cs nop WORD PTR [rax+rax*1+0x0]
+
+vulnerable O0 b5f7509bb9b08742cb5c51f07
+flow_component_00
+  4011d6:	55                   	push   rbp
+  4011d7:	48 89 e5             	mov    rbp,rsp
+  4011da:	48 83 ec 10          	sub    rsp,0x10
+  4011de:	48 89 7d f8          	mov    QWORD PTR [rbp-0x8],rdi
+  4011e2:	8b 05 94 2e 00 00    	mov    eax,DWORD PTR [rip+0x2e94]        # 40407c <flow_component_01>
+  4011e8:	85 c0                	test   eax,eax
+  4011ea:	74 1f                	je     40120b <flow_component_00+0x35>
+  4011ec:	bf 90 01 00 00       	mov    edi,0x190
+  4011f1:	e8 9a fe ff ff       	call   401090 <malloc@plt>
+  4011f6:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+  4011fa:	48 83 7d f8 00       	cmp    QWORD PTR [rbp-0x8],0x0
+  4011ff:	75 0a                	jne    40120b <flow_component_00+0x35>
+  401201:	bf ff ff ff ff       	mov    edi,0xffffffff
+  401206:	e8 b5 fe ff ff       	call   4010c0 <exit@plt>
+  40120b:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  40120f:	c9                   	leave
+  401210:	c3                   	ret
+main
+  4012a8:	55                   	push   rbp
+  4012a9:	48 89 e5             	mov    rbp,rsp
+  4012ac:	b8 00 00 00 00       	mov    eax,0x0
+  4012b1:	e8 5b ff ff ff       	call   401211 <process_case>
+  4012b6:	b8 00 00 00 00       	mov    eax,0x0
+  4012bb:	5d                   	pop    rbp
+  4012bc:	c3                   	ret
+process_case
+  401211:	55                   	push   rbp
+  401212:	48 89 e5             	mov    rbp,rsp
+  401215:	48 81 ec 30 03 00 00 	sub    rsp,0x330
+  40121c:	48 c7 45 f0 00 00 00 00 	mov    QWORD PTR [rbp-0x10],0x0
+  401224:	c7 05 4e 2e 00 00 01 00 00 00 	mov    DWORD PTR [rip+0x2e4e],0x1        # 40407c <flow_component_01>
+  40122e:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+  401232:	48 89 c7             	mov    rdi,rax
+  401235:	e8 9c ff ff ff       	call   4011d6 <flow_component_00>
+  40123a:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+  40123e:	48 c7 45 f8 00 00 00 00 	mov    QWORD PTR [rbp-0x8],0x0
+  401246:	eb 23                	jmp    40126b <process_case+0x5a>
+  401248:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  40124c:	c7 84 c5 d0 fc ff ff 00 00 00 00 	mov    DWORD PTR [rbp+rax*8-0x330],0x0
+  401257:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+  40125b:	c7 84 c5 d4 fc ff ff 00 00 00 00 	mov    DWORD PTR [rbp+rax*8-0x32c],0x0
+  401266:	48 83 45 f8 01       	add    QWORD PTR [rbp-0x8],0x1
+  40126b:	48 83 7d f8 63       	cmp    QWORD PTR [rbp-0x8],0x63
+  401270:	76 d6                	jbe    401248 <process_case+0x37>
+  401272:	48 8d 8d d0 fc ff ff 	lea    rcx,[rbp-0x330]
+  401279:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+  40127d:	ba 20 03 00 00       	mov    edx,0x320
+  401282:	48 89 ce             	mov    rsi,rcx
+  401285:	48 89 c7             	mov    rdi,rax
+  401288:	e8 f3 fd ff ff       	call   401080 <memcpy@plt>
+  40128d:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+  401291:	48 89 c7             	mov    rdi,rax
+  401294:	e8 20 02 00 00       	call   4014b9 <printStructLine>
+  401299:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+  40129d:	48 89 c7             	mov    rdi,rax
+  4012a0:	e8 8b fd ff ff       	call   401030 <free@plt>
+  4012a5:	90                   	nop
+  4012a6:	c9                   	leave
+  4012a7:	c3                   	ret
+
+vulnerable O1 be435a3209e990702a3aa3073
+main
+  401267:	48 83 ec 08          	sub    rsp,0x8
+  40126b:	b8 00 00 00 00       	mov    eax,0x0
+  401270:	e8 6b ff ff ff       	call   4011e0 <process_case>
+  401275:	b8 00 00 00 00       	mov    eax,0x0
+  40127a:	48 83 c4 08          	add    rsp,0x8
+  40127e:	c3                   	ret
+process_case
+  4011e0:	53                   	push   rbx
+  4011e1:	48 81 ec 20 03 00 00 	sub    rsp,0x320
+  4011e8:	c7 05 82 2e 00 00 01 00 00 00 	mov    DWORD PTR [rip+0x2e82],0x1        # 404074 <flow_component_01>
+  4011f2:	bf 90 01 00 00       	mov    edi,0x190
+  4011f7:	e8 84 fe ff ff       	call   401080 <malloc@plt>
+  4011fc:	48 85 c0             	test   rax,rax
+  4011ff:	74 5c                	je     40125d <process_case+0x7d>
+  401201:	48 89 c3             	mov    rbx,rax
+  401204:	48 89 e0             	mov    rax,rsp
+  401207:	48 8d 94 24 20 03 00 00 	lea    rdx,[rsp+0x320]
+  40120f:	66 0f 1f 44 00 00    	nop    WORD PTR [rax+rax*1+0x0]
+  401215:	66 66 2e 0f 1f 84 00 00 00 00 00 	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401220:	c7 00 00 00 00 00    	mov    DWORD PTR [rax],0x0
+  401226:	c7 40 04 00 00 00 00 	mov    DWORD PTR [rax+0x4],0x0
+  40122d:	48 83 c0 08          	add    rax,0x8
+  401231:	48 39 d0             	cmp    rax,rdx
+  401234:	75 ea                	jne    401220 <process_case+0x40>
+  401236:	48 89 e6             	mov    rsi,rsp
+  401239:	b9 64 00 00 00       	mov    ecx,0x64
+  40123e:	48 89 df             	mov    rdi,rbx
+  401241:	f3 48 a5             	rep movs QWORD PTR [rdi],QWORD PTR [rsi]
+  401244:	48 89 df             	mov    rdi,rbx
+  401247:	e8 9d 01 00 00       	call   4013e9 <printStructLine>
+  40124c:	48 89 df             	mov    rdi,rbx
+  40124f:	e8 dc fd ff ff       	call   401030 <free@plt>
+  401254:	48 81 c4 20 03 00 00 	add    rsp,0x320
+  40125b:	5b                   	pop    rbx
+  40125c:	c3                   	ret
+  40125d:	bf ff ff ff ff       	mov    edi,0xffffffff
+  401262:	e8 49 fe ff ff       	call   4010b0 <exit@plt>
+
+vulnerable O2 b60fadfe90fbe5d5abdf3f024
+main
+  4010e0:	48 83 ec 08          	sub    rsp,0x8
+  4010e4:	31 c0                	xor    eax,eax
+  4010e6:	e8 15 01 00 00       	call   401200 <process_case>
+  4010eb:	31 c0                	xor    eax,eax
+  4010ed:	48 83 c4 08          	add    rsp,0x8
+  4010f1:	c3                   	ret
+  4010f2:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010fc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+process_case
+  401200:	53                   	push   rbx
+  401201:	bf 90 01 00 00       	mov    edi,0x190
+  401206:	48 81 ec 20 03 00 00 	sub    rsp,0x320
+  40120d:	c7 05 5d 2e 00 00 01 00 00 00 	mov    DWORD PTR [rip+0x2e5d],0x1        # 404074 <flow_component_01>
+  401217:	e8 64 fe ff ff       	call   401080 <malloc@plt>
+  40121c:	48 85 c0             	test   rax,rax
+  40121f:	74 5a                	je     40127b <process_case+0x7b>
+  401221:	48 89 c3             	mov    rbx,rax
+  401224:	48 89 e6             	mov    rsi,rsp
+  401227:	66 0f ef c0          	pxor   xmm0,xmm0
+  40122b:	48 89 e2             	mov    rdx,rsp
+  40122e:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+  401235:	66 66 2e 0f 1f 84 00 00 00 00 00 	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401240:	0f 29 02             	movaps XMMWORD PTR [rdx],xmm0
+  401243:	48 8d 84 24 20 03 00 00 	lea    rax,[rsp+0x320]
+  40124b:	48 83 c2 20          	add    rdx,0x20
+  40124f:	0f 29 42 f0          	movaps XMMWORD PTR [rdx-0x10],xmm0
+  401253:	48 39 d0             	cmp    rax,rdx
+  401256:	75 e8                	jne    401240 <process_case+0x40>
+  401258:	48 89 df             	mov    rdi,rbx
+  40125b:	b9 64 00 00 00       	mov    ecx,0x64
+  401260:	f3 48 a5             	rep movs QWORD PTR [rdi],QWORD PTR [rsi]
+  401263:	48 89 df             	mov    rdi,rbx
+  401266:	e8 45 01 00 00       	call   4013b0 <printStructLine>
+  40126b:	48 81 c4 20 03 00 00 	add    rsp,0x320
+  401272:	48 89 df             	mov    rdi,rbx
+  401275:	5b                   	pop    rbx
+  401276:	e9 b5 fd ff ff       	jmp    401030 <free@plt>
+  40127b:	bf ff ff ff ff       	mov    edi,0xffffffff
+  401280:	e8 2b fe ff ff       	call   4010b0 <exit@plt>
+  401285:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  40128f:	90                   	nop
+
+vulnerable O3 bd4a39ad7e328368384a178ff
+main
+  4010e0:	48 83 ec 08          	sub    rsp,0x8
+  4010e4:	31 c0                	xor    eax,eax
+  4010e6:	e8 15 01 00 00       	call   401200 <process_case>
+  4010eb:	31 c0                	xor    eax,eax
+  4010ed:	48 83 c4 08          	add    rsp,0x8
+  4010f1:	c3                   	ret
+  4010f2:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  4010fc:	0f 1f 40 00          	nop    DWORD PTR [rax+0x0]
+process_case
+  401200:	53                   	push   rbx
+  401201:	bf 90 01 00 00       	mov    edi,0x190
+  401206:	48 81 ec 20 03 00 00 	sub    rsp,0x320
+  40120d:	c7 05 5d 2e 00 00 01 00 00 00 	mov    DWORD PTR [rip+0x2e5d],0x1        # 404074 <flow_component_01>
+  401217:	e8 64 fe ff ff       	call   401080 <malloc@plt>
+  40121c:	48 85 c0             	test   rax,rax
+  40121f:	74 5a                	je     40127b <process_case+0x7b>
+  401221:	48 89 c3             	mov    rbx,rax
+  401224:	48 89 e6             	mov    rsi,rsp
+  401227:	66 0f ef c0          	pxor   xmm0,xmm0
+  40122b:	48 89 e2             	mov    rdx,rsp
+  40122e:	0f 1f 80 00 00 00 00 	nop    DWORD PTR [rax+0x0]
+  401235:	66 66 2e 0f 1f 84 00 00 00 00 00 	data16 cs nop WORD PTR [rax+rax*1+0x0]
+  401240:	0f 29 02             	movaps XMMWORD PTR [rdx],xmm0
+  401243:	48 8d 84 24 20 03 00 00 	lea    rax,[rsp+0x320]
+  40124b:	48 83 c2 20          	add    rdx,0x20
+  40124f:	0f 29 42 f0          	movaps XMMWORD PTR [rdx-0x10],xmm0
+  401253:	48 39 d0             	cmp    rax,rdx
+  401256:	75 e8                	jne    401240 <process_case+0x40>
+  401258:	48 89 df             	mov    rdi,rbx
+  40125b:	b9 64 00 00 00       	mov    ecx,0x64
+  401260:	f3 48 a5             	rep movs QWORD PTR [rdi],QWORD PTR [rsi]
+  401263:	48 89 df             	mov    rdi,rbx
+  401266:	e8 45 01 00 00       	call   4013b0 <printStructLine>
+  40126b:	48 81 c4 20 03 00 00 	add    rsp,0x320
+  401272:	48 89 df             	mov    rdi,rbx
+  401275:	5b                   	pop    rbx
+  401276:	e9 b5 fd ff ff       	jmp    401030 <free@plt>
+  40127b:	bf ff ff ff ff       	mov    edi,0xffffffff
+  401280:	e8 2b fe ff ff       	call   4010b0 <exit@plt>
+  401285:	66 2e 0f 1f 84 00 00 00 00 00 	cs nop WORD PTR [rax+rax*1+0x0]
+  40128f:	90                   	nop

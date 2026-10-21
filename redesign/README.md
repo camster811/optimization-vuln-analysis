@@ -1,5 +1,9 @@
 # Juliet redesign workspace
 
+The active user-requested context amendment uses `campaigns/final-v2-context12288` with a 12,288-token context and the same 4,096-token completion reservation. Follow the [amended execution runbook](../documentation/juliet-redesign/context12288_runbook.md). The original `final-v1` release and Phase 7 lock remain preserved.
+
+Phase 9 is complete for the amended campaign; see the [final report](../documentation/juliet-redesign/phase9_report.md). All 480 LLM slots are terminal (472 valid, six schema failures, two interrupted), and all 160 baseline predictions replay. LLM C/E/U/M = 125/28/7/0; baseline = 18/0/142/0. Results, tables, figures and a byte-preserving regeneration check are saved; the results release includes raw attempts and baseline IR. Phase 10 manuscript/research-release work remains separate. The earlier 8,192-token campaign and original methods remain preserved.
+
 Phase 8 is complete. The isolated final campaign in [`campaigns/final-v1`](campaigns/final-v1/README.md) freezes ten families, 80 reference builds, 160 public observations, and 480 scheduled LLM slots. Exact preflight makes 112 observations available and 48 shared-unavailable. The Phase 7 methods remain locked, and no final predictor ran. See the [Phase 8 report](../documentation/juliet-redesign/phase8_report.md). Earlier phase notes below are historical.
 
 From the repository root, using the existing Python environment:

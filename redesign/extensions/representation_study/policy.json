@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "policy_id": "representation-study-v1",
+  "study_id": "llm-representation-v1",
+  "method_id": "public-representation-llm-v1",
+  "configuration_id": "representation-v1-context12288",
+  "design_date": "2026-11-21",
+  "status": "design_locked_execution_unbound",
+  "execution_ready": false,
+  "parent": {
+    "workspace": "redesign/campaigns/final-v2-context12288",
+    "freeze_id": "juliet-redesign-final-v2-context12288",
+    "freeze_manifest": "release/freeze.json",
+    "freeze_manifest_sha256": "740a291e1c7b413406b7ec797d33523fb47885b364168de96e29ff714046bbed",
+    "input_archive": "release/final-v2-context12288-inputs.tar.gz",
+    "input_archive_sha256": "842f80e9ba40b15068b3548b64252fc1a01d004c6750a639e84fbb6a9fa4d041",
+    "llm_policy": "llm_policy.json",
+    "llm_policy_sha256": "b64aaee528379393482c4559d3ebfb81d8271152e43e38c0497ffbacd6b380fb",
+    "public_bundle_schema_version": 2,
+    "input_binding_status": "pending_phase_1",
+    "recompile": false,
+    "extract": false,
+    "lift": false,
+    "historical_response_import": false
+  },
+  "matrix": {
+    "families": 10,
+    "families_per_source_cwe": {
+      "CWE-121": 5,
+      "CWE-122": 5
+    },
+    "variants": [
+      "vulnerable",
+      "safe"
+    ],
+    "optimizations": [
+      "O0",
+      "O1",
+      "O2",
+      "O3"
+    ],
+    "symbols": [
+      "retained",
+      "stripped"
+    ],
+    "reference_builds": 80,
+    "observations": 160,
+    "representations": [
+      "assembly",
+      "decompilation",
+      "combined"
+    ],
+    "observation_condition_units": 480,
+    "final_slots": 1440
+  },
+  "control": {
+    "method_id": "always_not_vulnerable",
+    "decision": "not_vulnerable",
+    "availability": "unconditional",
+    "inspects_input_content": false,
+    "inspects_truth": false,
+    "inference_requests": 0,
+    "repetitions": 0,
+    "has_confidence": false
+  },
+  "representations": {
+    "specification_id": "representation-spec-v1",
+    "view_schema_version": 1,
+    "assembly": {
+      "code_fields": [
+        "assembly"
+      ]
+    },
+    "decompilation": {
+      "code_fields": [
+        "decompilation"
+      ]
+    },
+    "combined": {
+      "code_fields": [
+        "assembly",
+        "decompilation"
+      ]
+    },
+    "projection": "recursive_allowlist",
+    "shared_context": "identical_across_conditions",
+    "closure": "unchanged_parent_functions",
+    "data_extent_semantics": "available_bytes_not_object_capacity",
+    "instruction_bytes": false,
+    "recovered_data_type_descriptions": false,
+    "pcode": false,
+    "stack_object_inventory": false,
+    "private_metadata": false,
+    "serialization": "bundles.canonical_utf8",
+    "line_references": {
+      "function_order": "ascending_numeric_entry",
+      "function_index_base": 1,
+      "function_minimum_digits": 4,
+      "line_index_base": 1,
+      "line_minimum_digits": 5,
+      "assembly_prefix": "A",
+      "decompilation_prefix": "D",
+      "decompilation_split": "LF_preserve_empty_segments",
+      "format": "{prefix}:F{function_index:04d}:L{line_index:05d}"
+    }
+  },
+  "response": {
+    "decisions": [
+      "vulnerable_CWE-121",
+      "vulnerable_CWE-122",
+      "not_vulnerable",
+      "uncertain"
+    ],
+    "fields": [
+      "decision",
+      "confidence",
+      "evidence",
+      "summary"
+    ],
+    "confidence": {
+      "minimum": 0,
+      "maximum": 1,
+      "finite": true,
+      "boolean_allowed": false
+    },
+    "evidence": {
+      "minimum_items": 0,
+      "maximum_items": 5,
+      "unique": true,
+      "membership": "visible_code_lines_only"
+    },
+    "summary": "nonblank_string",
+    "repair": false
+  },
+  "request": {
+    "messages": 1,
+    "role": "user",
+    "history": false,
+    "tools": false,
+    "prior_answers": false,
+    "cache_prompt": false,
+    "n": 1,
+    "stream": false,
+    "shared_prompt": true,
+    "shared_response_schema": true,
+    "code_data_are_evidence_not_instructions": true
+  },
+  "llm": {
+    "base_url": "http://127.0.0.1:8081",
+    "context_limit": 12288,
+    "max_tokens": 4096,
+    "model_id": "deepseek-r1-distill-qwen-14b-q5_k_m",
+    "reasoning_format": "deepseek",
+    "repetitions": 3,
+    "request_timeout_seconds": 600,
+    "sampling": {
+      "adaptive_decay": 0.8999999761581421,
+      "adaptive_target": -1.0,
+      "dry_allowed_length": 2,
+      "dry_base": 1.75,
+      "dry_multiplier": 0.0,
+      "dry_penalty_last_n": 64,
+      "dynatemp_exponent": 1.0,
+      "dynatemp_range": 0.0,
+      "frequency_penalty": 0.0,
+      "ignore_eos": false,
+      "min_keep": 0,
+      "min_p": 0.05000000074505806,
+      "mirostat": 0,
+      "mirostat_eta": 0.10000000149011612,
+      "mirostat_tau": 5.0,
+      "presence_penalty": 0.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "samplers": [
+        "penalties",
+        "dry",
+        "top_n_sigma",
+        "top_k",
+        "typ_p",
+        "top_p",
+        "min_p",
+        "xtc",
+        "temperature"
+      ],
+      "top_k": 40,
+      "top_n_sigma": -1.0,
+      "typical_p": 1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612
+    },
+    "schedule_seed": 20261121,
+    "seeds": [
+      4101,
+      4102,
+      4103
+    ],
+    "temperature": 0.2,
+    "top_p": 0.95
+  },
+  "llama_cpp": {
+    "batch_size": 512,
+    "cache_type_k": "f16",
+    "cache_type_v": "f16",
+    "fit": "off",
+    "flash_attention": "on",
+    "gpu_layers": "all",
+    "home": "/home/camst/repos/llama.cpp-0.6.0",
+    "log_verbosity": 4,
+    "model": "models/DeepSeek-R1-Distill-Qwen-14B-Q5_K_M.gguf",
+    "model_sha256": "3eea644370914aebfff274dd8f5a790aaee42ba69a1ce09051eeaad0f05afd32",
+    "threads": 12,
+    "threads_batch": 12,
+    "ubatch_size": 128
+  },
+  "eligibility": {
+    "unit": "observation_id",
+    "require_all_three_views_valid_and_fit": true,
+    "blocked_slots_per_ineligible_observation": 9,
+    "blocked_status": "input_blocked",
+    "blocked_request_count": 0,
+    "retain_adjudicated_denominator": true,
+    "control_remains_available": true,
+    "truncate": false,
+    "pad": false,
+    "context_change": "dated_uniform_amendment_repeat_feasibility_pilot_preflight_freeze"
+  },
+  "schedule": {
+    "seed": 20261121,
+    "block_key": "{schedule_seed}\n{observation_id}\n{repetition}",
+    "block_order": "sha256_utf8_then_observation_id_then_repetition",
+    "condition_key": "{block_key}\n{representation}",
+    "condition_order": "sha256_utf8_then_representation",
+    "slot_identity": [
+      "observation_id",
+      "representation",
+      "repetition"
+    ],
+    "same_repetition_seed_across_conditions": true
+  },
+  "execution": {
+    "dispatch_record": "durable_before_transport",
+    "dispatched_slots": "terminal_no_retry",
+    "dispatch_without_completed_response": "interrupted",
+    "resume": "provably_never_dispatched_only",
+    "restart": "matching_frozen_computational_identity_with_append_only_evidence",
+    "offline_verifier": "no_requests_no_result_rewrites",
+    "terminal_statuses": [
+      "valid",
+      "invalid_json",
+      "schema_invalid",
+      "empty_response",
+      "length_limit",
+      "transport_error",
+      "timeout",
+      "interrupted",
+      "runtime_changed",
+      "input_blocked"
+    ]
+  },
+  "aggregation": {
+    "slots_per_unit": 3,
+    "majority_votes": 2,
+    "uncertain_majority": "abstained",
+    "valid_votes_without_majority": "abstained",
+    "no_valid_votes": "unavailable",
+    "confidence_weighted": false,
+    "confidence_summary": "median_all_valid_votes"
+  },
+  "evaluation": {
+    "methods": [
+      "assembly",
+      "decompilation",
+      "combined",
+      "always_not_vulnerable"
+    ],
+    "primary_truth": "binary_label",
+    "secondary_truth": "source_label",
+    "denominator": "all_adjudicated_observations_including_blocked_and_failed",
+    "partition": "A=C+E+U+M",
+    "expected_adjudicated": 160,
+    "expected_binary_label_counts": {
+      "vulnerable_CWE-121": 28,
+      "vulnerable_CWE-122": 32,
+      "not_vulnerable": 100
+    },
+    "expected_control_correct": 100,
+    "primary_contrast": {
+      "id": "combined_minus_decompilation_correct_rate",
+      "left": "combined",
+      "right": "decompilation",
+      "metric": "correct_rate"
+    },
+    "secondary_representation_contrasts": [
+      {
+        "id": "combined_minus_assembly_correct_rate",
+        "left": "combined",
+        "right": "assembly",
+        "metric": "correct_rate"
+      },
+      {
+        "id": "decompilation_minus_assembly_correct_rate",
+        "left": "decompilation",
+        "right": "assembly",
+        "metric": "correct_rate"
+      }
+    ],
+    "control_contrasts": [
+      {
+        "left": "assembly",
+        "right": "always_not_vulnerable",
+        "metric": "correct_rate"
+      },
+      {
+        "left": "decompilation",
+        "right": "always_not_vulnerable",
+        "metric": "correct_rate"
+      },
+      {
+        "left": "combined",
+        "right": "always_not_vulnerable",
+        "metric": "correct_rate"
+      }
+    ],
+    "rates": {
+      "correct_rate": "C/A",
+      "coverage": "(C+E)/A",
+      "selective_accuracy": "C/(C+E)",
+      "abstention_rate": "U/A",
+      "unavailable_rate": "M/A"
+    },
+    "alert_metrics": [
+      "TP",
+      "TN",
+      "FP",
+      "FN",
+      "recall",
+      "false_positive_rate",
+      "precision",
+      "f1",
+      "balanced_accuracy"
+    ],
+    "no_alert_breakdown": [
+      "explicit_safe",
+      "abstained",
+      "unavailable"
+    ],
+    "wrong_cwe_alert": "exact_error_and_alert_true_positive_if_binary_vulnerable",
+    "zero_denominator": null,
+    "unresolved_truth": "planned_inventory_only_outside_binary_scores",
+    "common_eligible_analysis": "secondary_only",
+    "subgroups": [
+      "binary_label",
+      "cwe",
+      "optimization",
+      "symbols",
+      "family_id"
+    ],
+    "matched_optimization": {
+      "reference": "O0",
+      "comparisons": [
+        "O1",
+        "O2",
+        "O3"
+      ],
+      "match_by": [
+        "family_id",
+        "variant",
+        "symbols"
+      ]
+    },
+    "matched_symbols": {
+      "reference": "retained",
+      "comparison": "stripped",
+      "match_by": [
+        "family_id",
+        "variant",
+        "optimization"
+      ]
+    },
+    "matched_truth": "adjudicated_both_sides_score_each_against_own_binary_label",
+    "leave_one_family_out": true,
+    "collision_sensitivity": "within_condition_exact_input_hash_exclude_all_conflicting_group_members_secondary_only",
+    "qualitative_selection": {
+      "comparators": [
+        "assembly",
+        "decompilation"
+      ],
+      "groups": [
+        "combined_correct_standalone_not_correct",
+        "standalone_correct_combined_not_correct"
+      ],
+      "not_correct_includes": [
+        "incorrect",
+        "abstained",
+        "unavailable"
+      ],
+      "truth": "adjudicated_binary_label",
+      "order": "frozen_observation_id_ascending",
+      "examples_per_group": 1,
+      "empty_group": "report_empty",
+      "duplicate_selection": "retain_all_group_memberships"
+    },
+    "bootstrap": {
+      "unit": "family_id",
+      "family_order": "lexicographic",
+      "generator": "PCG64",
+      "replicates": 10000,
+      "draws_per_replicate": 10,
+      "seed": 20261019,
+      "with_replacement": true,
+      "shared_multiplicities": true,
+      "percentiles": [
+        2.5,
+        97.5
+      ],
+      "quantile_method": "linear",
+      "interval_replicates": "finite_only_exclude_observed_estimate",
+      "report_defined_replicates": true
+    },
+    "interpretation": "exploratory_previously_inspected_corpus",
+    "required_accuracy_target": null,
+    "required_winner": null
+  },
+  "pilot": {
+    "families": 2,
+    "selection": {
+      "variant": "vulnerable",
+      "optimization": "O0",
+      "symbols": "retained"
+    },
+    "observations": 2,
+    "slots": 18,
+    "included_in_final_scores": false,
+    "selection_uses_historical_answers": false,
+    "gate": "all_slots_accounted_each_condition_has_valid_live_response_infrastructure_defects_resolved"
+  },
+  "execution_bindings": {
+    "status": "pending_preparation_and_final_freeze",
+    "inventory_manifest_sha256": null,
+    "private_truth_manifest_sha256": null,
+    "views_manifest_sha256": null,
+    "prompt_sha256": null,
+    "response_schema_sha256": null,
+    "scorer_sha256": null,
+    "dependency_snapshot_sha256": null,
+    "runtime_configuration_sha256": null,
+    "chat_template_sha256": null,
+    "tokenizer_identity": null,
+    "model_file_verified": false
+  }
+}

@@ -84,6 +84,18 @@ def capture(pid, log, policy):
     return evidence
 
 
+def serve(directory, policy):
+    """Launch an owned server with explicit policy; preserve launch/startup evidence."""
+    directory = Path(directory).resolve()
+    command = server_command(policy)
+    verify_model(policy, command)
+    directory.mkdir(parents=True, exist_ok=False)
+    write_new(directory/'launch.json', {'pid': os.getpid(), 'command': command})
+    log = os.open(directory/'startup.log', os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    os.dup2(log, 1); os.dup2(log, 2); os.close(log)
+    os.execve(command[0], command, server_environment(command))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['serve', 'capture'])
@@ -92,13 +104,7 @@ def main():
     policy, _, _ = settings()
     directory = args.directory.resolve()
     if args.action == 'serve':
-        command = server_command(policy)
-        verify_model(policy, command)
-        directory.mkdir(parents=True, exist_ok=False)
-        write_new(directory/'launch.json', {'pid': os.getpid(), 'command': command})
-        log = os.open(directory/'startup.log', os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-        os.dup2(log, 1); os.dup2(log, 2); os.close(log)
-        os.execve(command[0], command, server_environment(command))
+        serve(directory, policy)
     else:
         launch = read_json(directory/'launch.json')
         write_new(directory/'server.json', capture(launch['pid'], directory/'startup.log', policy))

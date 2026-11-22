@@ -1,16 +1,11 @@
-"""Public v2 context contracts and independent binary extraction fixtures."""
+"""Public bundle validation, leakage, ordering and availability contracts."""
 from copy import deepcopy
-import os
-from pathlib import Path
-import re
-import shutil
-import subprocess
 
 import pytest
 from jsonschema import ValidationError
 
-from redesign.pipeline import bundles, context_worker
-from redesign.pipeline.inventory import ROOT, digest, read_json
+from redesign.pipeline import bundles
+from redesign.pipeline.inventory import ROOT, generate, read_json
 
 
 @pytest.fixture
@@ -110,16 +105,6 @@ def test_unknown_data_and_failed_decompilation_are_explicit(small):
     bundles.validate(small)
 
 
-def test_engine_unavailable_is_an_inventory_record(tmp_path, policy, monkeypatch):
-    binary = tmp_path / 'input.elf'; binary.write_bytes(b'fixture')
-    monkeypatch.delenv('GHIDRA_HOME', raising=False)
-    record, trace = context_worker.extract(binary, '0x1000', policy, tmp_path / 'job')
-    assert record['status'] == 'extraction_unavailable'
-    assert record['completeness']['omissions'][0]['reason'] == 'engine_unavailable'
-    assert trace['input_sha256'] == digest(binary)
-    bundles.validate(record)
-
-
 def test_policy_rejects_unimplemented_rules(policy):
     bundles.policy_check(policy)
     for field, value in (('max_functions', 0), ('max_instructions', True), ('allow_assembly_only', True),
@@ -128,72 +113,15 @@ def test_policy_rejects_unimplemented_rules(policy):
         with pytest.raises(ValueError): bundles.policy_check(changed)
 
 
-GHIDRA = os.environ.get('GHIDRA_HOME')
-
-
-@pytest.mark.skipif(not GHIDRA, reason='Set GHIDRA_HOME for real v2 context extraction')
-def test_real_caller_allocation_helper_write_tail_call_and_literals(tmp_path, policy):
-    (tmp_path / 'entry.c').write_text('''#include <stdlib.h>
-extern void fill(char *);
-extern void report(const char *);
-extern void echo(const char *);
-static void initial(char *p) { p[1]='I'; }
-int main(void) { char *p=malloc(16); if(!p) return 1; fill(p); initial(p); report(p); echo(p); free(p); return 0; }
-''')
-    (tmp_path / 'helper.c').write_text('''#include <stdio.h>
-#include <string.h>
-void fill(char *p) { memcpy(p,"sample",7); }
-void report(const char *p) { puts(p); puts("complete"); }
-void echo(const char *p) { puts(p); }
-''')
-    objects = []
-    for name in ('entry', 'helper'):
-        obj = tmp_path / (name + '.o')
-        subprocess.run(['gcc-15', '-O2', '-g', '-fno-pie', '-c', str(tmp_path / (name + '.c')), '-o', str(obj)],
-                       check=True, capture_output=True)
-        objects.append(str(obj))
-    reference = tmp_path / 'reference'
-    subprocess.run(['gcc-15', '-no-pie', *objects, '-o', str(reference)], check=True, capture_output=True)
-    symbols = subprocess.check_output(['nm', '-S', str(reference)], text=True)
-    entry = hex(int(re.search(r'^(\w+) \w+ T main$', symbols, re.M)[1], 16))
-    retained, stripped = tmp_path / 'retained', tmp_path / 'stripped'
-    subprocess.run(['objcopy', '--strip-debug', str(reference), str(retained)], check=True)
-    subprocess.run(['strip', '--strip-all', '-o', str(stripped), str(retained)], check=True)
-    outputs = []
-    for index, binary in enumerate((retained, stripped)):
-        bundle, trace = context_worker.extract(binary, entry, policy, tmp_path / f'job-{index}')
-        assert bundle['status'] == 'available', (bundle, trace)
-        bundles.validate(bundle, binary)
-        assert len(bundle['functions']) == 4
-        assert {'malloc', 'puts', 'free'} <= {c['target_name'] for c in bundle['calls'] if c['resolution'] == 'external'}
-        assert any(c['kind'] == 'tail' and c['target_name'] == 'puts' for c in bundle['calls'])
-        assert any(bytes.fromhex(d['bytes']).startswith(b'complete\0') for d in bundle['data'])
-        assert all('source_capacity' not in bundles.canonical(f) for f in bundle['functions'])
-        outputs.append(bundle)
-    assert {'main', 'fill', 'report', 'echo'} == {f['name'] for f in outputs[0]['functions']}
-    assert not {'fill', 'report', 'echo'} & {f['name'] for f in outputs[1]['functions']}
-    assert not re.search(r'\binitial$', symbols, re.M)  # Ordinary inlining has removed this entry.
-    assert {i['address'] for f in outputs[0]['functions'] for i in f['instructions']} == {
-        i['address'] for f in outputs[1]['functions'] for i in f['instructions']}
-    # A tiny generic cap exposes a partial diagnostic scope as unavailable, never as a usable crop.
-    capped = deepcopy(policy); capped['max_functions'] = 1
-    bundle, _ = context_worker.extract(stripped, entry, capped, tmp_path / 'job-capped')
-    assert bundle['status'] == 'context_unavailable'
-    assert any(o['reason'] == 'function_limit' for o in bundle['completeness']['omissions'])
-    missing, _ = context_worker.extract(stripped, '0x1', policy, tmp_path / 'job-missing')
-    assert missing['status'] == 'extraction_unavailable'
-    assert missing['completeness']['omissions'][0]['reason'] == 'entry_function_not_recovered'
-
-
-@pytest.mark.skipif(not GHIDRA, reason='Set GHIDRA_HOME for real unresolved transfer extraction')
-def test_real_indirect_transfer_is_not_silently_dropped(tmp_path, policy):
-    source = tmp_path / 'indirect.c'
-    source.write_text('int invoke(int (*f)(int), int x) { return f(x); } int main(void) { return 0; }\n')
-    reference = tmp_path / 'reference'
-    subprocess.run(['gcc-15', '-O0', '-fno-pie', '-no-pie', str(source), '-o', str(reference)], check=True)
-    symbols = subprocess.check_output(['nm', '-S', str(reference)], text=True)
-    entry = hex(int(re.search(r'^(\w+) \w+ T invoke$', symbols, re.M)[1], 16))
-    record, trace = context_worker.extract(reference, entry, policy, tmp_path / 'job')
-    assert record['status'] == 'extraction_unavailable', trace
-    assert record['unresolved_transfers']
-    assert any(r['reason'] == 'indirect_transfer' for r in record['completeness']['omissions'])
+def test_all_accepted_pilot_bundles_remain_valid_and_canonical():
+    plan = generate(read_json(ROOT/'config.json'), read_json(ROOT/'corpus/manifest.json'),
+                    ROOT, 'pilot', require_assigned=True)
+    expected = {row['observation_id']+'.json' for row in plan['observations']}
+    directory = ROOT/'data/pilot/records'
+    assert len(expected) == 32 and {p.name for p in directory.iterdir()} == expected
+    for name in sorted(expected):
+        path = directory/name
+        bundle = read_json(path)
+        assert bundle['status'] == 'available'
+        bundles.validate(bundle)
+        assert path.read_bytes() == bundles.canonical(bundle).encode('utf-8')

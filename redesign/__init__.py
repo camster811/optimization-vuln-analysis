@@ -1,1 +1,1 @@
-"""Isolated Juliet redesign; historical pipeline modules are not imported."""
+"""Public-input validation and inference helpers for the representation study."""

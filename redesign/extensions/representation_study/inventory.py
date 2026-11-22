@@ -218,9 +218,9 @@ def ledgers(policy, documents, public, frozen_files):
             'coordinator/slots.json': slots, 'private/evaluation.json': evaluation}
 
 
-def dependencies():
+def dependencies(entry_module='redesign.extensions.representation_study.inventory'):
     """Inventory local transitive imports, including package initializers, without importing snapshots."""
-    pending = ['redesign.extensions.representation_study.inventory']
+    pending = [entry_module]
     sources = {}
     while pending:
         module = pending.pop()

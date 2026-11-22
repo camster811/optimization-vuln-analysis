@@ -23,6 +23,19 @@ def sha(value):
     return hashlib.sha256(canonical(value).encode()).hexdigest()
 
 
+def sampling_check(llm):
+    """Validate the complete sampler chain without method IDs or runtime-file lookup."""
+    allowed={'top_k','min_p','typical_p','repeat_penalty','repeat_last_n','presence_penalty',
+             'frequency_penalty','dry_multiplier','dry_base','dry_allowed_length','dry_penalty_last_n',
+             'dynatemp_range','dynatemp_exponent','xtc_probability','xtc_threshold','mirostat',
+             'mirostat_eta','mirostat_tau','top_n_sigma','adaptive_target','adaptive_decay','min_keep',
+             'samplers','ignore_eos'}
+    require(set(llm['sampling'])==allowed,'Unexpected or incomplete sampler settings')
+    for k,v in llm['sampling'].items():
+        if k not in ('samplers','ignore_eos'):require(type(v) in (int,float) and math.isfinite(v),'Invalid sampler value')
+    require(llm['sampling']['ignore_eos'] is False and isinstance(llm['sampling']['samplers'],list),'Invalid sampler chain')
+
+
 def settings(root=ROOT):
     policy=read_json(root/'llm_policy.json');llm=policy['llm']
     require(policy['schema_version']==1 and policy['method_id']=='public-bundle-llm-v1','Unknown LLM policy')
@@ -38,15 +51,7 @@ def settings(root=ROOT):
     require(llm['reasoning_format']=='deepseek','Expected separate DeepSeek reasoning')
     require(type(llm['temperature']) in (int,float) and 0<=llm['temperature']<=2
             and type(llm['top_p']) in (int,float) and 0<llm['top_p']<=1,'Invalid sampling')
-    allowed={'top_k','min_p','typical_p','repeat_penalty','repeat_last_n','presence_penalty',
-             'frequency_penalty','dry_multiplier','dry_base','dry_allowed_length','dry_penalty_last_n',
-             'dynatemp_range','dynatemp_exponent','xtc_probability','xtc_threshold','mirostat',
-             'mirostat_eta','mirostat_tau','top_n_sigma','adaptive_target','adaptive_decay','min_keep',
-             'samplers','ignore_eos'}
-    require(set(llm['sampling'])==allowed,'Unexpected or incomplete sampler settings')
-    for k,v in llm['sampling'].items():
-        if k not in ('samplers','ignore_eos'):require(type(v) in (int,float) and math.isfinite(v),'Invalid sampler value')
-    require(llm['sampling']['ignore_eos'] is False and isinstance(llm['sampling']['samplers'],list),'Invalid sampler chain')
+    sampling_check(llm)
     prompt=(root/'llm/prompt.md').read_text()
     require(prompt.count('{{BUNDLE_JSON}}')==1,'Expected exactly one bundle placeholder')
     schema=read_json(root/'llm/response.schema.json');Draft7Validator.check_schema(schema)
@@ -102,11 +107,11 @@ def decode(body,http_status,bundle,schema):
     return result
 
 
-def attempt(request,bundle,policy,schema):
+def attempt(request,bundle,policy,schema,*,decoder=None):
     started=time.monotonic();body=None;http=None
     try:
         response=send_request(request,policy['llm']);body=response.text;http=response.status_code
-        result=decode(body,http,bundle,schema)
+        result=(decode if decoder is None else decoder)(body,http,bundle,schema)
     except requests.RequestException as error:
         timed_out=isinstance(error,requests.Timeout) or any(isinstance(c,ReadTimeoutError) for c in (error.__context__,*error.args))
         result={'status':'timeout' if timed_out else 'transport_error','parsed':None,'error':str(error),

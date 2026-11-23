@@ -1,0 +1,7 @@
+left,right,planned,A,same_disposition_and_decision,both_classified,classified_same_label,both_correct,left_only_correct,right_only_correct,neither_correct
+combined,decompilation,160,160,122,142,118,104,10,20,26
+combined,assembly,160,160,82,103,72,58,56,14,32
+decompilation,assembly,160,160,70,104,65,57,67,15,21
+assembly,always_not_vulnerable,160,160,105,107,105,72,0,28,60
+decompilation,always_not_vulnerable,160,160,89,152,89,78,46,22,14
+combined,always_not_vulnerable,160,160,90,146,90,74,40,26,20

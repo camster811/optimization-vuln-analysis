@@ -1,0 +1,5 @@
+representation,scheduled_slots,dispatched_slots,statuses_json,prompt_tokens,prompt_tokens_known_slots,prompt_tokens_missing_dispatched_slots,completion_tokens,completion_tokens_known_slots,completion_tokens_missing_dispatched_slots,recorded_response_seconds,elapsed_known_slots,elapsed_missing_dispatched_slots,runtime_events_used
+assembly,480,468,"{""input_blocked"":12,""length_limit"":2,""schema_invalid"":4,""valid"":462}",1392423,468,0,477184,468,0,8320.168002,468,0,1
+decompilation,480,468,"{""input_blocked"":12,""valid"":468}",1265112,468,0,438036,468,0,7622.555624,468,0,1
+combined,480,468,"{""input_blocked"":12,""length_limit"":4,""schema_invalid"":12,""valid"":452}",2148474,468,0,474589,468,0,8784.126831,468,0,1
+all,1440,1404,"{""input_blocked"":36,""length_limit"":6,""schema_invalid"":16,""valid"":1382}",4806009,1404,0,1389809,1404,0,24726.850457,1404,0,1

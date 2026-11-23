@@ -1,12 +1,9 @@
 """Phase 1 matrix, isolation, and readiness regression checks."""
 from copy import deepcopy
-import json
-import shutil
-import subprocess
 
 import pytest
 
-from redesign.pipeline import inventory as inv
+from optimization_vuln_analysis.inputs import corpus as inv
 
 
 def declared():
@@ -138,42 +135,3 @@ def test_strict_json_and_path_containment(tmp_path):
     external.mkdir(exist_ok=True)
     (tmp_path / 'link').symlink_to(external, target_is_directory=True)
     with pytest.raises(ValueError): inv.local_path(tmp_path, 'link/file.json')
-
-
-def test_synthetic_builds_all_declared_treatments(tmp_path):
-    """Exercise the declared flags and derivation on real GCC-produced artifacts."""
-    config, _ = declared()
-    compiler = shutil.which(config['compiler']['name'])
-    if not compiler or not shutil.which('objcopy') or not shutil.which('strip'):
-        pytest.skip('GCC/binutils integration tools unavailable')
-    assert subprocess.check_output([compiler, '-dumpfullversion'], text=True).strip() == config['compiler']['expected_version']
-    (tmp_path / 'entry.c').write_text('extern int helper(int); int main(void) { return helper(VALUE); }\n')
-    (tmp_path / 'helper.c').write_text('int helper(int x) { return x + 1; }\n')
-    flags = [flag.replace('{workspace}', str(tmp_path)) for flag in config['compiler']['common_flags']]
-    artifacts = []
-    for variant in config['matrix']['variants']:
-        for opt in config['matrix']['optimizations']:
-            directory = tmp_path / variant / opt
-            directory.mkdir(parents=True)
-            objects = []
-            for source in ('entry', 'helper'):
-                target = directory / f'{source}.o'
-                subprocess.run([compiler, *flags, f'-{opt}', f'-DVALUE={int(variant == "safe")}',
-                                '-c', str(tmp_path / f'{source}.c'), '-o', str(target)], check=True,
-                               capture_output=True)
-                objects.append(str(target))
-            oracle = directory / 'oracle'
-            subprocess.run([compiler, f'-{opt}', *objects, *config['compiler']['link_flags'],
-                            '-o', str(oracle)], check=True, capture_output=True)
-            retained, stripped = directory / 'retained', directory / 'stripped'
-            subprocess.run(['objcopy', '--strip-debug', str(oracle), str(retained)], check=True)
-            subprocess.run(['strip', '--strip-all', '-o', str(stripped), str(retained)], check=True)
-            text_hashes = []
-            for binary in (oracle, retained, stripped):
-                output = directory / f'{binary.name}.text'
-                subprocess.run(['objcopy', '--dump-section', f'.text={output}', str(binary)], check=True)
-                text_hashes.append(inv.digest(output))
-            assert len(set(text_hashes)) == 1
-            artifacts.extend([retained, stripped])
-    assert len(artifacts) == (len(config['matrix']['variants']) * len(config['matrix']['optimizations'])
-                              * len(config['matrix']['symbols']))

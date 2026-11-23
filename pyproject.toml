@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=78", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "optimization-vuln-analysis"
+version = "0.1.0"
+description = "Buffer-overflow representation study"
+requires-python = ">=3.11"
+dynamic = ["dependencies"]
+
+[project.optional-dependencies]
+test = ["pytest>=9,<10"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["src/optimization_vuln_analysis/requirements.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+optimization_vuln_analysis = ["requirements.txt", "inputs/schemas/*.json", "studies/representation/*.json", "studies/representation/*.md", "studies/representation/schemas/*.json"]
